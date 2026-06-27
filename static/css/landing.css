@@ -313,6 +313,14 @@ a {
     color: var(--lp-text-muted);
 }
 
+.lp-hero-tech {
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--lp-text-muted);
+}
+
 /* Hero mock UI */
 .lp-hero-visual {
     position: relative;

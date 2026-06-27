@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from urllib.parse import quote
+import os
 
 from database import (
     init_db,
@@ -34,7 +35,7 @@ from images import allowed_file, save_upload, MAX_FILE_SIZE, image_url
 from vision import analyze_product_image, result_from_upload_row
 
 app = Flask(__name__)
-app.secret_key = "dev-secret-change-in-production"
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-in-production")
 _db_initialized = False
 
 

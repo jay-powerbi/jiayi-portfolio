@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PriceFinder — Find the Lowest Price, Every Time</title>
-    <meta name="description" content="Track product prices across stores, get instant alerts, and never overpay again.">
+    <title>PriceFinder — AI-Powered Price Comparison & Watchlist</title>
+    <meta name="description" content="Compare total delivered prices, track your watchlist, get deal alerts, and identify products with AI — built with Python, SQLite, and OpenAI Vision.">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
@@ -45,27 +45,32 @@
         <div class="lp-hero-bg"></div>
         <div class="lp-container lp-hero-grid">
             <div class="lp-hero-content">
-                <span class="lp-badge">Smart price tracking for savvy shoppers</span>
-                <h1>Find the lowest price,<br><span class="lp-gradient-text">every time.</span></h1>
-                <p class="lp-hero-sub">Compare prices across stores, upload product photos, set target alerts, and let PriceFinder surface the best deal — automatically.</p>
+                <span class="lp-badge">AI-Powered Price Comparison &amp; Watchlist</span>
+                <h1>Compare the price that<br><span class="lp-gradient-text">actually lands at your door.</span></h1>
+                <p class="lp-hero-sub">Log total delivered prices across stores, track items on your watchlist, set deal alerts, and let OpenAI Vision identify products from a photo — all in one dashboard.</p>
                 <div class="lp-hero-cta">
                     <a href="{{ url_for('add_product') }}" class="lp-btn lp-btn-primary lp-btn-lg">Start comparing free</a>
                     <a href="{{ url_for('dashboard') }}" class="lp-btn lp-btn-outline lp-btn-lg">View dashboard</a>
                 </div>
                 <div class="lp-hero-stats">
                     <div class="lp-stat">
-                        <strong>Multi-store</strong>
-                        <span>Price comparison</span>
+                        <strong>Delivered price</strong>
+                        <span>Multi-store comparison</span>
                     </div>
                     <div class="lp-stat">
-                        <strong>Instant</strong>
-                        <span>Price alerts</span>
+                        <strong>Watchlist</strong>
+                        <span>Track what matters</span>
                     </div>
                     <div class="lp-stat">
-                        <strong>Photo</strong>
-                        <span>Upload &amp; track</span>
+                        <strong>AI Vision</strong>
+                        <span>Photo recognition</span>
+                    </div>
+                    <div class="lp-stat">
+                        <strong>Deal alerts</strong>
+                        <span>Target price reminders</span>
                     </div>
                 </div>
+                <p class="lp-hero-tech">Built with Python · SQLite · OpenAI Vision</p>
             </div>
             <div class="lp-hero-visual">
                 <div class="lp-mock-card lp-mock-card-main">
@@ -112,39 +117,39 @@
         <div class="lp-container">
             <div class="lp-section-header">
                 <span class="lp-label">Features</span>
-                <h2>Everything you need to<br>never overpay again</h2>
-                <p>Powerful tools wrapped in a simple dashboard — built for people who love a good deal.</p>
+                <h2>Everything you need to<br>buy smarter, not harder</h2>
+                <p>Compare real costs, track your watchlist, and get alerted when the deal is right — powered by Python, SQLite, and OpenAI Vision.</p>
             </div>
             <div class="lp-features-grid">
                 <article class="lp-feature-card">
                     <div class="lp-feature-icon">▦</div>
-                    <h3>Multi-store comparison</h3>
-                    <p>Add the same product from Amazon, Walmart, Target, and more. We show only the lowest price.</p>
+                    <h3>Compare total delivered price</h3>
+                    <p>Log item price plus shipping per store. The dashboard surfaces the lowest total cost — not just the sticker price.</p>
                 </article>
                 <article class="lp-feature-card">
-                    <div class="lp-feature-icon">!</div>
-                    <h3>Smart price alerts</h3>
-                    <p>Set a target price and get an instant alert badge when any store drops to your goal.</p>
+                    <div class="lp-feature-icon">★</div>
+                    <h3>Track your watchlist</h3>
+                    <p>Star products you care about. Monitor target price, lowest price, store, and status — with one-click Buy Now links.</p>
                 </article>
                 <article class="lp-feature-card">
                     <div class="lp-feature-icon">📷</div>
-                    <h3>Photo upload</h3>
-                    <p>Snap a product photo and track it visually. AI name detection coming soon.</p>
+                    <h3>AI product recognition</h3>
+                    <p>Upload a photo and OpenAI Vision suggests the product name, brand, and model. Review and confirm before tracking.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">!</div>
+                    <h3>Deal alerts &amp; price reminders</h3>
+                    <p>Set a target price and get an instant Alert badge when any store drops to your goal — on the dashboard and watchlist.</p>
                 </article>
                 <article class="lp-feature-card">
                     <div class="lp-feature-icon">⌕</div>
                     <h3>Search &amp; sort</h3>
-                    <p>Find products instantly and sort by price, name, or last updated date.</p>
+                    <p>Find products instantly and sort by price, name, or last updated date across your full comparison list.</p>
                 </article>
                 <article class="lp-feature-card">
                     <div class="lp-feature-icon">↓</div>
                     <h3>Savings insights</h3>
-                    <p>See how much you save by comparing stores — average savings at a glance.</p>
-                </article>
-                <article class="lp-feature-card">
-                    <div class="lp-feature-icon">✎</div>
-                    <h3>Full product control</h3>
-                    <p>Edit store prices, rename products, or delete entries anytime from the dashboard.</p>
+                    <p>See average savings and per-product spreads when you compare the same item across multiple retailers.</p>
                 </article>
             </div>
         </div>
@@ -155,26 +160,26 @@
         <div class="lp-container">
             <div class="lp-section-header">
                 <span class="lp-label">How It Works</span>
-                <h2>Three steps to your<br>best price</h2>
-                <p>Getting started takes less than a minute. No account required.</p>
+                <h2>Three steps to a<br>smarter purchase</h2>
+                <p>Add prices, compare total delivered cost, and get alerted when it's time to buy.</p>
             </div>
             <div class="lp-steps">
                 <div class="lp-step">
                     <div class="lp-step-num">1</div>
-                    <h3>Add your product</h3>
-                    <p>Enter the product name, store, URL, and price — or upload a photo to get started faster.</p>
+                    <h3>Add or identify your product</h3>
+                    <p>Enter store, URL, and total delivered price — or upload a photo for OpenAI Vision to suggest the product name.</p>
                 </div>
                 <div class="lp-step-connector"></div>
                 <div class="lp-step">
                     <div class="lp-step-num">2</div>
-                    <h3>Compare stores</h3>
-                    <p>Add the same product from other retailers. PriceFinder groups them and finds the lowest price.</p>
+                    <h3>Compare &amp; watchlist</h3>
+                    <p>Add the same product from other retailers. PriceFinder groups entries and highlights the lowest price per item.</p>
                 </div>
                 <div class="lp-step-connector"></div>
                 <div class="lp-step">
                     <div class="lp-step-num">3</div>
-                    <h3>Track &amp; save</h3>
-                    <p>Set a target price, monitor alerts on your dashboard, and buy when the deal is right.</p>
+                    <h3>Get deal alerts</h3>
+                    <p>Set a target price, star items on your watchlist, and buy when the Alert badge shows your deal is live.</p>
                 </div>
             </div>
             <div class="lp-steps-cta">
@@ -279,7 +284,7 @@
                     <span class="lp-logo-icon">$</span>
                     PriceFinder
                 </a>
-                <p>Track prices. Find deals. Save money.</p>
+                <p>Compare delivered prices. Track your watchlist. Buy with confidence.</p>
             </div>
             <div class="lp-footer-links">
                 <a href="#features">Features</a>
@@ -288,7 +293,7 @@
                 <a href="#contact">Contact</a>
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
             </div>
-            <p class="lp-footer-copy">&copy; 2026 PriceFinder. All rights reserved.</p>
+            <p class="lp-footer-copy">&copy; 2026 PriceFinder · Built with Python, SQLite &amp; OpenAI Vision</p>
         </div>
     </footer>
 

@@ -1,124 +1,51 @@
-# Lowest Price Finder
+# AI-Powered Price Comparison & Watchlist App
 
-A lightweight web application for tracking product prices across multiple stores and surfacing the best deal at a glance. Enter the same product from different retailers, upload a product photo for AI-assisted identification, set optional price alerts, and let the dashboard show only the lowest price per product.
+> Compare total delivered prices across stores, track a personal watchlist, and identify products from photos — built with **Python**, **SQLite**, and **OpenAI Vision**.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat&logo=flask&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat&logo=sqlite&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-Vision-412991?style=flat&logo=openai&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ---
 
-## Table of Contents
+## Highlights
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Tech Stack](#tech-stack)
-- [Installation Guide](#installation-guide)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Future Improvements](#future-improvements)
-
----
-
-## Project Overview
-
-**Lowest Price Finder** (PriceFinder) helps shoppers and deal hunters compare prices without digging through multiple tabs. Users log the same product from different stores along with URLs and prices. The app stores every entry in SQLite, groups results by product name, and displays a clean dashboard that highlights:
-
-- The **lowest available price**
-- The **store** offering that price
-- A direct **product link**
-- **Alert status** when a target price is met
-
-The dashboard intentionally hides individual store listings so users focus on the best deal, while the edit view provides full control over all tracked store prices.
-
-A public **landing page** introduces the product, and optional **OpenAI Vision** integration can identify products from uploaded photos.
-
----
-
-## Features
-
-### Core Comparison
-- Add product prices from multiple stores under the same product name
-- Automatically determine and display the lowest price per product
-- Store product URLs for quick access to listings
-- Persist all data locally with SQLite
-
-### Dashboard & Analytics
-- SaaS-style dashboard with sidebar navigation
-- Summary metric cards:
-  - **Total Products** — number of tracked products
-  - **Total Alerts** — products at or below target price
-  - **Average Savings** — average spread between highest and lowest store price
-- Search products by name
-- Sort by price (low to high / high to low), name, or last updated date
-- Savings indicator when multiple stores are compared
-
-### Price Alerts
-- Optional **target price** field when adding or editing a product
-- **Alert** badge shown when the lowest price meets or beats the target
-
-### Product Management
-- Edit product name, target price, and all store entries from one page
-- Add or remove individual store prices
-- Delete entire products from the dashboard or edit page
-
-### Landing Page
-- Modern marketing site at `/` with Hero, Features, How It Works, Pricing, and Contact sections
-- Links into the app dashboard and add-comparison flow
-
-### Watchlist
-- Add products to a personal watchlist from the dashboard or edit page
-- Dedicated watchlist page with target price, lowest price, store, status, and **Buy Now** link
-- Remove items from the watchlist at any time
-
-### Photo Upload & AI Recognition
-- Upload a product photo (PNG, JPG, GIF, WebP — max 5 MB)
-- **OpenAI Vision** analyzes the image and suggests product name, brand, and model
-- Review and confirm the detected name before adding store prices
-- Product thumbnails shown on the dashboard and watchlist
-- Gracefully falls back to manual name entry when AI is unavailable
-
-### Contact Form
-- Landing page contact form saves messages to SQLite (`contact_messages` table)
-- Displays a confirmation message to the user after submission
-- Email delivery is not configured in this MVP — messages are stored locally for review
+| | |
+|---|---|
+| **Compare total delivered price** | Log the price that actually matters — item + shipping — and surface the lowest option per product |
+| **Watchlist tracking** | Star products and monitor target price, lowest price, store, and alert status in one place |
+| **AI product recognition** | Upload a photo; OpenAI Vision suggests name, brand, and model for review |
+| **Deal alerts** | Set a target price and get an instant **Alert** badge when the lowest price hits your goal |
 
 ---
 
 ## Screenshots
 
-### Landing Page
-Marketing homepage with hero, features, pricing, and contact form.
+<table>
+  <tr>
+    <td align="center"><strong>Landing Page</strong><br><img src="docs/screenshots/landing.png" width="420" alt="Landing page"></td>
+    <td align="center"><strong>Dashboard</strong><br><img src="docs/screenshots/dashboard.png" width="420" alt="Dashboard"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Watchlist</strong><br><img src="docs/screenshots/watchlist.png" width="420" alt="Watchlist"></td>
+    <td align="center"><strong>AI Photo Upload</strong><br><img src="docs/screenshots/upload.png" width="420" alt="Upload photo"></td>
+  </tr>
+</table>
 
-![Landing Page](docs/screenshots/landing.png)
+<details>
+<summary>More screenshots</summary>
 
-### Dashboard
-Summary metrics, search, sort controls, and a product table with edit/delete actions.
-
-![Dashboard](docs/screenshots/dashboard.png)
-
-### Add Comparison
-Form for entering product name, store, URL, price, and optional target alert.
+**Add Comparison** — enter product, store, URL, price, and optional target alert.
 
 ![Add Comparison](docs/screenshots/add-comparison.png)
 
-### Edit Product
-Manage product details and update prices across multiple stores.
+**Edit Product** — manage all store prices and target alerts from one page.
 
 ![Edit Product](docs/screenshots/edit-product.png)
 
-### Watchlist
-Track favorite products with target prices, alerts, and buy links.
-
-![Watchlist](docs/screenshots/watchlist.png)
-
-### Upload Photo
-Upload a product image for OpenAI Vision analysis and name confirmation.
-
-![Upload Photo](docs/screenshots/upload.png)
+</details>
 
 ---
 
@@ -128,199 +55,126 @@ Upload a product image for OpenAI Vision analysis and name confirmation.
 |-------|------------|
 | **Backend** | Python 3, Flask |
 | **Database** | SQLite |
-| **Frontend** | HTML5, CSS3, Jinja2 templates |
-| **AI (optional)** | OpenAI Vision API (`gpt-4o-mini` by default) |
-| **Architecture** | Server-rendered MVC-style Flask app |
+| **Frontend** | HTML5, CSS3, Jinja2 |
+| **AI** | OpenAI Vision API (`gpt-4o-mini`) |
+| **Architecture** | Server-rendered Flask app |
 
-### Key Dependencies
-
-- [Flask](https://flask.palletsprojects.com/) — web framework and routing
-- [OpenAI Python SDK](https://github.com/openai/openai-python) — optional AI product recognition
-- [Werkzeug](https://werkzeug.palletsprojects.com/) — WSGI utilities (Flask dependency)
-- [Jinja2](https://jinja.palletsprojects.com/) — template engine (Flask dependency)
+**Dependencies:** Flask · OpenAI Python SDK · Werkzeug · Jinja2
 
 ---
 
-## Installation Guide
+## How to Run
 
 ### Prerequisites
 
-- **Python 3.10+**
-- **pip** (Python package manager)
-- A terminal / command line
+- Python 3.10+
+- pip
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/lowest-price-finder.git
-cd lowest-price-finder
-```
-
-### 2. Create a virtual environment
+### 1. Clone & install
 
 ```bash
+git clone https://github.com/your-username/ai-price-comparison-app.git
+cd ai-price-comparison-app
 python3 -m venv venv
-```
-
-Activate the environment:
-
-**macOS / Linux**
-```bash
-source venv/bin/activate
-```
-
-**Windows**
-```bash
-venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
+source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment (optional)
-
-Copy the example env file and add your OpenAI key to enable AI photo recognition:
+### 2. Configure environment (optional)
 
 ```bash
 cp .env.example .env
 ```
 
-See [Configuration](#configuration) for details.
+Edit `.env` and set `OPENAI_API_KEY` to enable AI photo recognition. Without it, the app still works — users enter product names manually.
 
-### 5. Run the application
+> **Security:** `.env` is gitignored. Never commit API keys. Use `.env.example` as the template only.
+
+### 3. Start the app
 
 ```bash
 python app.py
 ```
 
-The app starts on **http://127.0.0.1:5000** by default.
+Open **http://127.0.0.1:5000** in your browser.
 
-### 6. Open in your browser
-
-Navigate to:
-
-```
-http://127.0.0.1:5000
-```
-
-> **Note:** On first run, SQLite automatically creates `prices.db` in the project root. No manual database setup is required.
-
-### Optional: seed demo data
+### 4. Optional — seed demo data
 
 ```bash
 python scripts/seed_demo.py
 ```
 
----
-
-## Configuration
-
-Environment variables (set in `.env` or your shell):
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `OPENAI_API_KEY` | No | Enables AI product recognition on photo upload. Without it, users enter the product name manually. |
-| `OPENAI_VISION_MODEL` | No | Vision model to use (default: `gpt-4o-mini`). |
-| `FLASK_SECRET_KEY` | No | Flask session/flash secret. Defaults to a dev value in `app.py`; change for production. |
-
-Example:
-
-```bash
-export OPENAI_API_KEY=sk-your-key-here
-python app.py
-```
+SQLite creates `prices.db` automatically on first run. No manual database setup required.
 
 ---
 
-## Usage
+## Demo Workflow
 
-1. **Visit the landing page** — Browse features at `/`, then click **Get Started** or **Dashboard**.
-2. **Add a comparison** — Go to **Add Comparison** and enter the product name, store, URL, and price.
-3. **Or upload a photo** — Use **Upload Photo** to let AI suggest the product name, confirm it, then add prices.
-4. **Compare stores** — Add the same product name again with a different store and price.
-5. **Set a target** — Optionally enter a target price to receive an **Alert** when the lowest price drops to that level.
-6. **Review the dashboard** — View summary stats, search, sort, and inspect the lowest price for each product.
-7. **Use the watchlist** — Star products on the dashboard to track them on the **Watchlist** page.
-8. **Edit or delete** — Use the action buttons on each row to update store prices or remove products.
+1. **Open the landing page** at `/` and click **Get Started**.
+2. **Upload a product photo** (or go to **Add Comparison**) and enter store prices — include shipping if you want true total delivered cost.
+3. **Add the same product from another store** with a different price.
+4. **Set a target price** — the dashboard shows **Alert** when the lowest price meets your goal.
+5. **Star a product** to add it to your **Watchlist** with Buy Now links and status tracking.
+6. **Search & sort** on the dashboard to find deals quickly.
 
-### Example workflow
+### Example
 
-| Step | Product Name | Store | Price |
-|------|--------------|-------|-------|
+| Step | Product | Store | Price (incl. shipping) |
+|------|---------|-------|------------------------|
 | 1 | Wireless Mouse | Amazon | $24.99 |
 | 2 | Wireless Mouse | Walmart | $19.99 |
 | 3 | Wireless Mouse | Target | $22.50 |
 
-**Dashboard result:** Lowest price **$19.99** at **Walmart**, with **$5.00** savings vs. the highest listed price.
+**Result:** Lowest delivered price **$19.99** at **Walmart** · **$5.00** savings vs. highest store.
 
-### Viewing contact submissions
+---
 
-Contact form messages are saved to the `contact_messages` table in `prices.db`. You can inspect them with any SQLite client:
+## Resume / LinkedIn Bullets
 
-```bash
-sqlite3 prices.db "SELECT name, email, message, created_at FROM contact_messages ORDER BY created_at DESC;"
-```
+Copy-paste ready:
+
+- Built an **AI-powered price comparison web app** with Python, Flask, and SQLite that groups multi-store prices and surfaces the lowest option per product.
+- Integrated **OpenAI Vision** to identify products from uploaded images and auto-suggest name, brand, and model before user confirmation.
+- Implemented a **watchlist system** with target-price alerts, dashboard analytics, search/sort, and SQLite-backed contact message storage.
+- Designed a **SaaS-style UI** with landing page, dashboard, photo upload flow, and responsive product management (edit, delete, multi-store entries).
+
+**One-liner for profiles:**
+
+> AI-Powered Price Comparison App — Built a Python + SQLite application that compares product prices, tracks watchlist items, stores user contact messages, and uses OpenAI Vision to identify product information from uploaded images.
 
 ---
 
 ## Project Structure
 
 ```
-lowest-price-finder/
-├── app.py                  # Flask routes and application logic
-├── database.py             # SQLite schema, queries, and data access
+├── app.py                  # Flask routes
+├── database.py             # SQLite schema & queries
+├── vision.py               # OpenAI Vision integration
 ├── images.py               # Image upload helpers
-├── vision.py               # OpenAI Vision product recognition
-├── requirements.txt        # Python dependencies
-├── .env.example            # Example environment variables
-├── LICENSE                 # MIT License
-├── prices.db               # SQLite database (created at runtime)
-├── scripts/
-│   └── seed_demo.py        # Optional demo data seeder
-├── docs/
-│   └── screenshots/        # README screenshots
-├── static/
-│   ├── css/
-│   │   ├── style.css       # App dashboard styles
-│   │   └── landing.css     # Landing page styles
-│   └── uploads/            # Uploaded product images
-└── templates/
-    ├── base.html           # App layout with sidebar navigation
-    ├── landing.html        # Marketing landing page
-    ├── index.html          # Dashboard
-    ├── add.html            # Add product comparison form
-    ├── edit.html           # Edit product and store prices
-    ├── watchlist.html      # Watchlist page
-    ├── upload.html         # Photo upload form
-    └── upload_confirm.html # AI detection review & name confirmation
+├── scripts/seed_demo.py    # Demo data seeder
+├── docs/screenshots/       # README screenshots
+├── static/css/             # App & landing styles
+├── static/uploads/         # Product images (gitignored contents)
+└── templates/              # Jinja2 HTML templates
 ```
 
 ---
 
 ## Future Improvements
 
-- [ ] **Automatic price scraping** — Fetch live prices from product URLs on a schedule
-- [ ] **Email / push notifications** — Alert users when target prices are reached (contact form email delivery)
-- [ ] **Price history charts** — Visualize price trends over time per product
-- [ ] **User accounts & authentication** — Multi-user support with private product lists
-- [ ] **CSV import / export** — Bulk upload and download of product data
-- [ ] **Category tags** — Organize products by type (electronics, groceries, etc.)
-- [ ] **Dark mode toggle** — User-selectable light/dark theme
-- [ ] **REST API** — Expose endpoints for mobile apps or third-party integrations
-- [ ] **Docker support** — Containerized deployment for production environments
-- [ ] **Unit & integration tests** — Automated test coverage with pytest
+Planned for later — not in scope for this MVP:
 
----
-
-## Contributing
-
-Contributions are welcome. Feel free to open an issue or submit a pull request with improvements, bug fixes, or new features.
+- [ ] Email / push notifications when target prices are reached
+- [ ] Automatic price scraping across retailers
+- [ ] User accounts & authentication
+- [ ] Payment / subscription system
+- [ ] Production deployment (Docker, cloud hosting)
+- [ ] Price history charts
+- [ ] REST API & CSV import/export
+- [ ] Automated tests (pytest)
 
 ---
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT — see [LICENSE](LICENSE).
