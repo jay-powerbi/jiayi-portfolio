@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Product — Lowest Price Finder{% endblock %}
+
+{% block topbar_title %}
+<h1>Confirm Product Name</h1>
+<p class="topbar-subtitle">Review AI detection results and confirm the product name.</p>
+{% endblock %}
+
+{% block content %}
+<div class="confirm-layout">
+    <div class="confirm-preview-card">
+        <h2 class="form-section-title">Uploaded photo</h2>
+        <img src="{{ preview_url }}" alt="Uploaded product photo" class="confirm-image">
+        <p class="upload-filename">{{ upload.original_filename }}</p>
+    </div>
+
+    <div class="form-card confirm-form-card">
+        <form method="post" class="form">
+            <div class="form-section">
+                <h2 class="form-section-title">AI detected product</h2>
+                <div class="ai-detection-box {% if ai_result.identified %}ai-detection-success{% else %}ai-detection-empty{% endif %}">
+                    <div class="ai-placeholder-header">
+                        <span class="ai-badge">OpenAI Vision</span>
+                        {% if ai_result.confidence is not none %}
+                            <span class="ai-confidence">{{ (ai_result.confidence * 100)|round|int }}% confidence</span>
+                        {% endif %}
+                    </div>
+
+                    {% if ai_result.identified %}
+                        <dl class="ai-detection-grid">
+                            <div class="ai-detection-row">
+                                <dt>Product</dt>
+                                <dd>{{ ai_result.product_name }}</dd>
+                            </div>
+                            {% if ai_result.brand %}
+                            <div class="ai-detection-row">
+                                <dt>Brand</dt>
+                                <dd>{{ ai_result.brand }}</dd>
+                            </div>
+                            {% endif %}
+                            {% if ai_result.model_number %}
+                            <div class="ai-detection-row">
+                                <dt>Model</dt>
+                                <dd>{{ ai_result.model_number }}</dd>
+                            </div>
+                            {% endif %}
+                        </dl>
+                        <p class="field-hint">The product name field below has been auto-filled. Edit it if needed.</p>
+                    {% else %}
+                        <p class="ai-detected-empty">
+                            {% if ai_result.error %}
+                                {{ ai_result.error }}
+                            {% else %}
+                                We couldn't identify this product from the photo. Please enter the name manually below.
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="form-section-title">Confirm product name</h2>
+                <div class="form-group">
+                    <label for="product_name">Product name</label>
+                    <input
+                        type="text"
+                        id="product_name"
+                        name="product_name"
+                        placeholder="Enter the product name"
+                        value="{{ product_name }}"
+                        required
+                        autofocus
+                    >
+                    <p class="field-hint">
+                        {% if ai_result.identified %}
+                            Auto-filled from AI detection — adjust if the suggestion isn't quite right.
+                        {% else %}
+                            Enter the product name manually to continue.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('upload_product') }}" class="btn btn-secondary">Upload different photo</a>
+                <button type="submit" class="btn btn-primary">Confirm &amp; add prices</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

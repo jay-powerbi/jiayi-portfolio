@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Photo — Lowest Price Finder{% endblock %}
+
+{% block topbar_title %}
+<h1>Upload Product Photo</h1>
+<p class="topbar-subtitle">Upload a photo of the product. You'll confirm the name on the next step.</p>
+{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <form method="post" enctype="multipart/form-data" class="form">
+        <div class="upload-zone" id="upload-zone">
+            <div class="upload-zone-inner">
+                <span class="upload-icon">📷</span>
+                <p class="upload-title">Drop a product photo here</p>
+                <p class="upload-hint">PNG, JPG, GIF, or WebP — max 5 MB</p>
+                <label for="product_image" class="btn btn-secondary btn-sm upload-browse">Browse files</label>
+                <input
+                    type="file"
+                    id="product_image"
+                    name="product_image"
+                    accept="image/png,image/jpeg,image/gif,image/webp"
+                    class="upload-input"
+                    required
+                >
+            </div>
+            <div class="upload-preview" id="upload-preview" hidden>
+                <img id="preview-image" alt="Selected product preview">
+                <p id="preview-filename" class="upload-filename"></p>
+                <button type="button" class="btn btn-ghost btn-sm" id="clear-preview">Choose different image</button>
+            </div>
+        </div>
+
+        <div class="ai-placeholder-note">
+            <span class="ai-badge">AI</span>
+            <p>After upload, <strong>OpenAI Vision</strong> will analyze your photo and suggest the product name, brand, and model. You can review and edit before saving.</p>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Upload &amp; continue</button>
+        </div>
+    </form>
+</div>
+
+<script>
+(function () {
+    const input = document.getElementById("product_image");
+    const zone = document.getElementById("upload-zone");
+    const inner = zone.querySelector(".upload-zone-inner");
+    const preview = document.getElementById("upload-preview");
+    const img = document.getElementById("preview-image");
+    const filename = document.getElementById("preview-filename");
+    const clearBtn = document.getElementById("clear-preview");
+
+    function showPreview(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            img.src = e.target.result;
+            filename.textContent = file.name;
+            inner.hidden = true;
+            preview.hidden = false;
+            zone.classList.add("upload-zone-has-file");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    input.addEventListener("change", function () {
+        if (input.files && input.files[0]) showPreview(input.files[0]);
+    });
+
+    clearBtn.addEventListener("click", function () {
+        input.value = "";
+        inner.hidden = false;
+        preview.hidden = true;
+        zone.classList.remove("upload-zone-has-file");
+    });
+
+    zone.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        zone.classList.add("upload-zone-dragover");
+    });
+
+    zone.addEventListener("dragleave", function () {
+        zone.classList.remove("upload-zone-dragover");
+    });
+
+    zone.addEventListener("drop", function (e) {
+        e.preventDefault();
+        zone.classList.remove("upload-zone-dragover");
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            input.files = e.dataTransfer.files;
+            showPreview(e.dataTransfer.files[0]);
+        }
+    });
+})();
+</script>
+{% endblock %}

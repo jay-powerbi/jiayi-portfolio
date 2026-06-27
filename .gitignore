@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+.env
+prices.db
+.DS_Store
+static/uploads/*
+!static/uploads/.gitkeep

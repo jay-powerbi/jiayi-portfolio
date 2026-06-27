@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ product_name }} — Lowest Price Finder{% endblock %}
+
+{% block topbar_title %}
+<h1>Edit Product</h1>
+<p class="topbar-subtitle">Update product details and store prices.</p>
+{% endblock %}
+
+{% block topbar_actions %}
+{% if on_watchlist %}
+<form method="post" action="{{ url_for('remove_from_watchlist_route', product_name=product_name) }}" class="inline-form">
+    <button type="submit" class="btn btn-watchlist">★ On Watchlist</button>
+</form>
+{% else %}
+<form method="post" action="{{ url_for('add_to_watchlist_route', product_name=product_name) }}" class="inline-form">
+    <button type="submit" class="btn btn-secondary">+ Add to Watchlist</button>
+</form>
+{% endif %}
+<a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}
+
+{% block content %}
+{% for entry in entries %}
+<form method="post" action="{{ url_for('edit_product', product_name=product_name) }}" id="delete-entry-{{ entry.id }}">
+    <input type="hidden" name="action" value="delete_entry">
+    <input type="hidden" name="entry_id" value="{{ entry.id }}">
+</form>
+{% endfor %}
+
+<form method="post" action="{{ url_for('delete_product_route', product_name=product_name) }}" id="delete-product-form" onsubmit="return confirm('Delete {{ product_name }} and all store prices? This cannot be undone.');"></form>
+
+<div class="form-card form-card-wide">
+    {% if image_preview %}
+    <div class="edit-image-preview">
+        <img src="{{ image_preview }}" alt="Product photo">
+        <span class="form-image-label">Product photo</span>
+    </div>
+    {% endif %}
+    <form method="post" class="form" id="edit-form">
+        <input type="hidden" name="action" value="save">
+
+        <div class="form-section">
+            <h2 class="form-section-title">Product details</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="product_name">Product name</label>
+                    <input
+                        type="text"
+                        id="product_name"
+                        name="product_name"
+                        value="{{ product_name }}"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="target_price">Target price alert ($)</label>
+                    <input
+                        type="number"
+                        id="target_price"
+                        name="target_price"
+                        step="0.01"
+                        min="0"
+                        value="{{ target_price if target_price is not none else '' }}"
+                        placeholder="Optional"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="form-section-title">Store prices</h2>
+            <div class="entry-list">
+                {% for entry in entries %}
+                <div class="entry-card">
+                    <div class="entry-card-header">
+                        <span class="entry-label">Store #{{ loop.index }}</span>
+                        <button
+                            type="submit"
+                            form="delete-entry-{{ entry.id }}"
+                            class="btn btn-ghost btn-sm btn-danger-text"
+                            onclick="return confirm('Remove this store entry?');"
+                        >Remove</button>
+                    </div>
+                    <div class="form-row form-row-3">
+                        <div class="form-group">
+                            <label for="store_name_{{ entry.id }}">Store</label>
+                            <input
+                                type="text"
+                                id="store_name_{{ entry.id }}"
+                                name="store_name_{{ entry.id }}"
+                                value="{{ entry.store_name }}"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="price_{{ entry.id }}">Price ($)</label>
+                            <input
+                                type="number"
+                                id="price_{{ entry.id }}"
+                                name="price_{{ entry.id }}"
+                                step="0.01"
+                                min="0"
+                                value="{{ entry.price }}"
+                                required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="product_url_{{ entry.id }}">Product URL</label>
+                            <input
+                                type="url"
+                                id="product_url_{{ entry.id }}"
+                                name="product_url_{{ entry.id }}"
+                                value="{{ entry.product_url }}"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="form-section-title">Add another store</h2>
+            <div class="form-row form-row-3">
+                <div class="form-group">
+                    <label for="new_store_name">Store</label>
+                    <input type="text" id="new_store_name" name="new_store_name" placeholder="Optional">
+                </div>
+                <div class="form-group">
+                    <label for="new_price">Price ($)</label>
+                    <input type="number" id="new_price" name="new_price" step="0.01" min="0" placeholder="Optional">
+                </div>
+                <div class="form-group">
+                    <label for="new_product_url">Product URL</label>
+                    <input type="url" id="new_product_url" name="new_product_url" placeholder="Optional">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions form-actions-split">
+            <button type="submit" form="delete-product-form" class="btn btn-danger">Delete product</button>
+            <div class="form-actions-right">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

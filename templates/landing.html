@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceFinder — Find the Lowest Price, Every Time</title>
+    <meta name="description" content="Track product prices across stores, get instant alerts, and never overpay again.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    <nav class="lp-nav">
+        <div class="lp-container lp-nav-inner">
+            <a href="{{ url_for('landing') }}" class="lp-logo">
+                <span class="lp-logo-icon">$</span>
+                PriceFinder
+            </a>
+            <div class="lp-nav-links" id="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="lp-nav-actions">
+                <a href="{{ url_for('dashboard') }}" class="lp-btn lp-btn-ghost">Dashboard</a>
+                <a href="{{ url_for('add_product') }}" class="lp-btn lp-btn-primary">Get Started</a>
+            </div>
+            <button class="lp-nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="lp-flash-wrap">
+                {% for category, message in messages %}
+                    <div class="lp-flash lp-flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Hero -->
+    <section class="lp-hero">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-container lp-hero-grid">
+            <div class="lp-hero-content">
+                <span class="lp-badge">Smart price tracking for savvy shoppers</span>
+                <h1>Find the lowest price,<br><span class="lp-gradient-text">every time.</span></h1>
+                <p class="lp-hero-sub">Compare prices across stores, upload product photos, set target alerts, and let PriceFinder surface the best deal — automatically.</p>
+                <div class="lp-hero-cta">
+                    <a href="{{ url_for('add_product') }}" class="lp-btn lp-btn-primary lp-btn-lg">Start comparing free</a>
+                    <a href="{{ url_for('dashboard') }}" class="lp-btn lp-btn-outline lp-btn-lg">View dashboard</a>
+                </div>
+                <div class="lp-hero-stats">
+                    <div class="lp-stat">
+                        <strong>Multi-store</strong>
+                        <span>Price comparison</span>
+                    </div>
+                    <div class="lp-stat">
+                        <strong>Instant</strong>
+                        <span>Price alerts</span>
+                    </div>
+                    <div class="lp-stat">
+                        <strong>Photo</strong>
+                        <span>Upload &amp; track</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lp-hero-visual">
+                <div class="lp-mock-card lp-mock-card-main">
+                    <div class="lp-mock-header">
+                        <span class="lp-mock-dot"></span>
+                        <span class="lp-mock-dot"></span>
+                        <span class="lp-mock-dot"></span>
+                    </div>
+                    <div class="lp-mock-body">
+                        <div class="lp-mock-stat-row">
+                            <div class="lp-mock-stat"><span>Products</span><strong>24</strong></div>
+                            <div class="lp-mock-stat"><span>Alerts</span><strong>8</strong></div>
+                            <div class="lp-mock-stat lp-mock-stat-highlight"><span>Saved</span><strong>$142</strong></div>
+                        </div>
+                        <div class="lp-mock-product">
+                            <div class="lp-mock-thumb"></div>
+                            <div>
+                                <p class="lp-mock-name">Wireless Headphones</p>
+                                <p class="lp-mock-store">Best price at Amazon</p>
+                            </div>
+                            <span class="lp-mock-price">$49.99</span>
+                        </div>
+                        <div class="lp-mock-product">
+                            <div class="lp-mock-thumb lp-mock-thumb-2"></div>
+                            <div>
+                                <p class="lp-mock-name">Mechanical Keyboard</p>
+                                <p class="lp-mock-store">Best price at Walmart</p>
+                            </div>
+                            <span class="lp-mock-price lp-mock-alert">$79.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lp-mock-card lp-mock-card-float">
+                    <span class="lp-mock-alert-badge">Alert triggered</span>
+                    <p>Target price reached!</p>
+                    <strong>Keyboard — $79.00</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="lp-section" id="features">
+        <div class="lp-container">
+            <div class="lp-section-header">
+                <span class="lp-label">Features</span>
+                <h2>Everything you need to<br>never overpay again</h2>
+                <p>Powerful tools wrapped in a simple dashboard — built for people who love a good deal.</p>
+            </div>
+            <div class="lp-features-grid">
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">▦</div>
+                    <h3>Multi-store comparison</h3>
+                    <p>Add the same product from Amazon, Walmart, Target, and more. We show only the lowest price.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">!</div>
+                    <h3>Smart price alerts</h3>
+                    <p>Set a target price and get an instant alert badge when any store drops to your goal.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">📷</div>
+                    <h3>Photo upload</h3>
+                    <p>Snap a product photo and track it visually. AI name detection coming soon.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">⌕</div>
+                    <h3>Search &amp; sort</h3>
+                    <p>Find products instantly and sort by price, name, or last updated date.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">↓</div>
+                    <h3>Savings insights</h3>
+                    <p>See how much you save by comparing stores — average savings at a glance.</p>
+                </article>
+                <article class="lp-feature-card">
+                    <div class="lp-feature-icon">✎</div>
+                    <h3>Full product control</h3>
+                    <p>Edit store prices, rename products, or delete entries anytime from the dashboard.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="lp-section lp-section-alt" id="how-it-works">
+        <div class="lp-container">
+            <div class="lp-section-header">
+                <span class="lp-label">How It Works</span>
+                <h2>Three steps to your<br>best price</h2>
+                <p>Getting started takes less than a minute. No account required.</p>
+            </div>
+            <div class="lp-steps">
+                <div class="lp-step">
+                    <div class="lp-step-num">1</div>
+                    <h3>Add your product</h3>
+                    <p>Enter the product name, store, URL, and price — or upload a photo to get started faster.</p>
+                </div>
+                <div class="lp-step-connector"></div>
+                <div class="lp-step">
+                    <div class="lp-step-num">2</div>
+                    <h3>Compare stores</h3>
+                    <p>Add the same product from other retailers. PriceFinder groups them and finds the lowest price.</p>
+                </div>
+                <div class="lp-step-connector"></div>
+                <div class="lp-step">
+                    <div class="lp-step-num">3</div>
+                    <h3>Track &amp; save</h3>
+                    <p>Set a target price, monitor alerts on your dashboard, and buy when the deal is right.</p>
+                </div>
+            </div>
+            <div class="lp-steps-cta">
+                <a href="{{ url_for('upload_product') }}" class="lp-btn lp-btn-primary lp-btn-lg">Try it now — it's free</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="lp-section" id="pricing">
+        <div class="lp-container">
+            <div class="lp-section-header">
+                <span class="lp-label">Pricing</span>
+                <h2>Simple, transparent pricing</h2>
+                <p>Start free. Upgrade when you need more power.</p>
+            </div>
+            <div class="lp-pricing-grid">
+                <article class="lp-pricing-card">
+                    <h3>Free</h3>
+                    <div class="lp-price"><span class="lp-price-amount">$0</span><span class="lp-price-period">/mo</span></div>
+                    <p class="lp-pricing-desc">Perfect for personal deal hunting.</p>
+                    <ul class="lp-pricing-features">
+                        <li>Up to 10 products</li>
+                        <li>Multi-store comparison</li>
+                        <li>Price alerts</li>
+                        <li>Photo upload</li>
+                    </ul>
+                    <a href="{{ url_for('add_product') }}" class="lp-btn lp-btn-outline lp-btn-block">Get started</a>
+                </article>
+                <article class="lp-pricing-card lp-pricing-featured">
+                    <span class="lp-pricing-badge">Most popular</span>
+                    <h3>Pro</h3>
+                    <div class="lp-price"><span class="lp-price-amount">$9</span><span class="lp-price-period">/mo</span></div>
+                    <p class="lp-pricing-desc">For power shoppers and small teams.</p>
+                    <ul class="lp-pricing-features">
+                        <li>Unlimited products</li>
+                        <li>AI product detection</li>
+                        <li>Email price alerts</li>
+                        <li>Price history charts</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="{{ url_for('add_product') }}" class="lp-btn lp-btn-primary lp-btn-block">Start free trial</a>
+                </article>
+                <article class="lp-pricing-card">
+                    <h3>Business</h3>
+                    <div class="lp-price"><span class="lp-price-amount">$29</span><span class="lp-price-period">/mo</span></div>
+                    <p class="lp-pricing-desc">For teams and resellers at scale.</p>
+                    <ul class="lp-pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>Team collaboration</li>
+                        <li>API access</li>
+                        <li>CSV import / export</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <a href="#contact" class="lp-btn lp-btn-outline lp-btn-block">Contact sales</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="lp-section lp-section-alt" id="contact">
+        <div class="lp-container lp-contact-grid">
+            <div class="lp-contact-info">
+                <span class="lp-label">Contact</span>
+                <h2>Let's talk</h2>
+                <p>Have a question, feature request, or want to discuss Business pricing? We'd love to hear from you.</p>
+                <div class="lp-contact-details">
+                    <div class="lp-contact-item">
+                        <strong>Email</strong>
+                        <span>hello@pricefinder.app</span>
+                    </div>
+                    <div class="lp-contact-item">
+                        <strong>Response time</strong>
+                        <span>Within 24 hours</span>
+                    </div>
+                </div>
+            </div>
+            <form method="post" action="{{ url_for('contact') }}" class="lp-contact-form">
+                <div class="lp-form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="lp-form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="lp-form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="How can we help?" required></textarea>
+                </div>
+                <button type="submit" class="lp-btn lp-btn-primary lp-btn-block">Send message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="lp-footer">
+        <div class="lp-container lp-footer-inner">
+            <div class="lp-footer-brand">
+                <a href="{{ url_for('landing') }}" class="lp-logo">
+                    <span class="lp-logo-icon">$</span>
+                    PriceFinder
+                </a>
+                <p>Track prices. Find deals. Save money.</p>
+            </div>
+            <div class="lp-footer-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            </div>
+            <p class="lp-footer-copy">&copy; 2026 PriceFinder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        var toggle = document.getElementById("nav-toggle");
+        var links = document.getElementById("nav-links");
+        toggle.addEventListener("click", function () {
+            links.classList.toggle("open");
+            toggle.classList.toggle("open");
+        });
+        links.querySelectorAll("a").forEach(function (a) {
+            a.addEventListener("click", function () {
+                links.classList.remove("open");
+                toggle.classList.remove("open");
+            });
+        });
+    })();
+    </script>
+</body>
+</html>
