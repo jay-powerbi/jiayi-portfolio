@@ -16,4 +16,4 @@ services:
       - key: PORTFOLIO_ADMIN_TOKEN
         generateValue: true
       - key: GA4_MEASUREMENT_ID
-        sync: false
+        value: G-C4PVZ8R1L7

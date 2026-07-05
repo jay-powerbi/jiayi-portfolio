@@ -74,6 +74,13 @@
             .then(function (response) {
                 if (!response.ok) throw new Error("Feedback request failed");
                 localStorage.setItem(DONE_KEY, "1");
+                if (typeof window.pfTrack === "function") {
+                    window.pfTrack("feedback_submit", {
+                        liked: liked || "not_selected",
+                        page_path: window.location.pathname,
+                        has_message: message ? "yes" : "no",
+                    });
+                }
                 setStatus("Thank you. Your feedback was saved.");
                 window.setTimeout(function () {
                     closeModal(false);
