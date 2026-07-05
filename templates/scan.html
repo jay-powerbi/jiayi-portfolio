@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('scan.page_title') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block content %}
+<div class="scan-page">
+    <header class="page-intro">
+        <h1>{{ _('scan.title') }}</h1>
+        <p>{{ _('scan.subtitle') }}</p>
+    </header>
+
+    <div class="ds-scan-grid">
+        <form method="post" action="{{ url_for('upload_product') }}" enctype="multipart/form-data" class="scan-camera-form" id="scan-camera-form">
+            <label class="ds-scan-option ds-scan-option--camera">
+                <input
+                    type="file"
+                    name="product_image"
+                    accept="image/*"
+                    capture="environment"
+                    class="scan-camera-input"
+                    id="scan-camera-input"
+                >
+                <span class="ds-scan-option-icon" aria-hidden="true">📸</span>
+                <div>
+                    <p class="ds-scan-option-title">{{ _('scan.camera') }}</p>
+                    <p class="ds-scan-option-desc">{{ _('scan.camera_active_desc') }}</p>
+                </div>
+            </label>
+        </form>
+
+        <a href="{{ url_for('upload_product') }}" class="ds-scan-option">
+            <span class="ds-scan-option-icon" aria-hidden="true">📷</span>
+            <div>
+                <p class="ds-scan-option-title">{{ _('scan.upload_photo') }}</p>
+                <p class="ds-scan-option-desc">{{ _('scan.upload_photo_desc') }}</p>
+            </div>
+        </a>
+
+        <div class="ds-card">
+            <p class="ds-scan-option-title">{{ _('scan.search_by_name') }}</p>
+            <p class="ds-scan-option-desc">{{ _('scan.search_by_name_desc') }}</p>
+            <form method="get" action="{{ url_for('price_search') }}" class="scan-name-form">
+                <input type="text" name="product_name" class="search-input" placeholder="{{ _('scan.name_placeholder') }}" required>
+                <button type="submit" class="btn btn-primary">{{ _('common.search') }}</button>
+            </form>
+        </div>
+
+        <div class="ds-scan-option ds-scan-option--disabled">
+            <span class="ds-scan-option-icon" aria-hidden="true">▥</span>
+            <div>
+                <p class="ds-scan-option-title">{{ _('scan.barcode') }}</p>
+                <p class="ds-scan-option-desc">{{ _('scan.barcode_desc') }}</p>
+            </div>
+            <span class="ds-badge-soon">{{ _('assistant.coming_soon') }}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    var form = document.getElementById('scan-camera-form');
+    var input = document.getElementById('scan-camera-input');
+    if (!form || !input) return;
+    input.addEventListener('change', function () {
+        if (input.files && input.files.length) {
+            form.submit();
+        }
+    });
+})();
+</script>
+{% endblock %}

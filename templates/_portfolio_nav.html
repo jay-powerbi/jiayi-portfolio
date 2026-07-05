@@ -1,0 +1,33 @@
+<nav class="pf-nav">
+    <div class="pf-container pf-nav-inner">
+        <a class="pf-logo" href="{{ url_for('portfolio_home') }}">Jiayi <span>Shi</span></a>
+        <div class="pf-nav-links">
+            <a href="{{ url_for('portfolio_home') }}#projects">Projects</a>
+            <a class="pf-nav-github" href="{{ portfolio_links.github }}" target="_blank" rel="noreferrer">
+                {% include '_github_icon.html' %}
+                GitHub
+            </a>
+            <div class="pf-nav-dropdown">
+                <button type="button" class="pf-nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    Products
+                    <svg class="pf-nav-dropdown-chevron" viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M3 4.5 6 7.5 9 4.5"></path>
+                    </svg>
+                </button>
+                <div class="pf-nav-dropdown-menu" role="menu">
+                    <span class="pf-nav-dropdown-item pf-nav-dropdown-item-soon" role="menuitem" aria-disabled="true">
+                        <span class="pf-nav-dropdown-item-name">Opportunity Map AI</span>
+                        <span class="pf-nav-soon-label">(Coming Soon)</span>
+                    </span>
+                    <span class="pf-nav-dropdown-item pf-nav-dropdown-item-soon" role="menuitem" aria-disabled="true">
+                        <span class="pf-nav-dropdown-item-name">Price Pilot</span>
+                        <span class="pf-nav-soon-label">(Coming Soon)</span>
+                    </span>
+                </div>
+            </div>
+            <a href="{{ url_for('portfolio_about') }}">About</a>
+            <a href="{{ url_for('portfolio_contact') }}">Contact</a>
+            <a class="pf-btn pf-btn-nav" href="{{ url_for('portfolio_opportunities') }}">Open to Opportunities</a>
+        </div>
+    </div>
+</nav>

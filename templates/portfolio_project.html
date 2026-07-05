@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D1117">
+    <title>{{ project.title }} - Jiayi Shi Portfolio</title>
+    <meta name="description" content="{{ project.summary }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% include '_portfolio_nav.html' %}
+
+    <main>
+        <header class="pf-page-header">
+            <div class="pf-container">
+                <a class="pf-back" href="{{ url_for('portfolio_home') }}#projects">Back to projects</a>
+                <span class="pf-badge pf-badge-icon" style="border-color: {{ project.color }}; color: {{ project.color }}">
+                    {% include '_portfolio_project_icon.html' %}
+                    Case Study
+                </span>
+                <h1>{{ project.title }}</h1>
+                <p>{{ project.summary }}</p>
+                <div class="pf-detail-actions">
+                    <a class="pf-btn" href="{{ portfolio_links.github }}" target="_blank" rel="noreferrer">{% include '_github_icon.html' %} GitHub</a>
+                </div>
+            </div>
+        </header>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <article class="pf-case-section">
+                    <h2 class="pf-case-label">Project Overview</h2>
+                    <div class="pf-panel">
+                        <p>{{ project.overview }}</p>
+                    </div>
+                </article>
+
+                <div class="pf-two-col pf-case-section">
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Business Problem</h2>
+                        <p>{{ project.problem }}</p>
+                    </article>
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Dataset</h2>
+                        <p>{{ project.dataset }}</p>
+                    </article>
+                </div>
+
+                <div class="pf-two-col pf-case-section">
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Data Cleaning, SQL, Power Query</h2>
+                        <ul class="pf-dot-list">
+                            {% for item in project.data_work %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Data Modeling</h2>
+                        <ul class="pf-dot-list">
+                            {% for item in project.modeling %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                </div>
+
+                <article class="pf-case-section pf-panel">
+                    <h2 class="pf-case-label">DAX Measures</h2>
+                    <div class="pf-two-col">
+                        {% for measure in project.measures %}
+                            <p>{{ measure }}</p>
+                        {% endfor %}
+                    </div>
+                </article>
+
+                <div class="pf-two-col pf-case-section">
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Dashboard Design</h2>
+                        <ul class="pf-dot-list">
+                            {% for item in project.dashboard %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                    <article class="pf-panel">
+                        <h2 class="pf-case-label">Business Value</h2>
+                        <ul class="pf-dot-list">
+                            {% for item in project.value %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                </div>
+
+                <article class="pf-case-section">
+                    <h2 class="pf-case-label">Dashboard Walkthrough</h2>
+                    <div class="pf-gallery-placeholder">Dashboard screenshot / Power BI embed placeholder</div>
+                </article>
+
+                <article class="pf-case-section pf-panel">
+                    <h2 class="pf-case-label">Technical Stack</h2>
+                    <div class="pf-chip-row">
+                        {% for tag in project.stack %}
+                            <span class="pf-chip">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    {% include '_portfolio_feedback.html' %}
+</body>
+</html>

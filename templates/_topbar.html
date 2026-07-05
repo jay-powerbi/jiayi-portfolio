@@ -1,0 +1,38 @@
+<header class="app-topbar">
+    <div class="app-topbar-start">
+        {% block topbar_title %}
+        <h1 class="app-topbar-heading">{{ _('dashboard.title') }}</h1>
+        {% endblock %}
+    </div>
+    <div class="app-topbar-tools">
+        <form method="post" action="{{ url_for('update_zip') }}" class="topbar-zip-form">
+            <label for="topbar-zip" class="visually-hidden">{{ _('assistant.preferred_zip') }}</label>
+            <span class="topbar-zip-icon" aria-hidden="true">📍</span>
+            <input
+                type="text"
+                id="topbar-zip"
+                name="zip"
+                inputmode="numeric"
+                maxlength="5"
+                pattern="[0-9]{5}"
+                value="{{ saved_zip }}"
+                placeholder="{{ _('topbar.zip_placeholder') }}"
+                class="topbar-zip-input"
+            >
+            <button type="submit" class="btn btn-ghost btn-sm topbar-zip-btn">{{ _('search.zip_submit') }}</button>
+        </form>
+
+        <a href="{{ url_for('notification_settings') }}" class="topbar-icon-btn" aria-label="{{ _('brand.notifications') }}">
+            <span aria-hidden="true">🔔</span>
+        </a>
+
+        <button type="button" class="topbar-icon-btn theme-toggle" id="theme-toggle" aria-label="{{ _('topbar.toggle_theme') }}">
+            <span class="theme-toggle-icon theme-toggle-icon--light" aria-hidden="true">☀</span>
+            <span class="theme-toggle-icon theme-toggle-icon--dark" aria-hidden="true">☾</span>
+        </button>
+
+        <a href="{{ url_for('profile') }}" class="topbar-avatar" aria-label="{{ _('nav.profile') }}">
+            <span aria-hidden="true">PP</span>
+        </a>
+    </div>
+</header>

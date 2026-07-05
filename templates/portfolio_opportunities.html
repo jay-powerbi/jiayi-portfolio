@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open to Opportunities - Jiayi Shi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% include '_portfolio_nav.html' %}
+
+    <main>
+        <header class="pf-page-header">
+            <div class="pf-container">
+                <span class="pf-badge pf-status">Currently Open to New Opportunities</span>
+                <h1>Ready to contribute from day one.</h1>
+                <p class="pf-nowrap-subtitle">Recruiter-facing summary for senior BI, Power BI, analytics engineering, and dashboard development roles.</p>
+            </div>
+        </header>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <div class="pf-static-map">
+                    <img src="{{ url_for('static', filename='images/projects/relocation-map.png') }}" alt="Open to work anywhere in the U.S. map based in New York" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <span class="pf-label">Why Hire Me</span>
+                <div class="pf-card-grid">
+                    <article class="pf-card"><h3>8+ Years Enterprise BI</h3><p>Deep experience with governed reporting and executive dashboards.</p></article>
+                    <article class="pf-card"><h3>High Flyer Award Recipient</h3><p>Recognized for strong BI delivery and business partnership.</p></article>
+                    <article class="pf-card"><h3>Enterprise Dashboard Development</h3><p>Power BI dashboards designed for clarity, scale, and adoption.</p></article>
+                    <article class="pf-card"><h3>SQL / DAX / Power Query</h3><p>Hands-on model, measure, ETL, and performance tuning skills.</p></article>
+                    <article class="pf-card"><h3>ETL & Data Modeling</h3><p>Comfortable shaping source data into stable analytical models.</p></article>
+                    <article class="pf-card"><h3>Executive Reporting</h3><p>Focused on decision support, not just visual polish.</p></article>
+                </div>
+                <div class="pf-actions">
+                    <a class="pf-btn pf-btn-primary" href="mailto:{{ portfolio_links.email }}">Email Me</a>
+                    <a class="pf-btn" href="{{ url_for('portfolio_resume') }}">Download Resume</a>
+                    <a class="pf-btn" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include '_portfolio_feedback.html' %}
+</body>
+</html>

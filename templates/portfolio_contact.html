@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Jiayi Shi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% include '_portfolio_nav.html' %}
+
+    <main>
+        <header class="pf-page-header">
+            <div class="pf-container">
+                <span class="pf-badge">Contact</span>
+                <h1>Let's build better business intelligence together.</h1>
+                <p>Available for senior BI, Power BI, analytics engineering, and enterprise reporting roles.</p>
+            </div>
+        </header>
+
+        <section class="pf-section">
+            <div class="pf-container pf-card-grid">
+                <a class="pf-card" href="mailto:{{ portfolio_links.email }}"><h3>Email</h3><p>{{ portfolio_links.email }}</p></a>
+                <a class="pf-card" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer"><h3>LinkedIn</h3><p>linkedin.com/in/jiayishi-bi/</p></a>
+                <a class="pf-card pf-contact-github" href="{{ portfolio_links.github }}" target="_blank" rel="noreferrer"><h3>{% include '_github_icon.html' %} GitHub</h3><p>github.com/jay-powerbi</p></a>
+                <a class="pf-card" href="{{ url_for('portfolio_resume') }}"><h3>Resume</h3><p>Download DOCX</p></a>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container pf-panel">
+                <h2 class="pf-case-label">Availability</h2>
+                <div class="pf-chip-row">
+                    <span class="pf-chip pf-status">Available Immediately</span>
+                    <span class="pf-chip">Open to Relocation Nationwide</span>
+                    <span class="pf-chip">Authorized to Work in the United States</span>
+                    <span class="pf-chip">Full-Time</span>
+                    <span class="pf-chip">Hybrid</span>
+                    <span class="pf-chip">Remote</span>
+                </div>
+                <div class="pf-actions">
+                    <a class="pf-btn pf-btn-primary" href="mailto:{{ portfolio_links.email }}">Email Me</a>
+                    <a class="pf-btn" href="{{ url_for('portfolio_resume') }}">Download Resume</a>
+                    <a class="pf-btn" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include '_portfolio_feedback.html' %}
+</body>
+</html>

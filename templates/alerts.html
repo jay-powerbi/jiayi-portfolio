@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('nav.price_alerts') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block topbar_title %}
+<h1 class="app-topbar-heading">{{ _('nav.price_alerts') }}</h1>
+<p class="app-topbar-subtitle">{{ _('alerts.subtitle') }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="alerts-page">
+    <header class="page-intro page-intro--mobile">
+        <h1>{{ _('nav.price_alerts') }}</h1>
+        <p>{{ _('alerts.subtitle') }}</p>
+    </header>
+
+    {% if products %}
+    {% set table_title = _('alerts.table_title') %}
+    {% include '_product_table.html' %}
+    {% else %}
+    {% with icon='🔔', title=_('alerts.empty_title'), body=_('alerts.empty_body'), cta_url=url_for('dashboard'), cta_label=_('alerts.view_dashboard') %}
+    {% include '_empty_state.html' %}
+    {% endwith %}
+    {% endif %}
+</div>
+{% endblock %}

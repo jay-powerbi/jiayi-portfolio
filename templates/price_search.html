@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('search.page_title') }}{% endblock %}
+
+{% block content %}
+<section class="price-search-page" data-loaded="{% if needs_zip %}true{% else %}false{% endif %}" data-track-search="{{ product_name }}">
+    <div class="price-search-header">
+        {% if image_preview %}
+        <div class="price-search-product">
+            <img src="{{ image_preview }}" alt="{{ product_name }}" class="price-search-thumb cell-product-thumb">
+            <div>
+                <p class="price-search-product-label">{{ _('search.results_for') }}</p>
+                <h2 class="price-search-product-name">{{ product_name }}</h2>
+            </div>
+        </div>
+        {% else %}
+        <div class="price-search-product price-search-product--text">
+            <p class="price-search-product-label">{{ _('search.results_for') }}</p>
+            <h2 class="price-search-product-name">{{ product_name }}</h2>
+        </div>
+        {% endif %}
+
+        {% set show_zip_form = change_zip or not zip_code or needs_zip %}
+        {% if show_zip_form %}
+        <form method="get" action="{{ url_for('price_search') }}" class="price-search-zip-form">
+            <input type="hidden" name="product_name" value="{{ product_name }}">
+            {% if base_name and base_name != product_name %}
+            <input type="hidden" name="base_name" value="{{ base_name }}">
+            {% endif %}
+            {% if upload_id %}
+            <input type="hidden" name="upload_id" value="{{ upload_id }}">
+            {% endif %}
+            {% if needs_zip %}
+            <p class="price-search-zip-hint">{{ _('search.zip_required') }}</p>
+            {% endif %}
+            <label for="zip" class="price-search-zip-label">{{ _('search.zip_label') }}</label>
+            <div class="price-search-zip-row">
+                <input
+                    type="text"
+                    id="zip"
+                    name="zip"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    placeholder="{{ _('search.zip_placeholder') }}"
+                    value="{{ zip_code }}"
+                    class="price-search-zip-input"
+                    required
+                    autofocus
+                >
+                <button type="submit" class="btn btn-secondary">{{ _('search.zip_submit') }}</button>
+            </div>
+        </form>
+        {% elif zip_code %}
+        <div class="zip-saved-bar">
+            <span class="zip-saved-label">📍 {{ _('search.delivering_to', zip=zip_code) }}</span>
+            <a
+                href="{{ url_for('price_search', product_name=product_name, change_zip=1, upload_id=upload_id if upload_id else '', base_name=base_name if base_name and base_name != product_name else '') }}"
+                class="btn btn-ghost btn-sm zip-change-link"
+            >{{ _('search.change_zip') }}</a>
+        </div>
+        {% endif %}
+
+        <div class="price-search-demo-banner" role="note">
+            <strong>{{ _('search.demo_label') }}</strong>
+            <span>{{ _('search.demo_notice') }}</span>
+        </div>
+    </div>
+
+    <div class="price-search-loading" aria-live="polite"{% if needs_zip %} hidden{% endif %}>
+        <div class="price-search-spinner" aria-hidden="true"></div>
+        <p>{{ _('search.searching') }}</p>
+    </div>
+
+    <div class="price-search-results" data-retailer-filter-scope>
+        {% if listings and not needs_zip %}
+        {% include '_retailer_filter.html' %}
+        {% endif %}
+
+        {% if listings %}
+        <div class="retailer-cards">
+            {% for listing in listings %}
+            {% with show_details=true, show_price_breakdown=true, product_name=product_name %}
+            {% include '_retailer_price_card.html' %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h2>{{ _('search.no_results') }}</h2>
+            <a href="{{ url_for('add_product', product_name=base_name|default(product_name)) }}" class="btn btn-primary">{{ _('search.add_manual') }}</a>
+        </div>
+        {% endif %}
+
+        <div class="price-search-footer-actions">
+            <a href="{{ url_for('add_product', product_name=base_name|default(product_name)) }}" class="btn btn-secondary">{{ _('search.add_manual') }}</a>
+        </div>
+    </div>
+</section>
+
+<script>
+(function () {
+    var page = document.querySelector('.price-search-page');
+    if (!page || page.getAttribute('data-loaded') === 'true') return;
+    window.setTimeout(function () {
+        page.setAttribute('data-loaded', 'true');
+    }, 850);
+})();
+</script>
+<script src="{{ url_for('static', filename='js/user_preferences.js') }}"></script>
+<script src="{{ url_for('static', filename='js/retailer_filter.js') }}"></script>
+{% endblock %}

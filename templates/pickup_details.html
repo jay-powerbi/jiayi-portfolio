@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('pickup.page_title', retailer=retailer_name) }}{% endblock %}
+
+{% block content %}
+<section class="pickup-page">
+    <header class="page-intro pickup-page-intro">
+        <div>
+            <h1>{{ _('pickup.title') }}</h1>
+            <p>{{ retailer_name }} · {{ product_name }}</p>
+        </div>
+        <a href="{{ back_url }}" class="btn btn-ghost btn-sm">{{ _('pickup.back_to_results') }}</a>
+    </header>
+    {% if image_preview %}
+    <div class="pickup-product">
+        <img src="{{ image_preview }}" alt="{{ product_name }}" class="price-search-thumb">
+        <div>
+            <p class="price-search-product-label">{{ retailer_name }}</p>
+            <h2 class="pickup-product-name">{{ product_name }}</h2>
+        </div>
+    </div>
+    {% else %}
+    <div class="pickup-product pickup-product--text">
+        <p class="price-search-product-label">{{ retailer_name }}</p>
+        <h2 class="pickup-product-name">{{ product_name }}</h2>
+    </div>
+    {% endif %}
+
+    <div class="price-search-demo-banner pickup-demo-banner" role="note">
+        <strong>{{ _('search.demo_label') }}</strong>
+        <span>{{ _('pickup.demo_notice') }}</span>
+    </div>
+
+    {% if needs_zip %}
+    <div class="pickup-zip-prompt">
+        <h2 class="form-section-title">{{ _('pickup.enter_zip_title') }}</h2>
+        <p class="field-hint">{{ _('pickup.enter_zip_body') }}</p>
+
+        <form method="get" action="{{ url_for('pickup_details') }}" class="price-search-zip-form pickup-zip-form">
+            <input type="hidden" name="retailer" value="{{ retailer_id }}">
+            <input type="hidden" name="product_name" value="{{ product_name }}">
+            {% if base_name and base_name != product_name %}
+            <input type="hidden" name="base_name" value="{{ base_name }}">
+            {% endif %}
+            {% if upload_id %}
+            <input type="hidden" name="upload_id" value="{{ upload_id }}">
+            {% endif %}
+            {% if pickup_key %}
+            <input type="hidden" name="pickup_key" value="{{ pickup_key }}">
+            {% endif %}
+            {% if product_url %}
+            <input type="hidden" name="product_url" value="{{ product_url }}">
+            {% endif %}
+
+            <label for="zip" class="price-search-zip-label">{{ _('search.zip_label') }}</label>
+            <div class="price-search-zip-row">
+                <input
+                    type="text"
+                    id="zip"
+                    name="zip"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    placeholder="{{ _('search.zip_placeholder') }}"
+                    class="price-search-zip-input"
+                    required
+                    autofocus
+                >
+                <button type="submit" class="btn btn-primary">{{ _('pickup.find_stores') }}</button>
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <div class="pickup-summary">
+        <p class="pickup-summary-zip">{{ _('pickup.near_zip', zip=zip_code) }}</p>
+        {% if pickup_key %}
+        <p class="pickup-summary-availability">{{ _(pickup_key) }}</p>
+        {% endif %}
+    </div>
+
+    <div class="pickup-store-list">
+        {% for store in locations %}
+        <article class="pickup-store-card">
+            <div class="pickup-store-header">
+                <h3 class="pickup-store-name">{{ store.store_name }}</h3>
+                <span class="pickup-distance">{{ _('pickup.distance', miles="%.1f"|format(store.distance_miles)) }}</span>
+            </div>
+
+            <p class="pickup-address">{{ store.address }}</p>
+
+            <dl class="pickup-store-details">
+                <div class="pickup-detail-row">
+                    <dt>{{ _('pickup.availability') }}</dt>
+                    <dd>{{ _(store.pickup_key) }}</dd>
+                </div>
+                <div class="pickup-detail-row">
+                    <dt>{{ _('pickup.hours') }}</dt>
+                    <dd>{{ store.hours }}</dd>
+                </div>
+            </dl>
+
+            <div class="pickup-store-actions">
+                <a href="{{ store.maps_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                    {{ _('pickup.open_maps') }}
+                </a>
+                <button type="button" class="btn btn-primary btn-sm" disabled title="{{ _('pickup.reserve_disabled') }}">
+                    {{ _('pickup.reserve') }}
+                </button>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <p class="pickup-future-note">{{ _('pickup.future_note') }}</p>
+    {% endif %}
+
+    {% if product_url %}
+    <div class="pickup-online-link">
+        <a href="{{ product_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            {{ _('pickup.view_online_listing') }}
+        </a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

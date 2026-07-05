@@ -1,30 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Add Comparison — Lowest Price Finder{% endblock %}
+{% block title %}{{ _('add.page_title') }}{% endblock %}
 
 {% block content %}
-<section class="page-header">
-    <div>
-        <h1>Add Product Comparison</h1>
-        <p class="subtitle">Enter a product price from a store. Add multiple stores with the same product name to compare.</p>
-    </div>
-</section>
+<header class="page-intro">
+    <h1>{{ _('add.title') }}</h1>
+    <p>{{ _('add.subtitle') }}</p>
+</header>
 
 <div class="form-card {% if image_preview %}form-card-with-image{% endif %}">
     {% if image_preview %}
     <div class="form-image-preview">
-        <img src="{{ image_preview }}" alt="Product photo">
-        <span class="form-image-label">Product photo</span>
+        <img src="{{ image_preview }}" alt="{{ _('common.product_photo') }}">
+        <span class="form-image-label">{{ _('common.product_photo') }}</span>
     </div>
     {% endif %}
     <form method="post" class="form">
         <div class="form-group">
-            <label for="product_name">Product name</label>
+            <label for="product_name">{{ _('add.product_name') }}</label>
             <input
                 type="text"
                 id="product_name"
                 name="product_name"
-                placeholder="e.g. Wireless Headphones"
+                placeholder="{{ _('add.product_name_ph') }}"
                 value="{{ form.get('product_name', '') }}"
                 required
             >
@@ -32,25 +30,25 @@
 
         <div class="form-row">
             <div class="form-group">
-                <label for="store_name">Store name</label>
+                <label for="store_name">{{ _('add.store_name') }}</label>
                 <input
                     type="text"
                     id="store_name"
                     name="store_name"
-                    placeholder="e.g. Amazon"
+                    placeholder="{{ _('add.store_name_ph') }}"
                     value="{{ form.get('store_name', '') }}"
                     required
                 >
             </div>
             <div class="form-group">
-                <label for="price">Price ($)</label>
+                <label for="price">{{ _('add.price') }}</label>
                 <input
                     type="number"
                     id="price"
                     name="price"
                     step="0.01"
                     min="0"
-                    placeholder="29.99"
+                    placeholder="{{ _('add.price_ph') }}"
                     value="{{ form.get('price', '') }}"
                     required
                 >
@@ -58,34 +56,34 @@
         </div>
 
         <div class="form-group">
-            <label for="product_url">Product URL</label>
+            <label for="product_url">{{ _('add.product_url') }}</label>
             <input
                 type="url"
                 id="product_url"
                 name="product_url"
-                placeholder="https://store.com/product"
+                placeholder="{{ _('add.product_url_ph') }}"
                 value="{{ form.get('product_url', '') }}"
                 required
             >
         </div>
 
         <div class="form-group">
-            <label for="target_price">Target price alert ($)</label>
+            <label for="target_price">{{ _('add.target_price') }}</label>
             <input
                 type="number"
                 id="target_price"
                 name="target_price"
                 step="0.01"
                 min="0"
-                placeholder="Optional — alert when lowest price hits this"
+                placeholder="{{ _('add.target_price_ph') }}"
                 value="{{ form.get('target_price', '') }}"
             >
-            <p class="field-hint">When the lowest price is at or below this target, the dashboard shows an Alert status.</p>
+            <p class="field-hint">{{ _('add.target_hint') }}</p>
         </div>
 
         <div class="form-actions">
-            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Save price</button>
+            <a href="{{ url_for('compare') }}" class="btn btn-secondary">{{ _('common.cancel') }}</a>
+            <button type="submit" class="btn btn-primary">{{ _('common.save_price') }}</button>
         </div>
     </form>
 </div>

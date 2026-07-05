@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('assistant.page_title') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block content %}
+<section class="assistant-page">
+    <header class="assistant-hero">
+        <div class="assistant-hero-icon" aria-hidden="true">🤖</div>
+        <div>
+            <h2 class="assistant-hero-title">{{ _('assistant.hero_title') }}</h2>
+            <p class="assistant-hero-desc">{{ _('assistant.hero_desc') }}</p>
+        </div>
+        <span class="assistant-phase-tag">{{ _('assistant.phase_tag') }}</span>
+    </header>
+
+    <form id="assistant-prefs-form" class="assistant-form" data-saved-message="{{ _('assistant.saved') }}">
+        <article class="settings-card assistant-card">
+            <div class="settings-card-header">
+                <span class="settings-icon" aria-hidden="true">◎</span>
+                <div>
+                    <h3>{{ _('assistant.alert_mode_title') }}</h3>
+                    <p class="settings-card-desc">{{ _('assistant.alert_mode_desc') }}</p>
+                </div>
+            </div>
+
+            <div class="assistant-mode-switch" role="group" aria-label="{{ _('assistant.alert_mode_title') }}">
+                <button type="button" class="assistant-mode-btn" data-alert-mode="products" aria-pressed="false">
+                    <span class="assistant-mode-label">{{ _('assistant.mode_products') }}</span>
+                    <small>{{ _('assistant.mode_products_desc') }}</small>
+                </button>
+                <button type="button" class="assistant-mode-btn" data-alert-mode="stores" aria-pressed="false">
+                    <span class="assistant-mode-label">{{ _('assistant.mode_stores') }}</span>
+                    <small>{{ _('assistant.mode_stores_desc') }}</small>
+                </button>
+                <button type="button" class="assistant-mode-btn is-active" data-alert-mode="hybrid" aria-pressed="true">
+                    <span class="assistant-mode-label">{{ _('assistant.mode_hybrid') }}</span>
+                    <small>{{ _('assistant.mode_hybrid_desc') }}</small>
+                </button>
+            </div>
+        </article>
+
+        <article class="settings-card assistant-card assistant-section assistant-section--product">
+            <div class="assistant-section-header">
+                <label class="settings-check assistant-master-check">
+                    <input type="checkbox" name="productAlerts" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.product_alerts_title') }}</strong>
+                        <small>{{ _('assistant.product_alerts_desc') }}</small>
+                    </span>
+                </label>
+            </div>
+            <fieldset class="settings-checklist assistant-options">
+                <label class="settings-check">
+                    <input type="checkbox" name="productAlertOptions.priceDrops" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_price_drops') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="productAlertOptions.targetPriceReached" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_target_price') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="productAlertOptions.backInStock" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_back_in_stock') }}</strong></span>
+                </label>
+            </fieldset>
+        </article>
+
+        <article class="settings-card assistant-card assistant-section assistant-section--store">
+            <div class="assistant-section-header">
+                <label class="settings-check assistant-master-check">
+                    <input type="checkbox" name="storeAlerts" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.store_alerts_title') }}</strong>
+                        <small>{{ _('assistant.store_alerts_desc') }}</small>
+                    </span>
+                </label>
+            </div>
+            <fieldset class="settings-checklist assistant-options">
+                <label class="settings-check">
+                    <input type="checkbox" name="storeAlertOptions.weeklyDeals" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_weekly_deals') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="storeAlertOptions.newPromotions" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_new_promotions') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="storeAlertOptions.clearanceDeals" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_clearance') }}</strong></span>
+                </label>
+            </fieldset>
+        </article>
+
+        <article class="settings-card assistant-card assistant-section assistant-section--events">
+            <div class="assistant-section-header">
+                <label class="settings-check assistant-master-check">
+                    <input type="checkbox" name="shoppingEventAlerts" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.event_alerts_title') }}</strong>
+                        <small>{{ _('assistant.event_alerts_desc') }}</small>
+                    </span>
+                </label>
+            </div>
+            <fieldset class="settings-checklist assistant-options assistant-options--grid">
+                <label class="settings-check">
+                    <input type="checkbox" name="shoppingEventOptions.primeDay" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_prime_day') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="shoppingEventOptions.blackFriday" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_black_friday') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="shoppingEventOptions.backToSchool" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_back_to_school') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="shoppingEventOptions.holidaySales" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_holiday_sales') }}</strong></span>
+                </label>
+            </fieldset>
+        </article>
+
+        <article class="settings-card assistant-card assistant-section assistant-section--delivery">
+            <div class="assistant-section-header">
+                <label class="settings-check assistant-master-check">
+                    <input type="checkbox" name="deliveryAlerts" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.delivery_prefs_title') }}</strong>
+                        <small>{{ _('assistant.delivery_prefs_desc') }}</small>
+                    </span>
+                </label>
+            </div>
+            <fieldset class="settings-checklist assistant-options">
+                <label class="settings-check">
+                    <input type="checkbox" name="deliveryOptions.freeShippingOnly">
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_free_shipping') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="deliveryOptions.pickupNearby" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_pickup_nearby') }}</strong></span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="deliveryOptions.fastDelivery" checked>
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text"><strong>{{ _('assistant.opt_fast_delivery') }}</strong></span>
+                </label>
+            </fieldset>
+
+            <div class="assistant-zip-row">
+                <label for="preferredZipCode" class="price-search-zip-label">{{ _('assistant.preferred_zip') }}</label>
+                <input
+                    type="text"
+                    id="preferredZipCode"
+                    name="preferredZipCode"
+                    inputmode="numeric"
+                    pattern="[0-9]{5}"
+                    maxlength="5"
+                    placeholder="{{ _('search.zip_placeholder') }}"
+                    value="{{ saved_zip }}"
+                    class="price-search-zip-input"
+                >
+            </div>
+        </article>
+
+        <article class="settings-card assistant-card assistant-section assistant-section--ai">
+            <div class="assistant-section-header">
+                <label class="settings-check assistant-master-check">
+                    <input type="checkbox" name="aiAlerts">
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.ai_alerts_title') }}</strong>
+                        <small>{{ _('assistant.ai_alerts_desc') }}</small>
+                    </span>
+                </label>
+                <span class="assistant-coming-soon">{{ _('assistant.coming_soon') }}</span>
+            </div>
+            <fieldset class="settings-checklist assistant-options">
+                <label class="settings-check">
+                    <input type="checkbox" name="aiAlertOptions.buyNow">
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.opt_ai_buy_now') }}</strong>
+                        <small>{{ _('assistant.opt_ai_buy_now_desc') }}</small>
+                    </span>
+                </label>
+                <label class="settings-check">
+                    <input type="checkbox" name="aiAlertOptions.wait">
+                    <span class="settings-check-box" aria-hidden="true"></span>
+                    <span class="settings-check-text">
+                        <strong>{{ _('assistant.opt_ai_wait') }}</strong>
+                        <small>{{ _('assistant.opt_ai_wait_desc') }}</small>
+                    </span>
+                </label>
+            </fieldset>
+        </article>
+
+        <p class="assistant-save-status" id="assistant-save-status" hidden role="status"></p>
+
+        <div class="assistant-form-actions">
+            <button type="submit" class="btn btn-primary">{{ _('assistant.save') }}</button>
+            <button type="reset" class="btn btn-secondary">{{ _('assistant.reset') }}</button>
+        </div>
+    </form>
+
+    <article class="settings-card settings-card--permission assistant-push-card">
+        <div class="settings-card-header">
+            <span class="settings-icon" aria-hidden="true">📲</span>
+            <div>
+                <h3>{{ _('settings.browser_push_title') }}</h3>
+                <p class="settings-card-desc">{{ _('assistant.push_desc') }}</p>
+            </div>
+        </div>
+
+        <div class="notification-permission-block" data-permission="{{ permission }}">
+            <p class="notification-status" data-role="status">
+                {% if permission == 'granted' %}
+                    {{ _('settings.notif_status_granted') }}
+                {% elif permission == 'denied' %}
+                    {{ _('settings.notif_status_denied') }}
+                {% else %}
+                    {{ _('settings.notif_status_default') }}
+                {% endif %}
+            </p>
+            <button type="button" class="btn btn-primary" id="enable-notifications-btn" {% if permission == 'granted' %}disabled{% endif %}>
+                {{ _('settings.enable_notifications') }}
+            </button>
+        </div>
+    </article>
+</section>
+
+<script src="{{ url_for('static', filename='js/user_preferences.js') }}"></script>
+<script src="{{ url_for('static', filename='js/assistant_prefs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+{% endblock %}

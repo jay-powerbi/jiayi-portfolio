@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Jiayi Shi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% include '_portfolio_nav.html' %}
+
+    <main>
+        <header class="pf-page-header">
+            <div class="pf-container">
+                <div class="pf-about-hero">
+                    <a class="pf-avatar-link" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer" aria-label="View Jiayi Shi on LinkedIn">
+                        <img class="pf-avatar-img" src="{{ url_for('static', filename='images/projects/profile-photo.png') }}" alt="Jiayi Shi profile photo">
+                    </a>
+                    <div>
+                        <span class="pf-badge">About</span>
+                        <h1>Jiayi Shi</h1>
+                        <p>Senior Business Intelligence Developer | Power BI Developer | Data Analyst</p>
+                        <div class="pf-actions">
+                            <a class="pf-btn" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
+                            <a class="pf-btn" href="mailto:{{ portfolio_links.email }}">{{ portfolio_links.email }}</a>
+                            <a class="pf-btn" href="{{ url_for('portfolio_resume') }}">Download Resume</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="pf-section">
+            <div class="pf-container pf-two-col">
+                <article class="pf-panel">
+                    <h2 class="pf-case-label">Professional Summary</h2>
+                    <p>BI developer with 8+ years building enterprise reporting systems, Power BI dashboards, data models, and executive analytics. Recognized with a High Flyer Award for delivering reliable, decision-focused reporting.</p>
+                </article>
+                <article class="pf-panel">
+                    <h2 class="pf-case-label">Career Background</h2>
+                    <p>Experience spans Primerica, Agricultural Bank of China, TMG Health, Freedom Mortgage, and independent consulting, with a focus on business value, reporting performance, and stakeholder-ready analytics.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container pf-two-col">
+                <article class="pf-panel">
+                    <h2 class="pf-case-label">Education</h2>
+                    <p>M.S. Business Intelligence - Saint Joseph's University, 2015</p>
+                    <p>B.S. General Management - Northwood University, 2011</p>
+                </article>
+                <article class="pf-panel">
+                    <h2 class="pf-case-label">Certifications</h2>
+                    <div class="pf-chip-row">
+                        <span class="pf-chip">Certified BI Content Developer (SAS)</span>
+                        <span class="pf-chip">Tableau 10</span>
+                        <span class="pf-chip">Power BI</span>
+                        <span class="pf-chip">Azure Data Fundamentals</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    {% include '_portfolio_feedback.html' %}
+</body>
+</html>

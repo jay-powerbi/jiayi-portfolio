@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('variants.page_title') }}{% endblock %}
+
+{% block content %}
+<div class="variant-page">
+    <header class="page-intro variant-page-intro">
+        <div>
+            <h1>{{ _('variants.title') }}</h1>
+            <p>{{ _('variants.subtitle') }}</p>
+        </div>
+        <a href="{{ url_for('price_search', product_name=product_name, upload_id=upload_id) }}" class="btn btn-ghost btn-sm">{{ _('variants.skip') }}</a>
+    </header>
+    <div class="variant-header">
+        {% if image_preview %}
+        <div class="price-search-product">
+            <img src="{{ image_preview }}" alt="{{ product_name }}" class="price-search-thumb">
+            <div>
+                <p class="price-search-product-label">{{ _('variants.base_product') }}</p>
+                <h2 class="price-search-product-name">{{ product_name }}</h2>
+            </div>
+        </div>
+        {% else %}
+        <div class="price-search-product price-search-product--text">
+            <p class="price-search-product-label">{{ _('variants.base_product') }}</p>
+            <h2 class="price-search-product-name">{{ product_name }}</h2>
+        </div>
+        {% endif %}
+        <p class="variant-profile-label">{{ _(schema.label_key) }}</p>
+    </div>
+
+    <form method="post" action="{{ url_for('select_variants', product_name=product_name, upload_id=upload_id) }}" class="form variant-form" id="variant-form">
+        <input type="hidden" name="product_name" value="{{ product_name }}">
+        {% if upload_id %}
+        <input type="hidden" name="upload_id" value="{{ upload_id }}">
+        {% endif %}
+
+        <section class="form-section">
+            <h2 class="form-section-title">{{ _('variants.choose_details') }}</h2>
+            <p class="field-hint variant-form-hint">{{ _('variants.select_hint') }}</p>
+
+            {% for group in schema.groups %}
+            {% set selected = (selections or {}).get(group.id) %}
+            <div class="variant-group" data-group="{{ group.id }}">
+                <p class="variant-group-label">{{ _(group.label_key) }}</p>
+                <div class="variant-options" role="radiogroup" aria-label="{{ _(group.label_key) }}">
+                    {% for opt in group.options %}
+                    <label class="variant-chip">
+                        <input
+                            type="radio"
+                            name="{{ group.id }}"
+                            value="{{ opt.value }}"
+                            {% if selected == opt.value or (not selected and loop.first) %}checked{% endif %}
+                        >
+                        <span class="variant-chip-text">
+                            {% if opt.label_key %}{{ _(opt.label_key) }}{% else %}{{ opt.label }}{% endif %}
+                        </span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+
+        <div class="variant-preview">
+            <p class="variant-preview-label">{{ _('variants.search_preview') }}</p>
+            <p class="variant-preview-query" id="variant-preview-query">{{ _('variants.preview_placeholder') }}</p>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('confirm_upload', upload_id=upload_id) if upload_id else url_for('upload_product') }}" class="btn btn-secondary">{{ _('common.cancel') }}</a>
+            <button type="submit" class="btn btn-primary" id="variant-submit">{{ _('variants.continue_search') }}</button>
+        </div>
+    </form>
+</div>
+
+<div class="variant-validation-toast" id="variant-validation-toast" role="alert" hidden>
+    {{ _('variants.errors.required') }}
+</div>
+
+<script>
+(function () {
+    var form = document.getElementById('variant-form');
+    var preview = document.getElementById('variant-preview-query');
+    var toast = document.getElementById('variant-validation-toast');
+    if (!form || !preview) return;
+
+    var profileId = {{ schema.profile_id | tojson }};
+    var groupNames = {{ schema.groups | map(attribute='id') | list | tojson }};
+
+    function selectedValue(name) {
+        var input = form.querySelector('input[name="' + name + '"]:checked');
+        return input ? input.value : '';
+    }
+
+    function conditionLabel(value) {
+        return value || '';
+    }
+
+    function carrierLabel(value) {
+        var map = { unlocked: 'unlocked', verizon: 'Verizon', att: 'AT&T', tmobile: 'T-Mobile' };
+        return map[value] || value;
+    }
+
+    function buildQuery() {
+        if (profileId === 'iphone') {
+            var series = selectedValue('series');
+            var storage = selectedValue('storage');
+            var carrier = carrierLabel(selectedValue('carrier'));
+            var condition = conditionLabel(selectedValue('condition'));
+            if (!series || !storage || !carrier || !condition) return '';
+            return series + ' ' + storage + ' ' + carrier + ' ' + condition;
+        }
+        if (profileId === 'apple_watch') {
+            var s = selectedValue('series');
+            var size = selectedValue('size');
+            var conn = selectedValue('connectivity');
+            var cond = conditionLabel(selectedValue('condition'));
+            if (!s || !size || !conn || !cond) return '';
+            return 'Apple Watch ' + s + ' ' + size + ' ' + conn + ' ' + cond;
+        }
+        if (profileId === 'samsung_galaxy_watch') {
+            var sw = selectedValue('series');
+            var sz = selectedValue('size');
+            var cx = selectedValue('connectivity');
+            var cd = conditionLabel(selectedValue('condition'));
+            if (!sw || !sz || !cx || !cd) return '';
+            return 'Samsung ' + sw + ' ' + sz + ' ' + cx + ' ' + cd;
+        }
+        if (profileId === 'macbook') {
+            var model = selectedValue('model');
+            var chip = selectedValue('chip');
+            var screen = selectedValue('screen');
+            var st = selectedValue('storage');
+            var mem = selectedValue('memory');
+            if (!model || !chip || !screen || !st || !mem) return '';
+            return model + ' ' + chip + ' ' + screen + ' ' + st + ' ' + mem;
+        }
+        return '';
+    }
+
+    function refreshPreview() {
+        var query = buildQuery();
+        preview.textContent = query || {{ _('variants.preview_placeholder') | tojson }};
+        preview.classList.toggle('variant-preview-query--ready', Boolean(query));
+    }
+
+    form.querySelectorAll('input[type="radio"]').forEach(function (input) {
+        input.addEventListener('change', refreshPreview);
+    });
+
+    form.addEventListener('submit', function (event) {
+        var missing = groupNames.filter(function (name) {
+            return !form.querySelector('input[name="' + name + '"]:checked');
+        });
+        if (missing.length) {
+            event.preventDefault();
+            if (toast) {
+                toast.hidden = false;
+                toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                window.setTimeout(function () { toast.hidden = true; }, 4000);
+            }
+        }
+    });
+
+    refreshPreview();
+})();
+</script>
+{% endblock %}

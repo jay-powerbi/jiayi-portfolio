@@ -1,49 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_locale }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lowest Price Finder{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="application-name" content="{{ _('brand.name') }}">
+    <title>{% block title %}{{ _('brand.name') }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        (function () {
+            var theme = localStorage.getItem('pricepilot_theme');
+            if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        })();
+    </script>
 </head>
 <body class="app-shell">
-    <aside class="sidebar">
-        <a href="{{ url_for('dashboard') }}" class="logo">
-            <span class="logo-icon">$</span>
-            <span class="logo-text">PriceFinder</span>
-        </a>
-        <nav class="sidebar-nav">
-            <a href="{{ url_for('dashboard') }}" class="sidebar-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
-                <span class="nav-icon">▦</span>
-                Dashboard
-            </a>
-            <a href="{{ url_for('watchlist') }}" class="sidebar-link {% if request.endpoint == 'watchlist' %}active{% endif %}">
-                <span class="nav-icon">★</span>
-                Watchlist
-            </a>
-            <a href="{{ url_for('upload_product') }}" class="sidebar-link {% if request.endpoint in ('upload_product', 'confirm_upload') %}active{% endif %}">
-                <span class="nav-icon">↑</span>
-                Upload Photo
-            </a>
-            <a href="{{ url_for('add_product') }}" class="sidebar-link {% if request.endpoint == 'add_product' %}active{% endif %}">
-                <span class="nav-icon">+</span>
-                Add Comparison
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <p>Track prices. Find deals.</p>
-        </div>
-    </aside>
+    {% include '_sidebar.html' %}
 
-    <div class="app-main">
-        <header class="topbar">
-            <div class="topbar-inner">
-                <div class="topbar-title">
-                    {% block topbar_title %}Dashboard{% endblock %}
-                </div>
-                {% block topbar_actions %}{% endblock %}
+    <div class="app-frame">
+        <header class="app-header app-header--mobile">
+            <a href="{{ url_for('dashboard') }}" class="app-header-logo" aria-label="{{ _('brand.name') }} — {{ _('nav.home') }}">
+                {% include '_brand_product.html' %}
+            </a>
+            <div class="app-header-slot">
+                <a href="{{ url_for('notification_settings') }}" class="app-header-notify" aria-label="{{ _('brand.notifications') }}">
+                    <span aria-hidden="true">🔔</span>
+                </a>
+                {% block header_actions %}{% endblock %}
             </div>
         </header>
+
+        {% include '_topbar.html' %}
 
         <main class="page-content">
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -59,5 +46,36 @@
             {% block content %}{% endblock %}
         </main>
     </div>
+
+    {% set scan_endpoints = ['scan', 'upload_product', 'confirm_upload', 'select_variants', 'price_search', 'pickup_details', 'track_search_price'] %}
+    {% set compare_endpoints = ['compare', 'add_product', 'edit_product'] %}
+    {% set profile_endpoints = ['profile', 'notification_settings', 'design_system'] %}
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+        <a href="{{ url_for('dashboard') }}" class="bottom-nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
+            <span class="bottom-nav-icon" aria-hidden="true">▦</span>
+            <span class="bottom-nav-label">{{ _('nav.dashboard') }}</span>
+        </a>
+        <a href="{{ url_for('compare') }}" class="bottom-nav-link {% if request.endpoint in compare_endpoints %}active{% endif %}">
+            <span class="bottom-nav-icon" aria-hidden="true">📊</span>
+            <span class="bottom-nav-label">{{ _('nav.compare') }}</span>
+        </a>
+        <a href="{{ url_for('watchlist') }}" class="bottom-nav-link {% if request.endpoint == 'watchlist' %}active{% endif %}">
+            <span class="bottom-nav-icon" aria-hidden="true">⭐</span>
+            <span class="bottom-nav-label">{{ _('nav.watchlist') }}</span>
+        </a>
+        <a href="{{ url_for('scan') }}" class="bottom-nav-link {% if request.endpoint in scan_endpoints %}active{% endif %}">
+            <span class="bottom-nav-icon" aria-hidden="true">🔍</span>
+            <span class="bottom-nav-label">{{ _('nav.scan') }}</span>
+        </a>
+        <a href="{{ url_for('profile') }}" class="bottom-nav-link {% if request.endpoint in profile_endpoints %}active{% endif %}">
+            <span class="bottom-nav-icon" aria-hidden="true">👤</span>
+            <span class="bottom-nav-label">{{ _('nav.profile') }}</span>
+        </a>
+    </nav>
+
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delete_confirm.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,104 @@
+<article
+    class="retailer-card{% if listing.is_best_deal %} retailer-card--best{% endif %}{% if listing.price_abnormal %} retailer-card--abnormal{% elif listing.is_expensive %} retailer-card--expensive{% endif %}"
+    data-retailer-filter-item
+    data-retailer-id="{{ listing.retailer_id }}"
+    data-abnormal="{{ 'true' if listing.price_abnormal else 'false' }}"
+    data-expensive="{{ 'true' if listing.is_expensive else 'false' }}"
+    data-total="{{ listing.total_delivered }}"
+    {% if listing.seller_type is defined %}data-seller-type="{{ listing.seller_type }}"{% endif %}
+    data-best-deal-label="{{ _('search.lowest_price_badge') }}"
+>
+    {% if listing.is_best_deal and not listing.price_abnormal %}
+    <span class="retailer-best-badge">🏆 {{ _('search.lowest_price_badge') }}</span>
+    {% endif %}
+
+    <header class="retailer-card-store">
+        {% if listing.product_link_available and listing.product_url %}
+        <a href="{{ listing.product_url }}" target="_blank" rel="noopener noreferrer" class="retailer-store-link">
+            <span class="retailer-logo {{ listing.logo_class }}" aria-hidden="true">{{ listing.logo_text }}</span>
+            <span class="retailer-name">{{ listing.retailer_name }}</span>
+            <span class="store-link-arrow" aria-hidden="true">↗</span>
+        </a>
+        {% else %}
+        <div class="retailer-store-link retailer-store-link--static">
+            <span class="retailer-logo {{ listing.logo_class }}" aria-hidden="true">{{ listing.logo_text }}</span>
+            <span class="retailer-name">{{ listing.retailer_name }}</span>
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="retailer-card-price-section">
+        <span class="retailer-price">${{ "%.2f"|format(listing.total_delivered) }}</span>
+        {% if show_price_breakdown|default(false) and listing.shipping > 0 %}
+        <span class="retailer-price-note">+ ${{ "%.2f"|format(listing.shipping) }} {{ _('search.shipping').lower() }}</span>
+        {% else %}
+        <span class="retailer-price-note">{{ _('search.total_delivered') }}</span>
+        {% endif %}
+    </div>
+
+    <div class="retailer-chip-row">
+        {% if listing.shipping_free %}
+        <span class="retailer-chip retailer-chip--success">{{ _(listing.shipping_display_key) }}</span>
+        {% elif listing.shipping is defined and listing.shipping > 0 %}
+        <span class="retailer-chip">{{ _('search.shipping_paid', amount="%.2f"|format(listing.shipping)) }}</span>
+        {% endif %}
+
+        {% if listing.pickup_available and listing.pickup_display_key %}
+        <span class="retailer-chip retailer-chip--pickup">{{ _(listing.pickup_display_key) }}</span>
+        {% elif listing.delivery_display_key %}
+        <span class="retailer-chip">{{ _(listing.delivery_display_key) }}</span>
+        {% endif %}
+    </div>
+
+    {% if show_details|default(false) %}
+    <div class="listing-trust">
+        <span class="trust-stars" title="{{ _(listing.trust_label_key) }}">
+            {% for i in range(5) %}
+            <span class="trust-star{% if i < listing.trust_stars %} trust-star--on{% endif %}" aria-hidden="true">★</span>
+            {% endfor %}
+        </span>
+        <span class="trust-label">{{ _(listing.trust_label_key) }}</span>
+    </div>
+
+    {% if listing.price_abnormal %}
+    <p class="listing-abnormal" role="status">⚠ {{ _('validation.abnormal_listing') }}</p>
+    {% endif %}
+
+    {% if listing.listing_note_key %}
+    <p class="listing-note">{{ _(listing.listing_note_key) }}</p>
+    {% endif %}
+    {% endif %}
+
+    <div class="retailer-card-cta">
+        {% if listing.product_link_available and listing.product_url %}
+        <a href="{{ listing.product_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm retailer-view-btn">
+            {{ _('search.view_product') }} →
+        </a>
+        {% else %}
+        {% include '_product_link_unavailable.html' %}
+        {% endif %}
+
+        {% if show_details|default(false) %}
+        {% if listing.pickup_available %}
+        <a
+            href="{{ url_for('pickup_details', retailer=listing.retailer_id, product_name=product_name, base_name=base_name|default(product_name), zip=zip_code, upload_id=upload_id, pickup_key=listing.delivery_key, product_url=listing.product_url or '') }}"
+            class="btn btn-secondary btn-sm"
+        >
+            {{ _('pickup.view_details') }}
+        </a>
+        {% endif %}
+        {% if listing.product_link_available and listing.product_url %}
+        <form method="post" action="{{ url_for('track_search_price') }}" class="retailer-track-form">
+            <input type="hidden" name="product_name" value="{{ product_name }}">
+            <input type="hidden" name="store_name" value="{{ listing.retailer_name }}">
+            <input type="hidden" name="product_url" value="{{ listing.product_url }}">
+            <input type="hidden" name="price" value="{{ listing.total_delivered }}">
+            {% if upload_id %}
+            <input type="hidden" name="upload_id" value="{{ upload_id }}">
+            {% endif %}
+            <button type="submit" class="btn btn-ghost btn-sm">{{ _('search.track_price') }}</button>
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+</article>

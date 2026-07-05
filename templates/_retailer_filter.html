@@ -1,0 +1,35 @@
+<section
+    class="retailer-filter-card"
+    data-retailer-filter
+    data-filter-ids="{{ filter_retailers | map(attribute='id') | join(',') }}"
+    aria-label="{{ _('filter.retailers_title') }}"
+>
+    <div class="retailer-filter-header">
+        <div>
+            <h2 class="retailer-filter-title">{{ _('filter.retailers_title') }}</h2>
+            <p class="retailer-filter-desc">{{ _('filter.retailers_desc') }}</p>
+        </div>
+        <span class="retailer-filter-count" data-retailer-filter-count>{{ filter_retailers|length }} / {{ filter_retailers|length }}</span>
+    </div>
+
+    <div class="retailer-filter-toolbar">
+        <button type="button" class="btn btn-ghost btn-sm" data-filter-action="select-all">{{ _('filter.select_all') }}</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-filter-action="clear-all">{{ _('filter.clear_all') }}</button>
+    </div>
+
+    <div class="retailer-filter-grid" role="group" aria-label="{{ _('filter.retailers_title') }}">
+        {% for retailer in filter_retailers %}
+        <button
+            type="button"
+            class="retailer-filter-chip is-active"
+            data-retailer-id="{{ retailer.id }}"
+            aria-pressed="true"
+        >
+            <span class="retailer-logo {{ retailer.logo_class }}" aria-hidden="true">{{ retailer.logo_text }}</span>
+            <span class="retailer-filter-chip-label">{{ retailer.name }}</span>
+        </button>
+        {% endfor %}
+    </div>
+
+    <p class="retailer-filter-empty" data-retailer-filter-empty hidden>{{ _('filter.no_results') }}</p>
+</section>

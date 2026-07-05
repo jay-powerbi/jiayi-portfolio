@@ -1,11 +1,11 @@
-# AI-Powered Price Comparison & Watchlist App
+# Price Pilot
 
-> Compare total delivered prices across stores, track a personal watchlist, and identify products from photos — built with **Python**, **SQLite**, and **OpenAI Vision**.
+> **Price Pilot** — compare total delivered prices across stores, track a personal watchlist, and identify products from photos — built with **Python**, **SQLite**, and **Google Gemini Vision**.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat&logo=flask&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=flat&logo=sqlite&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-Vision-412991?style=flat&logo=openai&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?style=flat&logo=google&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ---
@@ -16,7 +16,7 @@
 |---|---|
 | **Compare total delivered price** | Log the price that actually matters — item + shipping — and surface the lowest option per product |
 | **Watchlist tracking** | Star products and monitor target price, lowest price, store, and alert status in one place |
-| **AI product recognition** | Upload a photo; OpenAI Vision suggests name, brand, and model for review |
+| **AI product recognition** | Upload a photo; Google Gemini Vision suggests name, brand, and model for review |
 | **Deal alerts** | Set a target price and get an instant **Alert** badge when the lowest price hits your goal |
 
 ---
@@ -56,10 +56,10 @@
 | **Backend** | Python 3, Flask |
 | **Database** | SQLite |
 | **Frontend** | HTML5, CSS3, Jinja2 |
-| **AI** | OpenAI Vision API (`gpt-4o-mini`) |
+| **AI** | Google Gemini Vision API (`gemini-2.0-flash`) |
 | **Architecture** | Server-rendered Flask app |
 
-**Dependencies:** Flask · OpenAI Python SDK · Werkzeug · Jinja2
+**Dependencies:** Flask · Google GenAI SDK · Werkzeug · Jinja2
 
 ---
 
@@ -86,7 +86,7 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Edit `.env` and set `OPENAI_API_KEY` to enable AI photo recognition. Without it, the app still works — users enter product names manually.
+Edit `.env` and set `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) to enable AI photo recognition. Without it, the app still works — users enter product names manually.
 
 > **Security:** `.env` is gitignored. Never commit API keys. Use `.env.example` as the template only.
 
@@ -110,12 +110,21 @@ SQLite creates `prices.db` automatically on first run. No manual database setup 
 
 ## Demo Workflow
 
-1. **Open the landing page** at `/` and click **Get Started**.
-2. **Upload a product photo** (or go to **Add Comparison**) and enter store prices — include shipping if you want true total delivered cost.
-3. **Add the same product from another store** with a different price.
-4. **Set a target price** — the dashboard shows **Alert** when the lowest price meets your goal.
-5. **Star a product** to add it to your **Watchlist** with Buy Now links and status tracking.
-6. **Search & sort** on the dashboard to find deals quickly.
+**Photo-first flow (recommended):**
+
+1. **Upload a product photo** from the dashboard or **Upload Photo** nav.
+2. **Review AI detection** — confirm the name or tap a suggestion chip (e.g. Samsung Galaxy Watch).
+3. **Choose model details** — series, storage, size, connectivity, and condition (when applicable).
+4. **Auto Price Search** — sample prices from major retailers; enter a ZIP code to refresh delivered totals.
+5. **Track the best deal** with one tap, or use **Add price manually** as a fallback.
+6. **Star a product** on the dashboard to add it to your **Watchlist** with Buy Now links and deal alerts.
+
+**Manual comparison flow:**
+
+1. Go to **Add Comparison** and enter store prices (include shipping for true delivered cost).
+2. **Add the same product from another store** with a different price.
+3. **Set a target price** — the dashboard shows **Alert** when the lowest price meets your goal.
+4. **Search & sort** on the dashboard to find deals quickly.
 
 ### Example
 
@@ -134,13 +143,13 @@ SQLite creates `prices.db` automatically on first run. No manual database setup 
 Copy-paste ready:
 
 - Built an **AI-powered price comparison web app** with Python, Flask, and SQLite that groups multi-store prices and surfaces the lowest option per product.
-- Integrated **OpenAI Vision** to identify products from uploaded images and auto-suggest name, brand, and model before user confirmation.
+- Integrated **Google Gemini Vision** to identify products from uploaded images and auto-suggest name, brand, and model before user confirmation.
 - Implemented a **watchlist system** with target-price alerts, dashboard analytics, search/sort, and SQLite-backed contact message storage.
 - Designed a **SaaS-style UI** with landing page, dashboard, photo upload flow, and responsive product management (edit, delete, multi-store entries).
 
 **One-liner for profiles:**
 
-> AI-Powered Price Comparison App — Built a Python + SQLite application that compares product prices, tracks watchlist items, stores user contact messages, and uses OpenAI Vision to identify product information from uploaded images.
+> AI-Powered Price Comparison App — Built a Python + SQLite application that compares product prices, tracks watchlist items, stores user contact messages, and uses Google Gemini Vision to identify product information from uploaded images.
 
 ---
 
@@ -149,7 +158,13 @@ Copy-paste ready:
 ```
 ├── app.py                  # Flask routes
 ├── database.py             # SQLite schema & queries
-├── vision.py               # OpenAI Vision integration
+├── vision.py               # Google Gemini Vision integration
+├── price_search.py         # Mock auto price search (MVP)
+├── price_validation.py     # Price bands, trust scores, abnormal detection
+├── pickup_locations.py     # Mock in-store pickup locations
+├── shopping_intelligence.py # Dashboard deals, events & AI recommendations
+├── product_variants.py     # Model/variant selection before search
+├── product_suggestions.py  # Generic product name suggestions
 ├── images.py               # Image upload helpers
 ├── scripts/seed_demo.py    # Demo data seeder
 ├── docs/screenshots/       # README screenshots
@@ -164,8 +179,13 @@ Copy-paste ready:
 
 Planned for later — not in scope for this MVP:
 
+- [ ] **Real retailer API / search integration** — replace mock price search with live Amazon, Walmart, Best Buy, Target, eBay, and brand-store APIs
+- [ ] **ZIP-code-aware delivered price** — accurate shipping and tax by location
+- [ ] **Nearby pickup locations** — real store inventory, live pickup availability, estimated pickup time, and reserve-pickup via retailer APIs
+- [ ] **In-store vs online price comparison** — compare local shelf prices with online delivered totals
+- [ ] **Shopping intelligence** — historical event discount %, buy-now vs wait AI, watchlist items likely to drop during upcoming sales
+- [ ] **Savings tracking dashboard** — historical savings, best-time-to-buy insights, and price-drop alerts
 - [ ] Email / push notifications when target prices are reached
-- [ ] Automatic price scraping across retailers
 - [ ] User accounts & authentication
 - [ ] Payment / subscription system
 - [ ] Production deployment (Docker, cloud hosting)

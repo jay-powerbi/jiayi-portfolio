@@ -1,4 +1,3 @@
-import base64
 import json
 import os
 import re
@@ -13,6 +12,8 @@ MIME_TYPES = {
     "gif": "image/gif",
     "webp": "image/webp",
 }
+
+DEFAULT_GEMINI_MODEL = "gemini-1.5-flash"
 
 VISION_PROMPT = """Analyze this product image and identify the consumer product shown.
 
@@ -36,6 +37,10 @@ def _empty_result(error=None):
         "suggested_name": "",
         "error": error,
     }
+
+
+def _get_api_key():
+    return os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
 
 
 def build_suggested_name(product_name, brand=None, model_number=None):
@@ -97,9 +102,11 @@ def _parse_response_content(content):
 
 
 def analyze_product_image(filename):
-    api_key = os.environ.get("OPENAI_API_KEY")
+    api_key = _get_api_key()
     if not api_key:
-        return _empty_result("OpenAI API key not configured. Set OPENAI_API_KEY to enable AI detection.")
+        return _empty_result(
+            "Google Gemini API key not configured. Set GOOGLE_API_KEY or GEMINI_API_KEY to enable AI detection."
+        )
 
     path = UPLOAD_DIR / filename
     if not path.exists():
@@ -111,32 +118,27 @@ def analyze_product_image(filename):
         return _empty_result("Unsupported image format for analysis.")
 
     try:
-        image_b64 = base64.standard_b64encode(path.read_bytes()).decode("utf-8")
+        image_bytes = path.read_bytes()
     except OSError:
         return _empty_result("Could not read the uploaded image.")
 
     try:
-        from openai import OpenAI
+        from google import genai
+        from google.genai import types
 
-        client = OpenAI(api_key=api_key)
-        response = client.chat.completions.create(
-            model=os.environ.get("OPENAI_VISION_MODEL", "gpt-4o-mini"),
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": VISION_PROMPT},
-                        {
-                            "type": "image_url",
-                            "image_url": {"url": f"data:{mime};base64,{image_b64}"},
-                        },
-                    ],
-                }
+        client = genai.Client(api_key=api_key)
+        model = os.environ.get("GEMINI_VISION_MODEL", DEFAULT_GEMINI_MODEL)
+        response = client.models.generate_content(
+            model=model,
+            contents=[
+                types.Part.from_bytes(data=image_bytes, mime_type=mime),
+                VISION_PROMPT,
             ],
-            response_format={"type": "json_object"},
-            max_tokens=300,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+            ),
         )
-        content = response.choices[0].message.content
+        content = response.text
         if not content:
             return _empty_result("AI returned an empty response.")
         return _parse_response_content(content)

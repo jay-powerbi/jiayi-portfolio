@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('profile.page_title') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <header class="profile-header">
+        <div class="profile-avatar" aria-hidden="true">👤</div>
+        <div>
+            <h1>{{ _('profile.title') }}</h1>
+            <p>{{ _('profile.subtitle') }}</p>
+        </div>
+    </header>
+
+    <section class="profile-section">
+        <h2 class="ds-section-title">{{ _('profile.account') }}</h2>
+        <div class="ds-settings-list">
+            <div class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('profile.language') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.language_desc') }}</p>
+                </div>
+                {% include '_lang_switcher.html' %}
+            </div>
+            <form method="post" action="{{ url_for('update_zip') }}" class="ds-settings-item profile-zip-form">
+                <input type="hidden" name="next" value="{{ url_for('profile') }}">
+                <div>
+                    <label for="profile-zip" class="ds-settings-item-label">{{ _('assistant.preferred_zip') }}</label>
+                    <p class="ds-settings-item-desc">{{ _('profile.zip_desc') }}</p>
+                </div>
+                <div class="profile-zip-input-row">
+                    <input type="text" id="profile-zip" name="zip" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" value="{{ saved_zip }}" class="price-search-zip-input" placeholder="10312">
+                    <button type="submit" class="btn btn-secondary btn-sm">{{ _('common.save') }}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h2 class="ds-section-title">{{ _('profile.preferences') }}</h2>
+        <div class="ds-settings-list">
+            <a href="{{ url_for('notification_settings') }}" class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('assistant.hero_title') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.notifications_desc') }}</p>
+                </div>
+                <span class="ds-settings-item-chevron" aria-hidden="true">›</span>
+            </a>
+            <div class="ds-settings-item profile-push-row">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('settings.enable_notifications') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.push_desc') }}</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="enable-notifications-btn" {% if notification_permission == 'granted' %}disabled{% endif %}>
+                    {{ _('settings.enable_notifications') }}
+                </button>
+            </div>
+            <div class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('profile.subscription') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.subscription_desc') }}</p>
+                </div>
+                <span class="ds-badge-soon">{{ _('assistant.coming_soon') }}</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h2 class="ds-section-title">{{ _('nav.roadmap_title') }}</h2>
+        {% with compact=true %}
+        {% include '_roadmap_panel.html' %}
+        {% endwith %}
+    </section>
+
+    <section class="profile-section">
+        <h2 class="ds-section-title">{{ _('profile.support') }}</h2>
+        <div class="ds-settings-list">
+            <a href="{{ url_for('landing') }}" class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('profile.about') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.about_desc') }}</p>
+                </div>
+                <span class="ds-settings-item-chevron" aria-hidden="true">›</span>
+            </a>
+            <a href="{{ url_for('landing') }}#contact" class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('profile.feedback') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('profile.feedback_desc') }}</p>
+                </div>
+                <span class="ds-settings-item-chevron" aria-hidden="true">›</span>
+            </a>
+            <a href="{{ url_for('design_system') }}" class="ds-settings-item">
+                <div>
+                    <p class="ds-settings-item-label">{{ _('ds.title') }}</p>
+                    <p class="ds-settings-item-desc">{{ _('ds.profile_link_desc') }}</p>
+                </div>
+                <span class="ds-settings-item-chevron" aria-hidden="true">›</span>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+{% endblock %}

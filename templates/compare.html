@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('compare.page_title') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block topbar_title %}
+<h1 class="app-topbar-heading">{{ _('compare.title') }}</h1>
+<p class="app-topbar-subtitle">{{ _('compare.subtitle') }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="compare-page">
+    <header class="page-intro page-intro--mobile">
+        <h1>{{ _('compare.title') }}</h1>
+        <p>{{ _('compare.subtitle') }}</p>
+    </header>
+
+    <section class="toolbar-card dashboard-toolbar">
+        <form method="get" action="{{ url_for('compare') }}" class="toolbar">
+            <div class="search-wrap">
+                <span class="search-icon">⌕</span>
+                <input type="search" name="q" value="{{ search }}" placeholder="{{ _('dashboard.search_placeholder') }}" class="search-input">
+            </div>
+            <select name="sort" class="sort-select" onchange="this.form.submit()">
+                <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>{{ _('sort.price_asc') }}</option>
+                <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>{{ _('sort.price_desc') }}</option>
+                <option value="name" {% if sort == 'name' %}selected{% endif %}>{{ _('sort.name') }}</option>
+                <option value="updated" {% if sort == 'updated' %}selected{% endif %}>{{ _('sort.updated') }}</option>
+            </select>
+            <button type="submit" class="btn btn-secondary btn-sm">{{ _('common.search') }}</button>
+        </form>
+        <a href="{{ url_for('add_product') }}" class="btn btn-primary btn-sm compare-add-btn">+ {{ _('nav.add') }}</a>
+    </section>
+
+    {% if product_options %}
+    <section class="compare-picker-card ds-card">
+        <form method="get" action="{{ url_for('compare') }}" class="compare-product-picker">
+            <label for="compare-product" class="compare-picker-label">{{ _('compare.select_product') }}</label>
+            <div class="compare-picker-row">
+                <select id="compare-product" name="product" class="compare-product-select" onchange="this.form.submit()">
+                    {% for name in product_options %}
+                    <option value="{{ name }}" {% if name == compare_product %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+                {% if search %}
+                <input type="hidden" name="q" value="{{ search }}">
+                {% endif %}
+                <input type="hidden" name="sort" value="{{ sort }}">
+            </div>
+            <p class="compare-picker-hint">{{ _('compare.select_product_hint') }}</p>
+        </form>
+    </section>
+    {% endif %}
+
+    {% if compare_product and compare_listings %}
+    <section class="compare-live-section">
+        <article class="compare-hero">
+            <div class="compare-hero-media">
+                {% if compare_image_url %}
+                <img src="{{ compare_image_url }}" alt="{{ compare_product }}" class="compare-hero-thumb">
+                {% else %}
+                <div class="compare-hero-thumb compare-hero-thumb--empty" aria-hidden="true">▦</div>
+                {% endif %}
+            </div>
+            <div class="compare-hero-info">
+                <h2 class="compare-hero-name">{{ compare_product }}</h2>
+                {% if compare_summary and compare_summary.rating %}
+                <div class="compare-hero-rating" aria-label="{{ compare_summary.rating }} / 5">
+                    <span class="compare-hero-stars" aria-hidden="true">
+                        {% for i in range(5) %}<span class="compare-hero-star{% if i < compare_summary.rating|round(0, 'floor')|int %} compare-hero-star--on{% endif %}">★</span>{% endfor %}
+                    </span>
+                    <span class="compare-hero-rating-value">{{ compare_summary.rating }}</span>
+                    <span class="compare-hero-reviews">({{ "{:,}".format(compare_summary.review_count) }} {{ _('compare.reviews') }})</span>
+                </div>
+                {% endif %}
+                {% if compare_summary and compare_summary.lowest_price is not none %}
+                <div class="compare-hero-price">
+                    <span class="compare-hero-price-label">{{ _('compare.lowest_delivered_price') }}</span>
+                    <span class="compare-hero-price-value">${{ "%.2f"|format(compare_summary.lowest_price) }}</span>
+                </div>
+                {% endif %}
+                <p class="compare-hero-stores">{{ _('compare.compare_stores', count=compare_summary.store_count if compare_summary else compare_listings|length) }}</p>
+            </div>
+        </article>
+
+        <p class="compare-shipping-note compare-shipping-note--row">{{ _('compare.shipping_note') }}</p>
+
+        <div class="retailer-cards compare-retailer-cards">
+            {% for listing in compare_listings %}
+            {% with product_name=compare_product %}
+            {% include '_retailer_price_card.html' %}
+            {% endwith %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if products %}
+    <div data-retailer-filter-scope>
+        {% include '_retailer_filter.html' %}
+        {% include '_product_table.html' %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h2>{{ _('compare.empty_title') }}</h2>
+        <p>{{ _('compare.empty_body') }}</p>
+        <a href="{{ url_for('scan') }}" class="btn btn-primary">{{ _('home.scan_cta') }}</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/user_preferences.js') }}"></script>
+<script src="{{ url_for('static', filename='js/retailer_filter.js') }}"></script>
+{% endblock %}

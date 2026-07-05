@@ -1,0 +1,32 @@
+{% if project.slug == "insurance" %}
+    <svg class="pf-project-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 4.6-2.9 8.8-7 10-4.1-1.2-7-5.4-7-10V6l7-3z"></path>
+        <path d="M9 12l2 2 4-5"></path>
+    </svg>
+{% elif project.slug == "retail" %}
+    <svg class="pf-project-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5h2l2 10h9l2-7H7"></path>
+        <circle cx="10" cy="19" r="1.5"></circle>
+        <circle cx="17" cy="19" r="1.5"></circle>
+    </svg>
+{% elif project.slug == "supply-chain" %}
+    <svg class="pf-project-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8l8-4 8 4-8 4-8-4z"></path>
+        <path d="M4 8v8l8 4 8-4V8"></path>
+        <path d="M12 12v8"></path>
+    </svg>
+{% elif project.slug == "zillow" %}
+    <svg class="pf-project-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 11l8-7 8 7"></path>
+        <path d="M6 10v10h12V10"></path>
+        <path d="M10 20v-6h4v6"></path>
+    </svg>
+{% elif project.slug == "uber" %}
+    <svg class="pf-project-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 14l2-5h10l2 5"></path>
+        <path d="M4 14h16v5h-2"></path>
+        <path d="M6 19H4v-5"></path>
+        <circle cx="8" cy="19" r="2"></circle>
+        <circle cx="16" cy="19" r="2"></circle>
+    </svg>
+{% endif %}

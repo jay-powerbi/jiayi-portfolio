@@ -91,9 +91,19 @@ def init_db():
     )
     conn.execute(
         """
+        CREATE TABLE IF NOT EXISTS products (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL UNIQUE COLLATE NOCASE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
+    conn.execute(
+        """
         CREATE TABLE IF NOT EXISTS watchlist (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             product_name TEXT NOT NULL UNIQUE,
+            product_id INTEGER REFERENCES products(id),
             added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """
@@ -109,9 +119,84 @@ def init_db():
         )
         """
     )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS portfolio_feedback (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            liked TEXT,
+            message TEXT,
+            page TEXT,
+            user_agent TEXT,
+            ip_address TEXT,
+            time_on_page_seconds INTEGER,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
     _migrate_product_images(conn)
+    _migrate_products(conn)
+    _migrate_sanitize_product_urls(conn)
     conn.commit()
     conn.close()
+
+
+def _migrate_sanitize_product_urls(conn):
+    from product_urls import is_placeholder_product_url, normalize_product_url, stored_product_url
+
+    # Legacy demo ASINs from an earlier seed — they caused price/URL mismatches.
+    legacy_demo_markers = (
+        "amazon.com/dp/b004yavf8i",
+        "amazon.com/dp/b0863txgm3",
+        "amazon.com/dp/b07vhs4dcx",
+        "walmart.com/ip/logitech-wireless-mouse-m185",
+        "target.com/p/logitech-m185-wireless-mouse",
+        "bestbuy.com/site/sony-wh-1000xm4",
+        "bestbuy.com/site/anker-7-in-1-usb-c-hub",
+    )
+
+    rows = conn.execute("SELECT id, product_url FROM price_entries").fetchall()
+    for row in rows:
+        url = row["product_url"] or ""
+        url_lower = url.lower()
+        if not url or is_placeholder_product_url(url):
+            conn.execute("UPDATE price_entries SET product_url = ? WHERE id = ?", ("", row["id"]))
+            continue
+        if any(marker in url_lower for marker in legacy_demo_markers):
+            conn.execute("UPDATE price_entries SET product_url = ? WHERE id = ?", ("", row["id"]))
+            continue
+        cleaned = stored_product_url(url)
+        if cleaned and cleaned != url:
+            conn.execute("UPDATE price_entries SET product_url = ? WHERE id = ?", (cleaned, row["id"]))
+        elif not cleaned:
+            conn.execute("UPDATE price_entries SET product_url = ? WHERE id = ?", ("", row["id"]))
+
+
+def _migrate_products(conn):
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(watchlist)")}
+    if "product_id" not in columns:
+        conn.execute("ALTER TABLE watchlist ADD COLUMN product_id INTEGER REFERENCES products(id)")
+
+    names = set()
+    for row in conn.execute("SELECT DISTINCT product_name FROM price_entries"):
+        if row[0]:
+            names.add(row[0])
+    for row in conn.execute("SELECT product_name FROM watchlist"):
+        if row[0]:
+            names.add(row[0])
+
+    for name in names:
+        conn.execute("INSERT OR IGNORE INTO products (name) VALUES (?)", (name,))
+
+    for row in conn.execute("SELECT product_name FROM watchlist WHERE product_id IS NULL"):
+        product_row = conn.execute(
+            "SELECT id FROM products WHERE name = ? COLLATE NOCASE",
+            (row[0],),
+        ).fetchone()
+        if product_row:
+            conn.execute(
+                "UPDATE watchlist SET product_id = ? WHERE product_name = ?",
+                (product_row[0], row[0]),
+            )
 
 
 def _migrate_product_images(conn):
@@ -128,17 +213,71 @@ def _migrate_product_images(conn):
             conn.execute(sql)
 
 
+def ensure_product(product_name):
+    name = (product_name or "").strip()
+    if not name:
+        return None
+    conn = get_db()
+    conn.execute("INSERT OR IGNORE INTO products (name) VALUES (?)", (name,))
+    row = conn.execute("SELECT id, name FROM products WHERE name = ? COLLATE NOCASE", (name,)).fetchone()
+    conn.commit()
+    conn.close()
+    return dict(row) if row else None
+
+
+def get_product_by_id(product_id):
+    conn = get_db()
+    row = conn.execute("SELECT id, name FROM products WHERE id = ?", (int(product_id),)).fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+
+def get_product_id_by_name(product_name):
+    conn = get_db()
+    row = conn.execute(
+        "SELECT id FROM products WHERE name = ? COLLATE NOCASE",
+        (product_name,),
+    ).fetchone()
+    conn.close()
+    return row["id"] if row else None
+
+
 def add_price_entry(product_name, store_name, product_url, price, target_price=None):
+    from product_urls import is_usable_product_url, normalize_product_url
+
+    stored_url = normalize_product_url(product_url) if is_usable_product_url(product_url) else ""
+    ensure_product(product_name)
     conn = get_db()
     conn.execute(
         """
         INSERT INTO price_entries (product_name, store_name, product_url, price, target_price)
         VALUES (?, ?, ?, ?, ?)
         """,
-        (product_name, store_name, product_url, price, target_price),
+        (product_name, store_name, stored_url, price, target_price),
     )
     conn.commit()
     conn.close()
+
+
+def get_product_store_entry(product_name, store_name):
+    conn = get_db()
+    row = conn.execute(
+        """
+        SELECT id, product_name, store_name, product_url, price, target_price, updated_at
+        FROM price_entries
+        WHERE product_name = ? COLLATE NOCASE AND store_name = ? COLLATE NOCASE
+        ORDER BY updated_at DESC, id DESC
+        LIMIT 1
+        """,
+        (product_name, store_name),
+    ).fetchone()
+    conn.close()
+    return row
+
+
+def get_product_store_url(product_name, store_name):
+    row = get_product_store_entry(product_name, store_name)
+    return row["product_url"] if row else None
 
 
 def get_dashboard_products(search=None, sort="price_asc"):
@@ -169,14 +308,20 @@ def get_dashboard_summary():
     total_products = len(products)
     total_alerts = 0
     savings_values = []
+    todays_savings = 0.0
+    best_deals = 0
 
     for row in products:
         target = row["target_price"]
         lowest = row["lowest_price"]
+        savings = row["savings"] or 0.0
         if target is not None and lowest <= target:
             total_alerts += 1
-        if row["savings"] and row["savings"] > 0:
-            savings_values.append(row["savings"])
+            if savings > 0:
+                todays_savings += savings
+        if savings > 0:
+            best_deals += 1
+            savings_values.append(savings)
 
     avg_savings = sum(savings_values) / len(savings_values) if savings_values else 0.0
 
@@ -184,6 +329,10 @@ def get_dashboard_summary():
         "total_products": total_products,
         "total_alerts": total_alerts,
         "average_savings": avg_savings,
+        "watching_products": get_watchlist_count(),
+        "active_alerts": total_alerts,
+        "todays_savings": todays_savings,
+        "best_deals": best_deals,
     }
 
 
@@ -226,19 +375,60 @@ def get_product_target(product_name):
     return row["target_price"] if row else None
 
 
+def delete_product_by_id(product_id):
+    from images import delete_image_file
+
+    product = get_product_by_id(product_id)
+    if not product:
+        return False
+
+    product_name = product["name"]
+    filename = delete_product_image(product_name)
+    if filename:
+        delete_image_file(filename)
+
+    conn = get_db()
+    conn.execute("DELETE FROM watchlist WHERE product_id = ?", (product_id,))
+    conn.execute(
+        "DELETE FROM watchlist WHERE product_id IS NULL AND product_name = ? COLLATE NOCASE",
+        (product_name,),
+    )
+    conn.execute(
+        "DELETE FROM price_entries WHERE product_name = ? COLLATE NOCASE",
+        (product_name,),
+    )
+    conn.execute("DELETE FROM products WHERE id = ?", (product_id,))
+    conn.commit()
+    conn.close()
+    return True
+
+
 def delete_product(product_name):
+    product_name = (product_name or "").strip()
+    if not product_name:
+        return False
+    product_id = get_product_id_by_name(product_name)
+    if product_id:
+        return delete_product_by_id(product_id)
+
     from images import delete_image_file
 
     filename = delete_product_image(product_name)
     if filename:
         delete_image_file(filename)
 
-    remove_from_watchlist(product_name)
-
     conn = get_db()
-    conn.execute("DELETE FROM price_entries WHERE product_name = ?", (product_name,))
+    conn.execute(
+        "DELETE FROM watchlist WHERE product_name = ? COLLATE NOCASE",
+        (product_name,),
+    )
+    conn.execute(
+        "DELETE FROM price_entries WHERE product_name = ? COLLATE NOCASE",
+        (product_name,),
+    )
     conn.commit()
     conn.close()
+    return True
 
 
 def rename_product(old_name, new_name):
@@ -246,7 +436,11 @@ def rename_product(old_name, new_name):
     rename_watchlist_product(old_name, new_name)
     conn = get_db()
     conn.execute(
-        "UPDATE price_entries SET product_name = ? WHERE product_name = ?",
+        "UPDATE price_entries SET product_name = ? WHERE product_name = ? COLLATE NOCASE",
+        (new_name, old_name),
+    )
+    conn.execute(
+        "UPDATE products SET name = ? WHERE name = ? COLLATE NOCASE",
         (new_name, old_name),
     )
     conn.commit()
@@ -264,6 +458,9 @@ def set_product_target(product_name, target_price):
 
 
 def update_entry(entry_id, store_name, product_url, price, target_price=None):
+    from product_urls import is_usable_product_url, normalize_product_url
+
+    stored_url = normalize_product_url(product_url) if is_usable_product_url(product_url) else ""
     conn = get_db()
     conn.execute(
         """
@@ -272,7 +469,7 @@ def update_entry(entry_id, store_name, product_url, price, target_price=None):
             updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
         """,
-        (store_name, product_url, price, target_price, entry_id),
+        (store_name, stored_url, price, target_price, entry_id),
     )
     conn.commit()
     conn.close()
@@ -425,18 +622,48 @@ def delete_unconfirmed_upload(upload_id):
 
 
 def add_to_watchlist(product_name):
+    product = ensure_product(product_name)
+    if not product:
+        return
     conn = get_db()
     conn.execute(
-        "INSERT OR IGNORE INTO watchlist (product_name) VALUES (?)",
-        (product_name,),
+        """
+        INSERT OR IGNORE INTO watchlist (product_name, product_id)
+        VALUES (?, ?)
+        """,
+        (product["name"], product["id"]),
+    )
+    conn.execute(
+        """
+        UPDATE watchlist
+        SET product_id = ?
+        WHERE product_name = ? COLLATE NOCASE AND product_id IS NULL
+        """,
+        (product["id"], product["name"]),
     )
     conn.commit()
     conn.close()
 
 
 def remove_from_watchlist(product_name):
+    product_name = (product_name or "").strip()
+    if not product_name:
+        return
+    product_id = get_product_id_by_name(product_name)
     conn = get_db()
-    conn.execute("DELETE FROM watchlist WHERE product_name = ?", (product_name,))
+    if product_id:
+        conn.execute("DELETE FROM watchlist WHERE product_id = ?", (product_id,))
+    conn.execute(
+        "DELETE FROM watchlist WHERE product_name = ? COLLATE NOCASE",
+        (product_name,),
+    )
+    conn.commit()
+    conn.close()
+
+
+def remove_from_watchlist_by_id(product_id):
+    conn = get_db()
+    conn.execute("DELETE FROM watchlist WHERE product_id = ?", (int(product_id),))
     conn.commit()
     conn.close()
 
@@ -491,15 +718,17 @@ def get_watchlist_products():
             GROUP BY product_name
         )
         SELECT
-            w.product_name,
+            w.product_id,
+            COALESCE(p.name, w.product_name) AS product_name,
             w.added_at,
             l.lowest_price,
             l.store_name,
             l.product_url,
             t.target_price
         FROM watchlist w
-        JOIN lowest l ON w.product_name = l.product_name AND l.rn = 1
-        LEFT JOIN targets t ON w.product_name = t.product_name
+        LEFT JOIN products p ON p.id = w.product_id
+        LEFT JOIN lowest l ON l.product_name = COALESCE(p.name, w.product_name) AND l.rn = 1
+        LEFT JOIN targets t ON t.product_name = COALESCE(p.name, w.product_name)
         ORDER BY w.added_at DESC
         """
     ).fetchall()
@@ -525,3 +754,38 @@ def save_contact_message(name, email, message):
     )
     conn.commit()
     conn.close()
+
+
+def save_portfolio_feedback(liked, message, page, user_agent, ip_address, time_on_page_seconds):
+    conn = get_db()
+    conn.execute(
+        """
+        INSERT INTO portfolio_feedback (
+            liked,
+            message,
+            page,
+            user_agent,
+            ip_address,
+            time_on_page_seconds
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+        """,
+        (liked, message, page, user_agent, ip_address, time_on_page_seconds),
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_portfolio_feedback(limit=100):
+    conn = get_db()
+    rows = conn.execute(
+        """
+        SELECT id, liked, message, page, user_agent, ip_address, time_on_page_seconds, created_at
+        FROM portfolio_feedback
+        ORDER BY created_at DESC, id DESC
+        LIMIT ?
+        """,
+        (int(limit),),
+    ).fetchall()
+    conn.close()
+    return rows

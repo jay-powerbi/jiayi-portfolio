@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D1117">
+    <title>Jiayi Shi - Senior BI Developer Portfolio</title>
+    <meta name="description" content="Portfolio for Jiayi Shi, Senior Business Intelligence Developer specializing in Power BI, DAX, SQL, dashboards, and enterprise analytics.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% include '_portfolio_nav.html' %}
+
+    <main>
+        <section class="pf-hero">
+            <div class="pf-container pf-hero-grid">
+                <div>
+                    <span class="pf-badge">Senior BI Developer - Open to Relocation</span>
+                    <h1 class="pf-hero-title"><span class="pf-accent">INSIGHT.</span><br>IMPACT.<br>RESULTS.</h1>
+                    <p class="pf-kicker">Senior Business Intelligence Developer | Power BI Developer | Data Analyst</p>
+                    <p class="pf-lead">8+ years designing enterprise reporting, executive dashboards, and scalable analytics solutions across financial services, healthcare, retail, real estate, and transportation use cases.</p>
+                    <div class="pf-actions">
+                        <a class="pf-btn" href="{{ url_for('portfolio_resume') }}">
+                            <svg class="pf-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 3v12"></path>
+                                <path d="M7 10l5 5 5-5"></path>
+                                <path d="M5 20h14"></path>
+                            </svg>
+                            Download Resume
+                        </a>
+                        <a class="pf-btn" href="{{ portfolio_links.linkedin }}" target="_blank" rel="noreferrer">
+                            <svg class="pf-btn-icon pf-btn-icon-linkedin" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                    <div class="pf-stats">
+                        <div class="pf-stat"><strong>8+</strong><span>Years enterprise experience</span></div>
+                        <div class="pf-stat"><strong>5+</strong><span>Featured BI projects</span></div>
+                        <div class="pf-stat"><strong>10+</strong><span>Core Technologies</span></div>
+                    </div>
+                </div>
+                <aside class="pf-card pf-hero-card" aria-label="Dashboard preview">
+                    <div class="pf-dashboard-shell">
+                        <div class="pf-window-bar"><span></span><span></span><span></span></div>
+                        <div class="pf-chart">
+                            <div class="pf-chart-row">
+                                <div class="pf-chart-block">
+                                    <span>Executive KPI</span>
+                                    <strong>97.4%</strong>
+                                    <div class="pf-chart-line" style="--fill: 97.4%"></div>
+                                </div>
+                                <div class="pf-chart-block">
+                                    <span>Cycle Time</span>
+                                    <strong>-32%</strong>
+                                    <div class="pf-chart-line pf-chart-line-teal" style="--fill: 68%"></div>
+                                </div>
+                            </div>
+                            <div class="pf-report-stage" aria-label="Animated dashboard report preview">
+                                <div class="pf-report-panel pf-report-panel-bars">
+                                    <div class="pf-report-title">Revenue by Region</div>
+                                    <div class="pf-bar-chart">
+                                        <div class="pf-bar-item" style="--bar: 82%">
+                                            <span class="pf-data-label">$820K</span>
+                                            <span class="pf-bar-col"></span>
+                                        </div>
+                                        <div class="pf-bar-item" style="--bar: 64%">
+                                            <span class="pf-data-label">$640K</span>
+                                            <span class="pf-bar-col"></span>
+                                        </div>
+                                        <div class="pf-bar-item" style="--bar: 48%">
+                                            <span class="pf-data-label">$480K</span>
+                                            <span class="pf-bar-col"></span>
+                                        </div>
+                                        <div class="pf-bar-item" style="--bar: 72%">
+                                            <span class="pf-data-label">$720K</span>
+                                            <span class="pf-bar-col"></span>
+                                        </div>
+                                        <div class="pf-bar-item" style="--bar: 54%">
+                                            <span class="pf-data-label">$540K</span>
+                                            <span class="pf-bar-col"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pf-report-panel pf-report-panel-donut">
+                                    <div class="pf-report-title">Customer Mix</div>
+                                    <svg class="pf-donut-chart" viewBox="0 0 120 120" aria-hidden="true">
+                                        <path class="pf-donut-seg pf-donut-seg-1" d="M 60.0 12.0 A 48 48 0 0 1 66.0 107.6 L 62.6 80.8 A 21 21 0 0 0 60.0 39.0 Z"></path>
+                                        <path class="pf-donut-seg pf-donut-seg-2" d="M 66.0 107.6 A 48 48 0 0 1 12.1 57.0 L 39.0 58.7 A 21 21 0 0 0 62.6 80.8 Z"></path>
+                                        <path class="pf-donut-seg pf-donut-seg-3" d="M 12.1 57.0 A 48 48 0 0 1 60.0 12.0 L 60.0 39.0 A 21 21 0 0 0 39.0 58.7 Z"></path>
+                                        <circle cx="60" cy="60" r="20" fill="#fff"></circle>
+                                        <text class="pf-donut-label" x="93.9" y="60.9">48%</text>
+                                        <text class="pf-donut-label" x="36.7" y="87.8">28%</text>
+                                        <text class="pf-donut-label" x="36.7" y="38.2">24%</text>
+                                    </svg>
+                                    <div class="pf-donut-legend">
+                                        <span>Enterprise</span>
+                                        <span>Retail</span>
+                                        <span>Growth</span>
+                                    </div>
+                                </div>
+                                <div class="pf-report-panel pf-report-panel-trend">
+                                    <div class="pf-report-title">Performance Trend</div>
+                                    <svg class="pf-trend-chart" viewBox="0 -6 320 136" aria-hidden="true">
+                                        <path class="pf-trend-grid" d="M12 28H306M12 64H306M12 100H306"></path>
+                                        <path class="pf-trend-area" d="M16 96 C58 82 82 86 114 68 C150 48 176 56 206 38 C244 16 268 42 304 22 L304 116 L16 116 Z"></path>
+                                        <path class="pf-trend-line" pathLength="1" d="M16 96 C58 82 82 86 114 68 C150 48 176 56 206 38 C244 16 268 42 304 22"></path>
+                                        <g class="pf-trend-points">
+                                            <g class="pf-trend-point" style="--point-delay: 0.05s">
+                                                <circle cx="16" cy="96" r="3.5"></circle>
+                                                <text x="16" y="86">72%</text>
+                                            </g>
+                                            <g class="pf-trend-point" style="--point-delay: 0.35s">
+                                                <circle cx="88" cy="76" r="3.5"></circle>
+                                                <text x="88" y="66">78%</text>
+                                            </g>
+                                            <g class="pf-trend-point" style="--point-delay: 0.65s">
+                                                <circle cx="150" cy="50" r="3.5"></circle>
+                                                <text x="150" y="40">85%</text>
+                                            </g>
+                                            <g class="pf-trend-point" style="--point-delay: 0.95s">
+                                                <circle cx="206" cy="38" r="3.5"></circle>
+                                                <text x="206" y="28">91%</text>
+                                            </g>
+                                            <g class="pf-trend-point" style="--point-delay: 1.25s">
+                                                <circle cx="304" cy="22" r="3.5"></circle>
+                                                <text x="304" y="12">97%</text>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="pf-report-tabs" aria-hidden="true">
+                                <span>KPI</span>
+                                <span>Bars</span>
+                                <span>Mix</span>
+                                <span>Trend</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <span class="pf-label">Technical Stack</span>
+                <div class="pf-chip-row">
+                    {% for chip in ["Power BI", "DAX", "Power Query", "SQL Server", "Tableau", "SSIS", "Azure", "Python"] %}
+                        <span class="pf-chip">{{ chip }}</span>
+                    {% endfor %}
+                    {% for chip in ["Oracle", "Snowflake", "Git", "SAS"] %}
+                        <span class="pf-chip pf-chip-secondary">{{ chip }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section" id="projects">
+            <div class="pf-container">
+                <div class="pf-section-header">
+                    <div>
+                        <h2>Featured Projects</h2>
+                    </div>
+                </div>
+                <div class="pf-project-grid">
+                    {% for project in projects %}
+                        <article class="pf-project-card {% if project.slug == 'insurance' %}pf-project-wide{% endif %}" style="--card-color: {{ project.color }}">
+                            <a class="pf-project-preview" href="{{ url_for('portfolio_project', slug=project.slug) }}" aria-label="View {{ project.title }}">
+                                {% if project.preview_image %}
+                                    <img class="pf-project-preview-img" src="{{ url_for('static', filename=project.preview_image) }}" alt="{{ project.title }} dashboard preview" loading="lazy" decoding="async">
+                                {% else %}
+                                    <div class="pf-preview-grid"><span></span><span></span><span></span><span></span></div>
+                                {% endif %}
+                            </a>
+                            <div class="pf-project-body">
+                                <span class="pf-project-icon">{% include '_portfolio_project_icon.html' %}</span>
+                                <h3>{{ project.title }}</h3>
+                                <p>{{ project.summary }}</p>
+                                <div class="pf-chip-row">
+                                    {% for tag in project.tags %}
+                                        <span class="pf-chip pf-chip-secondary">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                <a class="pf-card-link" href="{{ url_for('portfolio_project', slug=project.slug) }}">Read case study</a>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <h2 class="pf-section-title">Professional Experience</h2>
+                <div class="pf-exp-layout">
+                    <div class="pf-exp-list" role="tablist" aria-label="Work experience">
+                        {% for item in experience %}
+                            <button
+                                type="button"
+                                class="pf-exp-item{% if loop.first %} is-active{% endif %}"
+                                role="tab"
+                                id="exp-tab-{{ item.id }}"
+                                aria-selected="{{ 'true' if loop.first else 'false' }}"
+                                aria-controls="exp-panel-{{ item.id }}"
+                                data-exp-id="{{ item.id }}"
+                            >
+                                <div class="pf-exp-item-main">
+                                    <h3>{{ item.role }}</h3>
+                                    <p>{{ item.company }}</p>
+                                </div>
+                                <time>{{ item.dates }}</time>
+                            </button>
+                        {% endfor %}
+                    </div>
+                    <div class="pf-exp-panels">
+                        {% for item in experience %}
+                            <article
+                                class="pf-exp-panel pf-panel{% if loop.first %} is-active{% endif %}"
+                                role="tabpanel"
+                                id="exp-panel-{{ item.id }}"
+                                aria-labelledby="exp-tab-{{ item.id }}"
+                                {% if not loop.first %}hidden{% endif %}
+                            >
+                                <header class="pf-exp-panel-header">
+                                    <div>
+                                        <h3>Role Overview</h3>
+                                        <p class="pf-exp-panel-company">{{ item.company }}{% if item.location %} · {{ item.location }}{% endif %}</p>
+                                    </div>
+                                    <time>{{ item.dates }}</time>
+                                </header>
+                                <ul class="pf-exp-highlights">
+                                    {% for highlight in item.highlights %}
+                                        <li>{{ highlight }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section">
+            <div class="pf-container">
+                <h2 class="pf-section-title">Professional Highlights</h2>
+                <div class="pf-card-grid">
+                    <article class="pf-card"><h3>High Flyer Award</h3><p>Recognized at Freedom Mortgage for outstanding BI contributions.</p></article>
+                    <article class="pf-card"><h3>8+ Years Enterprise BI</h3><p>Financial services and healthcare reporting experience.</p></article>
+                    <article class="pf-card"><h3>5+ Featured Projects</h3><p>Insurance, retail, supply chain, real estate, and transportation analytics.</p></article>
+                    <article class="pf-card"><h3>Open to Relocation</h3><p>Targeting DFW and major US metro areas.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section" id="products">
+            <div class="pf-container">
+                <h2 class="pf-section-title">Products</h2>
+                <div class="pf-product-grid">
+                    <article class="pf-card pf-product-card">
+                        <span class="pf-product-badge">🟢 In Development</span>
+                        <h3>
+                            <span class="pf-product-icon" aria-hidden="true">🚀</span>
+                            Price Pilot
+                        </h3>
+                        <p class="pf-product-tagline">AI-Powered Shopping Assistant</p>
+                        <p class="pf-product-desc">Find the lowest delivered price across multiple retailers with intelligent price tracking and deal alerts.</p>
+                        <p class="pf-product-stack">React • Next.js • TypeScript • AI • API</p>
+                        <span class="pf-product-link pf-product-link-soon">Learn More →</span>
+                    </article>
+                    <article class="pf-card pf-product-card">
+                        <span class="pf-product-badge">🟢 In Development</span>
+                        <h3>
+                            <span class="pf-product-icon" aria-hidden="true">🗺</span>
+                            Opportunity Map
+                        </h3>
+                        <p class="pf-product-tagline">AI Opportunity Discovery Platform</p>
+                        <p class="pf-product-desc">Explore jobs, networking events, and business opportunities with interactive maps and location intelligence.</p>
+                        <p class="pf-product-stack">Maps • AI • React • Geospatial • API</p>
+                        <span class="pf-product-link pf-product-link-soon">Learn More →</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pf-footer">
+        <div class="pf-container pf-footer-inner">
+            <span>Jiayi Shi - Senior Business Intelligence Developer</span>
+            <span>Power BI - DAX - SQL - Enterprise Analytics</span>
+        </div>
+    </footer>
+    {% include '_portfolio_feedback.html' %}
+    <script src="{{ url_for('static', filename='js/portfolio_experience.js') }}" defer></script>
+</body>
+</html>

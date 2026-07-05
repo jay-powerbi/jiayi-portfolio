@@ -1,58 +1,57 @@
 {% extends "base.html" %}
 
-{% block title %}Confirm Product — Lowest Price Finder{% endblock %}
-
-{% block topbar_title %}
-<h1>Confirm Product Name</h1>
-<p class="topbar-subtitle">Review AI detection results and confirm the product name.</p>
-{% endblock %}
+{% block title %}{{ _('confirm.page_title') }}{% endblock %}
 
 {% block content %}
+<header class="page-intro">
+    <h1>{{ _('confirm.title') }}</h1>
+    <p>{{ _('confirm.subtitle') }}</p>
+</header>
 <div class="confirm-layout">
     <div class="confirm-preview-card">
-        <h2 class="form-section-title">Uploaded photo</h2>
-        <img src="{{ preview_url }}" alt="Uploaded product photo" class="confirm-image">
+        <h2 class="form-section-title">{{ _('confirm.uploaded_photo') }}</h2>
+        <img src="{{ preview_url }}" alt="{{ _('confirm.uploaded_photo') }}" class="confirm-image">
         <p class="upload-filename">{{ upload.original_filename }}</p>
     </div>
 
     <div class="form-card confirm-form-card">
         <form method="post" class="form">
             <div class="form-section">
-                <h2 class="form-section-title">AI detected product</h2>
+                <h2 class="form-section-title">{{ _('confirm.ai_detected') }}</h2>
                 <div class="ai-detection-box {% if ai_result.identified %}ai-detection-success{% else %}ai-detection-empty{% endif %}">
                     <div class="ai-placeholder-header">
-                        <span class="ai-badge">OpenAI Vision</span>
+                        <span class="ai-badge">{{ _('confirm.ai_badge') }}</span>
                         {% if ai_result.confidence is not none %}
-                            <span class="ai-confidence">{{ (ai_result.confidence * 100)|round|int }}% confidence</span>
+                            <span class="ai-confidence">{{ _('confirm.confidence', pct=(ai_result.confidence * 100)|round|int) }}</span>
                         {% endif %}
                     </div>
 
                     {% if ai_result.identified %}
                         <dl class="ai-detection-grid">
                             <div class="ai-detection-row">
-                                <dt>Product</dt>
+                                <dt>{{ _('confirm.product_label') }}</dt>
                                 <dd>{{ ai_result.product_name }}</dd>
                             </div>
                             {% if ai_result.brand %}
                             <div class="ai-detection-row">
-                                <dt>Brand</dt>
+                                <dt>{{ _('confirm.brand_label') }}</dt>
                                 <dd>{{ ai_result.brand }}</dd>
                             </div>
                             {% endif %}
                             {% if ai_result.model_number %}
                             <div class="ai-detection-row">
-                                <dt>Model</dt>
+                                <dt>{{ _('confirm.model_label') }}</dt>
                                 <dd>{{ ai_result.model_number }}</dd>
                             </div>
                             {% endif %}
                         </dl>
-                        <p class="field-hint">The product name field below has been auto-filled. Edit it if needed.</p>
+                        <p class="field-hint">{{ _('confirm.ai_hint_identified') }}</p>
                     {% else %}
                         <p class="ai-detected-empty">
                             {% if ai_result.error %}
                                 {{ ai_result.error }}
                             {% else %}
-                                We couldn't identify this product from the photo. Please enter the name manually below.
+                                {{ _('confirm.ai_hint_manual') }}
                             {% endif %}
                         </p>
                     {% endif %}
@@ -60,33 +59,67 @@
             </div>
 
             <div class="form-section">
-                <h2 class="form-section-title">Confirm product name</h2>
+                <h2 class="form-section-title">{{ _('confirm.confirm_name') }}</h2>
                 <div class="form-group">
-                    <label for="product_name">Product name</label>
+                    <label for="product_name">{{ _('add.product_name') }}</label>
                     <input
                         type="text"
                         id="product_name"
                         name="product_name"
-                        placeholder="Enter the product name"
+                        placeholder="{{ _('confirm.name_ph') }}"
                         value="{{ product_name }}"
                         required
                         autofocus
                     >
                     <p class="field-hint">
                         {% if ai_result.identified %}
-                            Auto-filled from AI detection — adjust if the suggestion isn't quite right.
+                            {{ _('confirm.autofill_hint') }}
                         {% else %}
-                            Enter the product name manually to continue.
+                            {{ _('confirm.manual_hint') }}
                         {% endif %}
                     </p>
+                    {% if product_suggestions %}
+                    <div class="suggestion-chips" role="group" aria-label="{{ _('confirm.suggestions_label') }}">
+                        <p class="suggestion-chips-label">{{ _('confirm.suggestions_label') }}</p>
+                        <div class="suggestion-chips-list">
+                            {% for suggestion in product_suggestions %}
+                            <button
+                                type="button"
+                                class="suggestion-chip{% if product_name == suggestion %} active{% endif %}"
+                                data-suggestion="{{ suggestion }}"
+                            >{{ suggestion }}</button>
+                            {% endfor %}
+                        </div>
+                        <p class="field-hint suggestion-chips-hint">{{ _('confirm.suggestions_hint') }}</p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
             <div class="form-actions">
-                <a href="{{ url_for('upload_product') }}" class="btn btn-secondary">Upload different photo</a>
-                <button type="submit" class="btn btn-primary">Confirm &amp; add prices</button>
+                <a href="{{ url_for('upload_product') }}" class="btn btn-secondary">{{ _('confirm.different_photo') }}</a>
+                <button type="submit" class="btn btn-primary">{{ _('confirm.submit') }}</button>
             </div>
         </form>
     </div>
 </div>
+{% if product_suggestions %}
+<script>
+(function () {
+    var input = document.getElementById('product_name');
+    var chips = document.querySelectorAll('.suggestion-chip');
+    if (!input || !chips.length) return;
+
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            input.value = chip.dataset.suggestion;
+            input.focus();
+            chips.forEach(function (btn) {
+                btn.classList.toggle('active', btn === chip);
+            });
+        });
+    });
+})();
+</script>
+{% endif %}
 {% endblock %}

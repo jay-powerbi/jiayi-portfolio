@@ -1,4 +1,4 @@
-/* PriceFinder Landing Page */
+/* Price Pilot Landing Page */
 
 :root {
     --lp-bg: #fafbfc;
@@ -72,6 +72,111 @@ a {
     font-size: 1.1rem;
     letter-spacing: -0.02em;
     color: var(--lp-text);
+    text-decoration: none;
+}
+
+.lp-logo:hover {
+    text-decoration: none;
+}
+
+/* Shared brand components (product + marketing) */
+.pp-brand {
+    display: inline-flex;
+    align-items: center;
+}
+
+.pp-brand-icon-wrap {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--lp-gradient);
+}
+
+.pp-brand-icon {
+    display: block;
+}
+
+.pp-brand--product {
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.pp-brand-name {
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.pp-brand--marketing {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.pp-brand-marketing-top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.pp-brand--marketing .pp-brand-name {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    line-height: 1.1;
+}
+
+.pp-brand-ai-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: var(--lp-gradient);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.pp-brand-tagline {
+    margin: 0;
+    font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+    font-weight: 600;
+    color: var(--lp-text-muted);
+    line-height: 1.45;
+    max-width: 28rem;
+}
+
+.pp-brand-features {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0;
+    margin: 0;
+}
+
+.pp-brand-feature {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--lp-border);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--lp-text-secondary);
+}
+
+.pp-brand-feature-icon {
+    font-size: 0.95rem;
+    line-height: 1;
 }
 
 .lp-logo-icon {
@@ -102,10 +207,39 @@ a {
     color: var(--lp-primary);
 }
 
+.lp-nav-lang {
+    display: flex;
+    align-items: center;
+}
+
+.lp-nav-lang .lang-switcher {
+    background: var(--lp-bg);
+    border-color: var(--lp-border);
+}
+
 .lp-nav-actions {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+}
+
+.lp-nav-actions .lang-switcher {
+    display: none;
+}
+
+.lp-nav-actions .lang-link {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--lp-text-muted);
+    text-decoration: none;
+}
+
+.lp-nav-actions .lang-link.active {
+    background: var(--lp-primary);
+    color: #fff;
 }
 
 .lp-nav-toggle {
@@ -893,7 +1027,11 @@ a {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .lp-container {
+        width: min(var(--lp-max), calc(100% - 1.25rem));
+    }
+
     .lp-nav-links {
         display: none;
         position: absolute;
@@ -903,8 +1041,9 @@ a {
         flex-direction: column;
         background: white;
         border-bottom: 1px solid var(--lp-border);
-        padding: 1rem 1.25rem;
+        padding: 0.75rem 1rem 1rem;
         gap: 0;
+        box-shadow: var(--lp-shadow);
     }
 
     .lp-nav-links.open {
@@ -912,31 +1051,149 @@ a {
     }
 
     .lp-nav-links a {
-        padding: 0.75rem 0;
+        padding: 1rem 0;
+        min-height: 3rem;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
         border-bottom: 1px solid var(--lp-border);
     }
 
-    .lp-nav-links a:last-child {
-        border-bottom: none;
+    .lp-nav-lang {
+        padding: 1rem 0 0.25rem;
+    }
+
+    .lp-nav-lang .lang-link {
+        min-height: 2.75rem;
+        min-width: 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
     }
 
     .lp-nav-actions {
-        display: none;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .lp-nav-actions .lp-btn {
+        min-height: 2.75rem;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.9rem;
     }
 
     .lp-nav-toggle {
         display: flex;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        align-items: center;
+        justify-content: center;
     }
 
     .lp-nav-inner {
         position: relative;
+        height: 3.75rem;
     }
 
     .lp-hero {
-        padding-top: 6rem;
+        padding-top: 5.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .lp-hero-content h1 {
+        font-size: clamp(1.85rem, 8vw, 2.35rem);
+        line-height: 1.15;
+    }
+
+    .lp-hero-sub {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .lp-hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .lp-hero-cta .lp-btn {
+        width: 100%;
+        min-height: 3rem;
+        font-size: 1rem;
+    }
+
+    .lp-hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 1.25rem;
+    }
+
+    .lp-stat strong {
+        font-size: 1rem;
+    }
+
+    .lp-stat span {
+        font-size: 0.88rem;
+    }
+
+    .lp-section {
+        padding: 3.5rem 0;
+    }
+
+    .lp-section-header h2 {
+        font-size: clamp(1.65rem, 6vw, 2rem);
+    }
+
+    .lp-section-header p {
+        font-size: 1.05rem;
+    }
+
+    .lp-btn {
+        min-height: 3rem;
+        font-size: 1rem;
+    }
+
+    .lp-btn-lg {
+        min-height: 3.25rem;
+        font-size: 1.05rem;
+    }
+
+    .lp-feature-card,
+    .lp-pricing-card,
+    .lp-step {
+        padding: 1.35rem;
+    }
+
+    .lp-feature-card h3,
+    .lp-step h3 {
+        font-size: 1.15rem;
+    }
+
+    .lp-feature-card p,
+    .lp-step p {
+        font-size: 1rem;
+    }
+
+    .lp-pricing-features li {
+        font-size: 1rem;
+        padding: 0.35rem 0;
+    }
+
+    .lp-form-group input,
+    .lp-form-group textarea {
+        min-height: 3rem;
+        font-size: 1rem;
+        padding: 0.85rem 1rem;
     }
 
     .lp-footer-inner {
         grid-template-columns: 1fr;
+    }
+
+    .lp-footer-links a {
+        min-height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
     }
 }

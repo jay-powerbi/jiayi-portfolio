@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Feedback - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+</head>
+<body class="portfolio-body">
+    <main class="pf-page-header">
+        <div class="pf-container">
+            <span class="pf-badge">Admin</span>
+            <h1>Portfolio Feedback</h1>
+            <p>Recent visitor feedback collected from the 3-minute portfolio prompt.</p>
+        </div>
+    </main>
+
+    <section class="pf-section">
+        <div class="pf-container">
+            <div class="pf-feedback-admin-list">
+                {% if feedback %}
+                    {% for item in feedback %}
+                        <article class="pf-panel">
+                            <div class="pf-feedback-admin-meta">
+                                <strong>{{ item.created_at }}</strong>
+                                <span>Liked: {{ item.liked or 'not selected' }}</span>
+                                <span>{{ item.time_on_page_seconds }}s on page</span>
+                            </div>
+                            <p><strong>Page:</strong> {{ item.page or 'unknown' }}</p>
+                            <p>{{ item.message or 'No written comment.' }}</p>
+                            <p class="pf-muted"><strong>IP:</strong> {{ item.ip_address or 'unknown' }} | <strong>User Agent:</strong> {{ item.user_agent or 'unknown' }}</p>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <article class="pf-panel">
+                        <p>No feedback yet.</p>
+                    </article>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Upload Photo — Lowest Price Finder{% endblock %}
-
-{% block topbar_title %}
-<h1>Upload Product Photo</h1>
-<p class="topbar-subtitle">Upload a photo of the product. You'll confirm the name on the next step.</p>
-{% endblock %}
+{% block title %}{{ _('upload.page_title') }}{% endblock %}
 
 {% block content %}
+<div class="scan-page">
+    <header class="page-intro">
+        <h1>{{ _('upload.title') }}</h1>
+        <p>{{ _('upload.subtitle') }}</p>
+    </header>
 <div class="form-card">
     <form method="post" enctype="multipart/form-data" class="form">
         <div class="upload-zone" id="upload-zone">
             <div class="upload-zone-inner">
                 <span class="upload-icon">📷</span>
-                <p class="upload-title">Drop a product photo here</p>
-                <p class="upload-hint">PNG, JPG, GIF, or WebP — max 5 MB</p>
-                <label for="product_image" class="btn btn-secondary btn-sm upload-browse">Browse files</label>
+                <p class="upload-title">{{ _('upload.drop_title') }}</p>
+                <p class="upload-hint">{{ _('upload.drop_hint') }}</p>
+                <label for="product_image" class="btn btn-secondary btn-sm upload-browse">{{ _('upload.browse') }}</label>
                 <input
                     type="file"
                     id="product_image"
@@ -26,22 +26,23 @@
                 >
             </div>
             <div class="upload-preview" id="upload-preview" hidden>
-                <img id="preview-image" alt="Selected product preview">
+                <img id="preview-image" alt="">
                 <p id="preview-filename" class="upload-filename"></p>
-                <button type="button" class="btn btn-ghost btn-sm" id="clear-preview">Choose different image</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="clear-preview">{{ _('upload.choose_different') }}</button>
             </div>
         </div>
 
         <div class="ai-placeholder-note">
             <span class="ai-badge">AI</span>
-            <p>After upload, <strong>OpenAI Vision</strong> will analyze your photo and suggest the product name, brand, and model. You can review and edit before saving.</p>
+            <p>{{ _('upload.ai_note') }}</p>
         </div>
 
         <div class="form-actions">
-            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Upload &amp; continue</button>
+            <a href="{{ url_for('scan') }}" class="btn btn-secondary">{{ _('common.cancel') }}</a>
+            <button type="submit" class="btn btn-primary">{{ _('upload.continue') }}</button>
         </div>
     </form>
+</div>
 </div>
 
 <script>

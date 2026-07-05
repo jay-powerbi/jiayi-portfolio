@@ -1,0 +1,109 @@
+<section class="table-card dashboard-table-card product-table-card">
+    <div class="table-header">
+        <h2>{{ table_title|default(_('dashboard.tracked_products')) }}</h2>
+        {% if products %}
+        <span class="table-count">
+            {% if products|length == 1 %}
+                {{ _('common.items', count=products|length) }}
+            {% else %}
+                {{ _('common.items_plural', count=products|length) }}
+            {% endif %}
+        </span>
+        {% endif %}
+    </div>
+
+    {% if products %}
+    <div class="table-wrap">
+        <table class="data-table product-table">
+            <thead>
+                <tr>
+                    <th>{{ _('common.product') }}</th>
+                    <th>{{ _('dashboard.lowest_price') }}</th>
+                    <th>{{ _('common.store') }}</th>
+                    <th>{{ _('dashboard.target') }}</th>
+                    <th>{{ _('common.status') }}</th>
+                    <th class="col-actions">{{ _('common.actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr class="product-table-row{% if product.status == 'alert' %} row-alert{% endif %}"{% if product.store_retailer_id %} data-retailer-filter-item data-retailer-id="{{ product.store_retailer_id }}"{% endif %}>
+                    <td data-label="{{ _('common.product') }}">
+                        <div class="cell-product cell-product--rich">
+                            <a href="{{ url_for('compare', product=product.product_name) }}" class="cell-product-thumb-link" aria-label="{{ _('dashboard.view_comparison', name=product.product_name) }}">
+                                {% if product.image_url %}
+                                <img src="{{ product.image_url }}" alt="" class="cell-product-thumb">
+                                {% else %}
+                                <div class="cell-product-thumb cell-product-thumb-empty" aria-hidden="true">▦</div>
+                                {% endif %}
+                            </a>
+                            <div class="cell-product-text">
+                                <a href="{{ url_for('compare', product=product.product_name) }}" class="cell-product-name cell-link">{{ product.product_name }}</a>
+                                <span class="cell-product-meta">{{ _('dashboard.last_updated') }} · {{ product.last_updated }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-label="{{ _('dashboard.lowest_price') }}">
+                        <span class="cell-price">${{ "%.2f"|format(product.lowest_price) }}</span>
+                    </td>
+                    <td data-label="{{ _('common.store') }}">
+                        {% if product.product_link_available and product.product_url %}
+                        {% with url=product.product_url, store_name=product.store_name, logo_text=product.store_logo_text, logo_class=product.store_logo_class, compact=true %}
+                        {% include '_store_link.html' %}
+                        {% endwith %}
+                        {% else %}
+                        <div class="store-link store-link--static">
+                            <span class="retailer-logo retailer-logo--inline {{ product.store_logo_class }}" aria-hidden="true">{{ product.store_logo_text }}</span>
+                            <span class="store-link-name">{{ product.store_name }}</span>
+                        </div>
+                        {% include '_product_link_unavailable.html' %}
+                        {% endif %}
+                    </td>
+                    <td data-label="{{ _('dashboard.target') }}">
+                        {% if product.target_price is not none %}<span class="cell-target">${{ "%.2f"|format(product.target_price) }}</span>{% else %}—{% endif %}
+                    </td>
+                    <td data-label="{{ _('common.status') }}">
+                        {% if product.status == 'alert' %}
+                        <span class="badge badge-alert">{{ _('status.alert') }}</span>
+                        {% else %}
+                        <span class="badge badge-tracking">{{ _('status.tracking') }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="col-actions" data-label="{{ _('common.actions') }}">
+                        <div class="product-row-actions">
+                            <a href="{{ url_for('compare', product=product.product_name) }}" class="btn btn-primary btn-sm product-compare-btn">
+                                {{ _('product.compare_prices') }} →
+                            </a>
+                            <div class="table-icon-actions">
+                                <a href="{{ url_for('edit_product', product_name=product.product_name) }}" class="table-action" title="{{ _('common.edit') }}" aria-label="{{ _('common.edit') }}">✏</a>
+                                {% if product.on_watchlist %}
+                                <form method="post" action="{{ url_for('remove_from_watchlist_route', product_name=product.product_name) }}" class="inline-form">
+                                    <button type="submit" class="table-action table-action--active" title="{{ _('dashboard.unwatch') }}" aria-label="{{ _('dashboard.unwatch') }}">⭐</button>
+                                </form>
+                                {% else %}
+                                <form method="post" action="{{ url_for('add_to_watchlist_route', product_name=product.product_name) }}" class="inline-form">
+                                    <button type="submit" class="table-action" title="{{ _('dashboard.watch') }}" aria-label="{{ _('dashboard.watch') }}">☆</button>
+                                </form>
+                                {% endif %}
+                                {% if product.id %}
+                                <form
+                                    method="post"
+                                    action="{{ url_for('delete_product_by_id_route', product_id=product.id) }}"
+                                    class="inline-form js-delete-product-form"
+                                    data-confirm-title="{{ _('delete.confirm_title', name=product.product_name) }}"
+                                    data-confirm-body="{{ _('delete.confirm_body') }}"
+                                >
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <button type="submit" class="table-action table-action--danger" title="{{ _('common.delete') }}" aria-label="{{ _('common.delete') }}">🗑</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</section>

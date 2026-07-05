@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('ds.page_title') }} — {{ _('brand.name') }}{% endblock %}
+
+{% block content %}
+<div class="ds-doc-page">
+    <header class="page-intro">
+        <h1>{{ _('ds.title') }}</h1>
+        <p>{{ _('ds.subtitle') }}</p>
+    </header>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.brand') }}</h2>
+        <div class="ds-brand-demo">
+            <article class="ds-card">
+                <h3 class="ds-doc-card-title">{{ _('ds.brand_product') }}</h3>
+                <p class="ds-doc-card-body">{{ _('ds.brand_product_note') }}</p>
+                <div class="ds-brand-demo-app">
+                    {% include '_brand_product.html' %}
+                    <span class="app-header-notify" aria-hidden="true">🔔</span>
+                </div>
+            </article>
+            <article class="ds-card ds-brand-demo-marketing">
+                <h3 class="ds-doc-card-title">{{ _('ds.brand_marketing') }}</h3>
+                <p class="ds-doc-card-body">{{ _('ds.brand_marketing_note') }}</p>
+                {% include '_brand_marketing.html' %}
+            </article>
+        </div>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.colors') }}</h2>
+        <div class="ds-swatches">
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--brand"></span><code>--pf-brand</code></div>
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--success"></span><code>--pf-success</code></div>
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--warning"></span><code>--pf-warning</code></div>
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--danger"></span><code>--pf-danger</code></div>
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--surface"></span><code>--pf-surface</code></div>
+            <div class="ds-swatch"><span class="ds-swatch-chip ds-swatch-chip--bg"></span><code>--pf-bg</code></div>
+        </div>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.typography') }}</h2>
+        <article class="ds-card ds-doc-type">
+            <p class="ds-type-2xl">Heading — 1.5rem / 800</p>
+            <p class="ds-type-xl">Title — 1.25rem / 800</p>
+            <p class="ds-type-base">Body — 1rem / 400</p>
+            <p class="ds-type-sm">Caption — 0.875rem / muted</p>
+            <p class="ds-type-xs">Label — 0.75rem / uppercase</p>
+        </article>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.buttons') }}</h2>
+        <div class="ds-doc-row">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-ghost">Ghost</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <a href="{{ url_for('scan') }}" class="ds-btn-scan ds-btn-scan--demo">{{ _('home.scan_cta') }}</a>
+        </div>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.cards') }}</h2>
+        <div class="ds-doc-grid">
+            <article class="ds-card">
+                <h3 class="ds-doc-card-title">Default card</h3>
+                <p class="ds-doc-card-body">Standard surface with border and light shadow.</p>
+            </article>
+            <article class="ds-card ds-card--flat">
+                <h3 class="ds-doc-card-title">Flat card</h3>
+                <p class="ds-doc-card-body">No shadow — lists and nested content.</p>
+            </article>
+            <article class="ds-cta-hero ds-doc-hero-demo">
+                <h2>Hero CTA</h2>
+                <p>Gradient hero for primary actions on Home.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.badges') }}</h2>
+        <div class="ds-doc-row">
+            <span class="badge badge-tracking">Tracking</span>
+            <span class="badge badge-alert">Alert</span>
+            <span class="retailer-best-badge">Best Deal</span>
+            <span class="ds-badge-soon">{{ _('assistant.coming_soon') }}</span>
+        </div>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.spacing') }}</h2>
+        <article class="ds-card">
+            <ul class="ds-token-list">
+                <li><code>--pf-space-2</code> 0.5rem</li>
+                <li><code>--pf-space-4</code> 1rem</li>
+                <li><code>--pf-space-6</code> 1.5rem</li>
+                <li><code>--pf-radius-md</code> 12px</li>
+                <li><code>--pf-radius-lg</code> 16px</li>
+                <li><code>--pf-max-content</code> 960px</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="ds-doc-section">
+        <h2 class="ds-section-title">{{ _('ds.navigation') }}</h2>
+        <p class="ds-doc-note">{{ _('ds.nav_note') }}</p>
+        <div class="ds-nav-preview" aria-hidden="true">
+            <span class="bottom-nav-link active"><span class="bottom-nav-icon">🏠</span><span class="bottom-nav-label">Home</span></span>
+            <span class="bottom-nav-link"><span class="bottom-nav-icon">🔍</span><span class="bottom-nav-label">Scan</span></span>
+            <span class="bottom-nav-link"><span class="bottom-nav-icon">⭐</span><span class="bottom-nav-label">Watchlist</span></span>
+            <span class="bottom-nav-link"><span class="bottom-nav-icon">📊</span><span class="bottom-nav-label">Compare</span></span>
+            <span class="bottom-nav-link"><span class="bottom-nav-icon">👤</span><span class="bottom-nav-label">Profile</span></span>
+        </div>
+    </section>
+</div>
+{% endblock %}

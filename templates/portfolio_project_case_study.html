@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D1117">
+    <title>{{ project.title }} - Jiayi Shi Portfolio</title>
+    <meta name="description" content="{{ project.summary }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    {% include '_portfolio_ga4.html' %}
+</head>
+<body class="portfolio-body">
+    {% set cs = project.case_study %}
+    {% include '_portfolio_nav.html' %}
+
+    <main class="pf-cs">
+        <header class="pf-cs-hero">
+            <div class="pf-container pf-cs-hero-grid">
+                <div class="pf-cs-hero-copy">
+                    <a class="pf-back" href="{{ url_for('portfolio_home') }}#projects">← {{ cs.back_label }}</a>
+                    {% if cs.hero_badge %}
+                        <span class="pf-cs-hero-badge">{{ cs.hero_badge }}</span>
+                    {% endif %}
+                    <h1>{{ project.title }}</h1>
+                    <p class="pf-cs-tagline">{{ cs.tagline }}</p>
+                    <p class="pf-cs-description">{{ cs.description }}</p>
+                    <div class="pf-detail-actions">
+                        {% for action in cs.actions %}
+                            {% if action.style == 'primary' %}
+                                <a class="pf-btn pf-btn-primary" href="{{ action.href }}">
+                                    <svg class="pf-btn-icon pf-btn-icon-solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg>
+                                    {{ action.label }}
+                                </a>
+                            {% elif action.style == 'video' %}
+                                <a class="pf-btn pf-btn-video" href="{{ action.href }}">
+                                    <svg class="pf-btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8.5v7l7-3.5-7-3.5z"></path><path d="M4 6h16v12H4z"></path></svg>
+                                    {{ action.label }}
+                                </a>
+                            {% elif action.label == 'GitHub' %}
+                                <a class="pf-btn" href="{{ action.href }}"{% if action.href.startswith('http') %} target="_blank" rel="noreferrer"{% endif %}>
+                                    {% include '_github_icon.html' %}
+                                    {{ action.label }}
+                                </a>
+                            {% else %}
+                                <a class="pf-btn" href="{{ action.href }}">
+                                    <svg class="pf-btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.5c0-1 .7-1.7 1.5-2.5 1.3-1.3 2.5-2.6 2.5-4.5 0-3-2.5-5.5-5.5-5.5S7 8.5 7 11.5"></path></svg>
+                                    {{ action.label }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <figure class="pf-cs-hero-visual pf-card">
+                    <img src="{{ url_for('static', filename=cs.hero_image) }}" alt="{{ project.title }} dashboard preview" loading="eager" decoding="async">
+                </figure>
+            </div>
+        </header>
+
+        <section class="pf-section pf-cs-body">
+            <div class="pf-container pf-cs-timeline">
+                {% for section in cs.sections %}
+                    <article class="pf-cs-step">
+                        <div class="pf-cs-step-marker" style="--step-color: {{ section.icon_color }}">
+                            {% include '_portfolio_case_study_icon.html' %}
+                        </div>
+                        <div class="pf-cs-step-content">
+                            <h2 class="pf-cs-step-title">{{ section.number }}. {{ section.title }}</h2>
+                            <p class="pf-cs-step-intro{% if section.title in ['My Role', 'Business Problem, Questions, & Goal', 'What I Learned'] %} pf-cs-step-intro-nowrap{% endif %}">{{ section.intro }}</p>
+
+                            {% if section.callout %}
+                                <aside class="pf-cs-callout">
+                                    <h3>{{ section.callout.title }}</h3>
+                                    <ul>
+                                        {% for item in section.callout.entries %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </aside>
+                            {% endif %}
+
+                            {% if section.goal %}
+                                <aside class="pf-cs-goal">
+                                    <h3>Business Goal</h3>
+                                    <p>{{ section.goal }}</p>
+                                </aside>
+                            {% endif %}
+
+                            {% if section.checklist %}
+                                <ul class="pf-cs-checklist{% if section.checklist|length > 4 %} pf-cs-checklist-cols{% endif %}">
+                                    {% for item in section.checklist %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            {% if section.steps %}
+                                <div class="pf-cs-flow">
+                                    {% for step in section.steps %}
+                                        <div class="pf-cs-flow-step">
+                                            <strong>{{ loop.index }}. {{ step.title }}</strong>
+                                            <p>{{ step.text }}</p>
+                                        </div>
+                                        {% if not loop.last %}
+                                            <span class="pf-cs-flow-arrow" aria-hidden="true">→</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if section.gallery %}
+                                <div class="pf-cs-carousel" data-carousel tabindex="0">
+                                    <div class="pf-cs-carousel-viewport">
+                                        <div class="pf-cs-carousel-track">
+                                            {% for image in section.gallery %}
+                                                <figure class="pf-cs-carousel-slide{% if loop.first %} is-active{% endif %}">
+                                                    <img
+                                                        src="{{ url_for('static', filename=image) }}"
+                                                        alt="{{ project.title }} dashboard view {{ loop.index }}"
+                                                        width="1920"
+                                                        {% if loop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                                                        decoding="async"
+                                                    >
+                                                </figure>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="pf-cs-carousel-controls">
+                                        <button class="pf-cs-carousel-btn" type="button" data-carousel-prev aria-label="Previous dashboard view">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+                                        </button>
+                                        <div class="pf-cs-carousel-dots" role="tablist" aria-label="Dashboard views">
+                                            {% for image in section.gallery %}
+                                                <button
+                                                    class="pf-cs-carousel-dot{% if loop.first %} is-active{% endif %}"
+                                                    type="button"
+                                                    role="tab"
+                                                    data-carousel-dot
+                                                    aria-label="View dashboard slide {{ loop.index }}"
+                                                    aria-selected="{{ 'true' if loop.first else 'false' }}"
+                                                ></button>
+                                            {% endfor %}
+                                        </div>
+                                        <span class="pf-cs-carousel-count" aria-live="polite">
+                                            <span data-carousel-current>1</span> / {{ section.gallery|length }}
+                                        </span>
+                                        <button class="pf-cs-carousel-btn" type="button" data-carousel-next aria-label="Next dashboard view">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if section.insights %}
+                                <div class="pf-cs-insights">
+                                    {% for insight in section.insights %}
+                                        <article class="pf-cs-insight-card">
+                                            <span class="pf-cs-insight-icon pf-cs-insight-icon-{{ insight.icon }}" aria-hidden="true"></span>
+                                            <p>{{ insight.text }}</p>
+                                        </article>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if section.executive_summary %}
+                                <aside class="pf-cs-exec-summary">
+                                    <ul>
+                                        {% for item in section.executive_summary %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </aside>
+                            {% endif %}
+
+                            {% if section.stakeholder_rows %}
+                                <div class="pf-cs-table-wrap">
+                                    <table class="pf-cs-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Stakeholder</th>
+                                                <th scope="col">Business Problem</th>
+                                                <th scope="col">Dashboard Solution / Decision Enabled</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in section.stakeholder_rows %}
+                                                <tr>
+                                                    <th scope="row">{{ row.stakeholder }}</th>
+                                                    <td>{{ row.problem }}</td>
+                                                    <td>{{ row.solution }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% endif %}
+
+                            {% if section.bullets %}
+                                <ul class="pf-cs-bullets">
+                                    {% for item in section.bullets %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        {% if cs.data_sources %}
+            <section class="pf-section pf-cs-data-sources">
+                <div class="pf-container">
+                    <h2 class="pf-cs-data-sources-title">Data Sources</h2>
+                    <article class="pf-cs-data-sources-panel">
+                        <div class="pf-cs-data-sources-list">
+                            {% for source in cs.data_sources %}
+                                <div class="pf-cs-data-source-item">
+                                    <span class="pf-cs-data-source-icon pf-cs-data-source-icon-{{ source.icon }}" aria-hidden="true"></span>
+                                    <div>
+                                        <h3>{{ source.label }}</h3>
+                                        <ul>
+                                            {% for item in source.datasets %}
+                                                <li>{{ item }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </article>
+                </div>
+            </section>
+        {% endif %}
+
+        <section class="pf-cs-footer-cta">
+            <div class="pf-container pf-cs-footer-inner">
+                <p>🚀 {{ cs.footer_cta.text }}</p>
+                <a class="pf-btn pf-btn-primary" href="{{ url_for(cs.footer_cta.button_href) }}">{{ cs.footer_cta.button_label }}</a>
+            </div>
+        </section>
+    </main>
+    {% include '_portfolio_feedback.html' %}
+    <script src="{{ url_for('static', filename='js/portfolio_carousel.js') }}" defer></script>
+</body>
+</html>

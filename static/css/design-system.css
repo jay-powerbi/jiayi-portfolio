@@ -1,0 +1,547 @@
+/**
+ * Price Pilot Design System — Phase 2
+ * Shared tokens and primitives for shopping-first SaaS UI.
+ */
+:root {
+    /* Brand */
+    --pf-brand: #6366f1;
+    --pf-brand-hover: #4f46e5;
+    --pf-brand-soft: #eef2ff;
+    --pf-brand-muted: #c7d2fe;
+
+    /* Surfaces */
+    --pf-bg: #f4f6fb;
+    --pf-surface: #ffffff;
+    --pf-surface-muted: #f8fafc;
+    --pf-overlay: rgba(15, 23, 42, 0.04);
+
+    /* Text */
+    --pf-text: #0f172a;
+    --pf-text-secondary: #475569;
+    --pf-text-muted: #64748b;
+    --pf-text-inverse: #ffffff;
+
+    /* Semantic */
+    --pf-success: #059669;
+    --pf-success-soft: #ecfdf5;
+    --pf-warning: #d97706;
+    --pf-warning-soft: #fffbeb;
+    --pf-danger: #ef4444;
+    --pf-danger-soft: #fef2f2;
+
+    /* Borders & shadows */
+    --pf-border: #e2e8f0;
+    --pf-border-light: #f1f5f9;
+    --pf-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --pf-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+    --pf-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+    /* Radius */
+    --pf-radius-sm: 8px;
+    --pf-radius-md: 12px;
+    --pf-radius-lg: 16px;
+    --pf-radius-xl: 20px;
+    --pf-radius-full: 999px;
+
+    /* Spacing */
+    --pf-space-1: 0.25rem;
+    --pf-space-2: 0.5rem;
+    --pf-space-3: 0.75rem;
+    --pf-space-4: 1rem;
+    --pf-space-5: 1.25rem;
+    --pf-space-6: 1.5rem;
+    --pf-space-8: 2rem;
+
+    /* Typography */
+    --pf-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --pf-text-xs: 0.75rem;
+    --pf-text-sm: 0.875rem;
+    --pf-text-base: 1rem;
+    --pf-text-lg: 1.125rem;
+    --pf-text-xl: 1.25rem;
+    --pf-text-2xl: 1.5rem;
+    --pf-weight-medium: 500;
+    --pf-weight-semibold: 600;
+    --pf-weight-bold: 700;
+    --pf-weight-extrabold: 800;
+
+    /* Layout */
+    --pf-nav-height: 4.25rem;
+    --pf-header-height: 3.75rem;
+    --pf-max-content: 960px;
+
+    /* Map legacy vars */
+    --bg: var(--pf-bg);
+    --surface: var(--pf-surface);
+    --text: var(--pf-text);
+    --text-muted: var(--pf-text-muted);
+    --border: var(--pf-border);
+    --border-light: var(--pf-border-light);
+    --primary: var(--pf-brand);
+    --primary-hover: var(--pf-brand-hover);
+    --primary-soft: var(--pf-brand-soft);
+    --radius: var(--pf-radius-md);
+    --radius-lg: var(--pf-radius-lg);
+    --shadow-sm: var(--pf-shadow-sm);
+    --shadow: var(--pf-shadow-md);
+}
+
+/* Design system components */
+.ds-card {
+    background: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+    box-shadow: var(--pf-shadow-xs);
+    padding: var(--pf-space-5);
+}
+
+.ds-card--flat {
+    box-shadow: none;
+}
+
+.ds-section-title {
+    font-size: var(--pf-text-sm);
+    font-weight: var(--pf-weight-extrabold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--pf-text-muted);
+    margin-bottom: var(--pf-space-3);
+}
+
+.ds-list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--pf-space-3);
+    padding: var(--pf-space-3) 0;
+    border-bottom: 1px solid var(--pf-border-light);
+}
+
+.ds-list-row:last-child {
+    border-bottom: none;
+}
+
+.ds-cta-hero {
+    display: grid;
+    gap: var(--pf-space-4);
+    padding: var(--pf-space-6);
+    border-radius: var(--pf-radius-xl);
+    background: linear-gradient(135deg, var(--pf-brand) 0%, #8b5cf6 100%);
+    color: var(--pf-text-inverse);
+    box-shadow: var(--pf-shadow-md);
+}
+
+.ds-cta-hero h2 {
+    font-size: var(--pf-text-xl);
+    font-weight: var(--pf-weight-extrabold);
+    line-height: 1.25;
+}
+
+.ds-cta-hero p {
+    font-size: var(--pf-text-sm);
+    opacity: 0.92;
+    line-height: 1.5;
+}
+
+.ds-btn-scan {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--pf-space-2);
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0 var(--pf-space-5);
+    border: none;
+    border-radius: var(--pf-radius-full);
+    background: var(--pf-surface);
+    color: var(--pf-brand);
+    font-size: var(--pf-text-base);
+    font-weight: var(--pf-weight-bold);
+    text-decoration: none;
+    box-shadow: var(--pf-shadow-sm);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.ds-btn-scan:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: var(--pf-shadow-md);
+}
+
+.ds-settings-list {
+    display: grid;
+    gap: 0;
+    border-radius: var(--pf-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--pf-border);
+    background: var(--pf-surface);
+}
+
+.ds-settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--pf-space-3);
+    padding: var(--pf-space-4) var(--pf-space-5);
+    border-bottom: 1px solid var(--pf-border-light);
+    text-decoration: none;
+    color: var(--pf-text);
+    transition: background 0.12s;
+}
+
+.ds-settings-item:last-child {
+    border-bottom: none;
+}
+
+.ds-settings-item:hover {
+    background: var(--pf-surface-muted);
+    text-decoration: none;
+}
+
+.ds-settings-item-label {
+    font-weight: var(--pf-weight-semibold);
+    font-size: var(--pf-text-sm);
+}
+
+.ds-settings-item-desc {
+    font-size: var(--pf-text-xs);
+    color: var(--pf-text-muted);
+    margin-top: 0.15rem;
+}
+
+.ds-settings-item-chevron {
+    color: var(--pf-text-muted);
+    font-size: 1.1rem;
+}
+
+.ds-scan-grid {
+    display: grid;
+    gap: var(--pf-space-4);
+}
+
+.ds-scan-option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--pf-space-4);
+    padding: var(--pf-space-5);
+    border-radius: var(--pf-radius-lg);
+    border: 1px solid var(--pf-border);
+    background: var(--pf-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.ds-scan-option:hover {
+    border-color: var(--pf-brand-muted);
+    box-shadow: var(--pf-shadow-sm);
+    text-decoration: none;
+}
+
+.ds-scan-option-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.ds-scan-option-title {
+    font-weight: var(--pf-weight-bold);
+    margin-bottom: 0.2rem;
+}
+
+.ds-scan-option-desc {
+    font-size: var(--pf-text-sm);
+    color: var(--pf-text-muted);
+}
+
+.ds-badge-soon {
+    font-size: 0.65rem;
+    font-weight: var(--pf-weight-extrabold);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.45rem;
+    border-radius: var(--pf-radius-full);
+    background: var(--pf-warning-soft);
+    color: #92400e;
+}
+
+.ds-btn-scan--demo {
+    width: auto;
+    min-width: 10rem;
+}
+
+/* Scan camera */
+.scan-camera-form {
+    margin: 0;
+}
+
+.ds-scan-option--camera {
+    cursor: pointer;
+    border-color: var(--pf-brand-muted);
+    background: var(--pf-brand-soft);
+    position: relative;
+}
+
+.scan-camera-input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Compare product picker */
+.compare-picker-card {
+    display: grid;
+    gap: var(--pf-space-2);
+}
+
+.compare-product-picker {
+    display: grid;
+    gap: var(--pf-space-2);
+}
+
+.compare-picker-label {
+    font-size: var(--pf-text-sm);
+    font-weight: var(--pf-weight-bold);
+}
+
+.compare-picker-row {
+    display: flex;
+    gap: var(--pf-space-2);
+}
+
+.compare-product-select {
+    flex: 1;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-md);
+    background: var(--pf-surface);
+    font-size: var(--pf-text-sm);
+    font-weight: var(--pf-weight-semibold);
+}
+
+.compare-picker-hint {
+    margin: 0;
+    font-size: var(--pf-text-xs);
+    color: var(--pf-text-muted);
+}
+
+/* Design system documentation page */
+.ds-doc-page {
+    display: grid;
+    gap: var(--pf-space-6);
+    padding-bottom: var(--pf-space-6);
+}
+
+.ds-doc-section {
+    display: grid;
+    gap: var(--pf-space-3);
+}
+
+.ds-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: var(--pf-space-3);
+}
+
+.ds-swatch {
+    display: grid;
+    gap: var(--pf-space-2);
+    padding: var(--pf-space-3);
+    background: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-md);
+    font-size: var(--pf-text-xs);
+}
+
+.ds-swatch-chip {
+    height: 2.5rem;
+    border-radius: var(--pf-radius-sm);
+    border: 1px solid var(--pf-border-light);
+}
+
+.ds-swatch-chip--brand { background: var(--pf-brand); }
+.ds-swatch-chip--success { background: var(--pf-success); }
+.ds-swatch-chip--warning { background: var(--pf-warning); }
+.ds-swatch-chip--danger { background: var(--pf-danger); }
+.ds-swatch-chip--surface { background: var(--pf-surface); }
+.ds-swatch-chip--bg { background: var(--pf-bg); }
+
+.ds-doc-type .ds-type-2xl { font-size: var(--pf-text-2xl); font-weight: var(--pf-weight-extrabold); margin-bottom: 0.5rem; }
+.ds-doc-type .ds-type-xl { font-size: var(--pf-text-xl); font-weight: var(--pf-weight-extrabold); margin-bottom: 0.5rem; }
+.ds-doc-type .ds-type-base { font-size: var(--pf-text-base); margin-bottom: 0.5rem; }
+.ds-doc-type .ds-type-sm { font-size: var(--pf-text-sm); color: var(--pf-text-muted); margin-bottom: 0.5rem; }
+.ds-doc-type .ds-type-xs { font-size: var(--pf-text-xs); text-transform: uppercase; letter-spacing: 0.04em; color: var(--pf-text-muted); }
+
+.ds-doc-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-3);
+    align-items: center;
+}
+
+.ds-doc-grid {
+    display: grid;
+    gap: var(--pf-space-4);
+}
+
+.ds-doc-card-title {
+    font-weight: var(--pf-weight-bold);
+    margin-bottom: 0.35rem;
+}
+
+.ds-doc-card-body {
+    font-size: var(--pf-text-sm);
+    color: var(--pf-text-muted);
+}
+
+.ds-doc-hero-demo {
+    color: var(--pf-text-inverse);
+}
+
+.ds-doc-hero-demo h2 {
+    font-size: var(--pf-text-lg);
+    margin-bottom: 0.35rem;
+}
+
+.ds-token-list {
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+    font-size: var(--pf-text-sm);
+}
+
+.ds-doc-note {
+    font-size: var(--pf-text-sm);
+    color: var(--pf-text-muted);
+}
+
+.ds-nav-preview {
+    display: flex;
+    gap: 0.25rem;
+    padding: var(--pf-space-3);
+    background: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+}
+
+.ds-nav-preview .bottom-nav-link {
+    pointer-events: none;
+}
+
+/* Brand — product (app) vs marketing (landing) */
+.pp-brand {
+    display: inline-flex;
+    align-items: center;
+}
+
+.pp-brand-icon-wrap {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--pf-brand), #8b5cf6);
+}
+
+.pp-brand-icon {
+    display: block;
+}
+
+.pp-brand--product {
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.pp-brand-name {
+    font-weight: var(--pf-weight-bold);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.pp-brand--marketing {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pf-space-3);
+}
+
+.pp-brand-marketing-top {
+    display: flex;
+    align-items: center;
+    gap: var(--pf-space-2);
+    flex-wrap: wrap;
+}
+
+.pp-brand-ai-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--pf-radius-full);
+    background: linear-gradient(135deg, var(--pf-brand), #8b5cf6);
+    color: var(--pf-text-inverse);
+    font-size: 0.72rem;
+    font-weight: var(--pf-weight-extrabold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.pp-brand-tagline {
+    margin: 0;
+    font-size: var(--pf-text-lg);
+    font-weight: var(--pf-weight-semibold);
+    color: var(--pf-text-secondary);
+    line-height: 1.45;
+}
+
+.pp-brand-features {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pf-space-2);
+    padding: 0;
+    margin: 0;
+}
+
+.pp-brand-feature {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--pf-radius-full);
+    background: var(--pf-surface-muted);
+    border: 1px solid var(--pf-border);
+    font-size: var(--pf-text-xs);
+    font-weight: var(--pf-weight-semibold);
+    color: var(--pf-text-secondary);
+}
+
+.pp-brand-feature-icon {
+    line-height: 1;
+}
+
+.ds-brand-demo {
+    display: grid;
+    gap: var(--pf-space-4);
+}
+
+.ds-brand-demo-app {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--pf-space-3);
+    height: var(--pf-header-height);
+    padding: 0 var(--pf-space-4);
+    background: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+}
+
+.ds-brand-demo-marketing {
+    padding: var(--pf-space-5);
+    background: var(--pf-bg);
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-lg);
+}

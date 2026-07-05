@@ -1,0 +1,9 @@
+<div class="lang-switcher" aria-label="Language">
+    {% for code, label in supported_locales.items() %}
+    <a
+        href="{{ url_for('set_language', locale=code) }}"
+        class="lang-link{% if current_locale == code %} active{% endif %}"
+        hreflang="{{ code }}"
+    >{{ label }}</a>
+    {% endfor %}
+</div>

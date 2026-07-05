@@ -1,0 +1,13 @@
+<div class="empty-state empty-state--polished">
+    <div class="empty-state-icon" aria-hidden="true">{{ icon|default('⭐') }}</div>
+    <h2>{{ title }}</h2>
+    <p>{{ body }}</p>
+    <div class="empty-state-actions">
+        {% if cta_url and cta_label %}
+        <a href="{{ cta_url }}" class="btn btn-primary">{{ cta_label }}</a>
+        {% endif %}
+        {% if secondary_url and secondary_label %}
+        <a href="{{ secondary_url }}" class="btn btn-secondary">{{ secondary_label }}</a>
+        {% endif %}
+    </div>
+</div>

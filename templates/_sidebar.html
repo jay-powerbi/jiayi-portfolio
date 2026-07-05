@@ -1,0 +1,47 @@
+{% set upload_endpoints = ['upload_product', 'confirm_upload', 'select_variants', 'scan'] %}
+{% set compare_endpoints = ['compare', 'add_product', 'edit_product'] %}
+{% set alerts_endpoints = ['alerts'] %}
+{% set settings_endpoints = ['profile', 'notification_settings', 'design_system'] %}
+
+<aside class="app-sidebar" aria-label="{{ _('nav.sidebar') }}">
+    <a href="{{ url_for('dashboard') }}" class="sidebar-brand">
+        {% include '_brand_product.html' %}
+    </a>
+
+    <nav class="sidebar-nav">
+        <a href="{{ url_for('dashboard') }}" class="sidebar-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">▦</span>
+            <span>{{ _('nav.dashboard') }}</span>
+        </a>
+        <a href="{{ url_for('compare') }}" class="sidebar-link {% if request.endpoint in compare_endpoints %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">📊</span>
+            <span>{{ _('nav.compare_prices') }}</span>
+        </a>
+        <a href="{{ url_for('watchlist') }}" class="sidebar-link {% if request.endpoint == 'watchlist' %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">⭐</span>
+            <span>{{ _('nav.watchlist') }}</span>
+        </a>
+        <a href="{{ url_for('alerts') }}" class="sidebar-link {% if request.endpoint in alerts_endpoints %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">🔔</span>
+            <span>{{ _('nav.price_alerts') }}</span>
+        </a>
+        <a href="{{ url_for('upload_product') }}" class="sidebar-link {% if request.endpoint in upload_endpoints %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">📷</span>
+            <span>{{ _('nav.upload') }}</span>
+        </a>
+        <a href="{{ url_for('add_product') }}" class="sidebar-link {% if request.endpoint == 'add_product' %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">＋</span>
+            <span>{{ _('nav.add_price') }}</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-roadmap">
+            {% include '_roadmap_panel.html' %}
+        </div>
+        <a href="{{ url_for('profile') }}" class="sidebar-link sidebar-link--settings {% if request.endpoint in settings_endpoints %}active{% endif %}">
+            <span class="sidebar-icon" aria-hidden="true">⚙</span>
+            <span>{{ _('nav.settings') }}</span>
+        </a>
+    </div>
+</aside>

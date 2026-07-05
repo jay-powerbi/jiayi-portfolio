@@ -1,0 +1,29 @@
+<div class="pf-feedback-modal" id="pf-feedback-modal" hidden>
+    <div class="pf-feedback-backdrop" data-feedback-close></div>
+    <section class="pf-feedback-card" role="dialog" aria-modal="true" aria-labelledby="pf-feedback-title">
+        <button class="pf-feedback-close" type="button" data-feedback-close aria-label="Close feedback dialog">×</button>
+        <span class="pf-label">Quick Feedback</span>
+        <h2 id="pf-feedback-title">Do you like this website?</h2>
+        <p>What could be improved? Your feedback helps refine the portfolio experience.</p>
+        <div class="pf-feedback-choice" role="group" aria-label="Do you like this website?">
+            <button type="button" data-feedback-liked="yes">
+                <svg class="pf-feedback-choice-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10v12"></path>
+                    <path d="M7 10l4-6 1 4h6v8H7"></path>
+                </svg>
+                <span>Yes, I like it</span>
+            </button>
+            <button type="button" data-feedback-liked="no">
+                <svg class="pf-feedback-choice-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                </svg>
+                <span>Needs improvement</span>
+            </button>
+        </div>
+        <textarea id="pf-feedback-message" rows="4" placeholder="Share anything you noticed: content, layout, speed, clarity..."></textarea>
+        <button class="pf-btn pf-btn-primary pf-feedback-submit" type="button" id="pf-feedback-submit">Send Feedback</button>
+        <p class="pf-feedback-status" id="pf-feedback-status" role="status"></p>
+    </section>
+</div>
+<script src="{{ url_for('static', filename='js/portfolio_feedback.js') }}" defer></script>
