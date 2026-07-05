@@ -1036,7 +1036,7 @@ body.portfolio-body {
 }
 
 .pf-project-card:not(.pf-project-wide) .pf-project-preview {
-    height: 240px;
+    height: 200px;
     flex-shrink: 0;
     display: block;
 }
@@ -1051,8 +1051,8 @@ body.portfolio-body {
     height: auto;
     object-fit: contain;
     object-position: top center;
-    filter: brightness(1.02) saturate(1.1) contrast(1.03);
-    transition: transform 0.4s ease, filter 0.4s ease;
+    image-rendering: -webkit-optimize-contrast;
+    transition: transform 0.4s ease;
 }
 
 .pf-project-card:not(.pf-project-wide) .pf-project-preview-img {
@@ -1063,8 +1063,7 @@ body.portfolio-body {
 }
 
 .pf-project-card:hover .pf-project-preview-img {
-    transform: scale(1.02);
-    filter: brightness(1.05) saturate(1.16) contrast(1.05);
+    transform: scale(1.01);
 }
 
 .pf-project-preview::after {
@@ -1806,16 +1805,21 @@ a.pf-card:focus-visible {
 }
 
 .pf-cs-hero-visual {
-    margin: 0;
-    padding: 12px;
+    margin: 0 auto;
+    padding: 10px;
     overflow: hidden;
+    max-width: 640px;
 }
 
 .pf-cs-hero-visual img {
     display: block;
     width: 100%;
     height: auto;
+    max-height: 360px;
+    object-fit: contain;
+    object-position: top center;
     border-radius: 8px;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .pf-cs-body {
@@ -1996,7 +2000,7 @@ a.pf-card:focus-visible {
 }
 
 .pf-cs-carousel {
-    max-width: 1024px;
+    max-width: 640px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -2038,7 +2042,10 @@ a.pf-card:focus-visible {
     display: block;
     width: 100%;
     height: auto;
-    image-rendering: auto;
+    max-height: 360px;
+    object-fit: contain;
+    object-position: top center;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .pf-cs-carousel-controls {
