@@ -965,6 +965,8 @@ PORTFOLIO_PROJECTS = [
                     "intro": "A dark-themed, operator-friendly dashboard with KPI scorecards, trip trends, borough analysis, top pickup zones, time-of-day heatmaps, and trip type performance—designed for clarity at a glance.",
                     "gallery": [
                         "images/projects/uber-fhv-executive-summary.png",
+                        "images/projects/uber-fhv-performance.png",
+                        "images/projects/uber-fhv-driver-pay.png",
                     ],
                 },
                 {
