@@ -2,13 +2,12 @@
     const MIN_SCALE = 1;
     const MAX_SCALE = 3;
     const ZOOM_STEP = 0.35;
-    const LENS_SIZE = 140;
-    const LENS_ZOOM = 2.5;
-    const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
     let lightbox;
     let stage;
     let lightboxImg;
+    let galleryImages = [];
+    let galleryIndex = 0;
     let scale = 1;
     let panX = 0;
     let panY = 0;
@@ -29,14 +28,23 @@
             '    <button type="button" class="pf-zoom-tool" data-zoom-out aria-label="Zoom out">−</button>',
             '    <button type="button" class="pf-zoom-tool pf-zoom-reset" data-zoom-reset aria-label="Reset zoom">100%</button>',
             '    <button type="button" class="pf-zoom-tool" data-zoom-in aria-label="Zoom in">+</button>',
+            '    <span class="pf-zoom-gallery-count" data-zoom-gallery-count hidden></span>',
             '    <button type="button" class="pf-zoom-tool pf-zoom-close-btn" data-zoom-close aria-label="Close zoom view">',
             '      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>',
             "    </button>",
             "  </div>",
-            '  <div class="pf-zoom-stage" data-zoom-stage>',
-            '    <img class="pf-zoom-img" alt="">',
+            '  <div class="pf-zoom-stage-wrap">',
+            '    <button type="button" class="pf-zoom-nav pf-zoom-nav-prev" data-zoom-prev aria-label="Previous dashboard screenshot">',
+            '      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>',
+            "    </button>",
+            '    <div class="pf-zoom-stage" data-zoom-stage>',
+            '      <img class="pf-zoom-img" alt="">',
+            "    </div>",
+            '    <button type="button" class="pf-zoom-nav pf-zoom-nav-next" data-zoom-next aria-label="Next dashboard screenshot">',
+            '      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>',
+            "    </button>",
             "  </div>",
-            '  <p class="pf-zoom-hint">Scroll or pinch to zoom · Drag to pan · Esc to close</p>',
+            '  <p class="pf-zoom-hint">Use arrow keys or buttons to browse · Scroll to zoom · Drag to pan · Esc to close</p>',
             "</div>",
         ].join("");
         document.body.appendChild(lightbox);
@@ -50,6 +58,8 @@
         lightbox.querySelector("[data-zoom-in]").addEventListener("click", () => setScale(scale + ZOOM_STEP));
         lightbox.querySelector("[data-zoom-out]").addEventListener("click", () => setScale(scale - ZOOM_STEP));
         lightbox.querySelector("[data-zoom-reset]").addEventListener("click", () => resetView());
+        lightbox.querySelector("[data-zoom-prev]").addEventListener("click", () => goGallery(-1));
+        lightbox.querySelector("[data-zoom-next]").addEventListener("click", () => goGallery(1));
 
         stage.addEventListener("wheel", onWheel, { passive: false });
         stage.addEventListener("pointerdown", onPointerDown);
@@ -58,11 +68,33 @@
         stage.addEventListener("pointercancel", onPointerUp);
         stage.addEventListener("pointerleave", onPointerUp);
 
-        document.addEventListener("keydown", (event) => {
-            if (!lightbox.hidden && event.key === "Escape") {
-                closeLightbox();
-            }
-        });
+        document.addEventListener("keydown", onKeyDown, true);
+    }
+
+    function onKeyDown(event) {
+        if (!lightbox || lightbox.hidden) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.stopPropagation();
+            closeLightbox();
+            return;
+        }
+
+        if (galleryImages.length <= 1) {
+            return;
+        }
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            event.stopPropagation();
+            goGallery(-1);
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            event.stopPropagation();
+            goGallery(1);
+        }
     }
 
     function resetView() {
@@ -99,20 +131,93 @@
         }
     }
 
-    function openLightbox(img) {
+    function updateGalleryUI() {
+        const hasGallery = galleryImages.length > 1;
+        const counter = lightbox.querySelector("[data-zoom-gallery-count]");
+        const prevBtn = lightbox.querySelector("[data-zoom-prev]");
+        const nextBtn = lightbox.querySelector("[data-zoom-next]");
+
+        counter.hidden = !hasGallery;
+        prevBtn.hidden = !hasGallery;
+        nextBtn.hidden = !hasGallery;
+
+        if (hasGallery) {
+            counter.textContent = `${galleryIndex + 1} / ${galleryImages.length}`;
+        }
+    }
+
+    function syncCarouselSlide() {
+        const img = galleryImages[galleryIndex];
+        if (!img) {
+            return;
+        }
+
+        const carousel = img.closest("[data-carousel]");
+        if (!carousel) {
+            return;
+        }
+
+        const slides = Array.from(carousel.querySelectorAll(".pf-cs-carousel-slide"));
+        const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+        const counter = carousel.querySelector("[data-carousel-current]");
+        const slideIndex = slides.findIndex((slide) => slide.contains(img));
+
+        if (slideIndex < 0) {
+            return;
+        }
+
+        slides.forEach((slide, index) => {
+            slide.classList.toggle("is-active", index === slideIndex);
+        });
+        dots.forEach((dot, index) => {
+            const isActive = index === slideIndex;
+            dot.classList.toggle("is-active", isActive);
+            dot.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+        if (counter) {
+            counter.textContent = String(slideIndex + 1);
+        }
+    }
+
+    function showImageAt(index) {
+        const img = galleryImages[index];
+        if (!img) {
+            return;
+        }
+
+        galleryIndex = index;
+        resetView();
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt || "Dashboard zoom view";
+        updateGalleryUI();
+        syncCarouselSlide();
+    }
+
+    function goGallery(delta) {
+        if (galleryImages.length <= 1) {
+            return;
+        }
+        const nextIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
+        showImageAt(nextIndex);
+    }
+
+    function openLightbox(img, images) {
         if (!lightbox) {
             createLightbox();
         }
 
-        resetView();
-        lightboxImg.src = img.currentSrc || img.src;
-        lightboxImg.alt = img.alt || "Dashboard zoom view";
+        galleryImages = images && images.length ? images : [img];
+        galleryIndex = Math.max(0, galleryImages.indexOf(img));
+
+        showImageAt(galleryIndex);
         lightbox.hidden = false;
         document.body.classList.add("pf-zoom-open");
 
         if (typeof window.pfTrack === "function") {
             window.pfTrack("dashboard_zoom_open", {
                 image_src: lightboxImg.src,
+                gallery_index: galleryIndex + 1,
+                gallery_total: galleryImages.length,
                 page_path: window.location.pathname,
             });
         }
@@ -125,6 +230,8 @@
         lightbox.hidden = true;
         document.body.classList.remove("pf-zoom-open");
         lightboxImg.removeAttribute("src");
+        galleryImages = [];
+        galleryIndex = 0;
         resetView();
     }
 
@@ -167,90 +274,19 @@
         }
     }
 
-    function wrapZoomableImage(img) {
-        if (img.closest(".pf-img-zoom-wrap")) {
-            return img.closest(".pf-img-zoom-wrap");
-        }
-
-        const wrap = document.createElement("div");
-        wrap.className = "pf-img-zoom-wrap";
-        img.parentNode.insertBefore(wrap, img);
-        wrap.appendChild(img);
-        return wrap;
-    }
-
-    function initMagnifier(wrap, img) {
-        const lens = document.createElement("div");
-        lens.className = "pf-magnifier-lens";
-        lens.hidden = true;
-        lens.setAttribute("aria-hidden", "true");
-        wrap.appendChild(lens);
-
-        function updateLens(event) {
-            const rect = img.getBoundingClientRect();
-            const wrapRect = wrap.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-
-            if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
-                lens.hidden = true;
-                return;
-            }
-
-            lens.hidden = false;
-            const src = img.currentSrc || img.src;
-            lens.style.backgroundImage = `url("${src}")`;
-            lens.style.backgroundSize = `${rect.width * LENS_ZOOM}px ${rect.height * LENS_ZOOM}px`;
-
-            let left = x - LENS_SIZE / 2;
-            let top = y - LENS_SIZE / 2;
-            left = Math.max(0, Math.min(left, rect.width - LENS_SIZE));
-            top = Math.max(0, Math.min(top, rect.height - LENS_SIZE));
-
-            lens.style.width = `${LENS_SIZE}px`;
-            lens.style.height = `${LENS_SIZE}px`;
-            lens.style.left = `${left + (rect.left - wrapRect.left)}px`;
-            lens.style.top = `${top + (rect.top - wrapRect.top)}px`;
-            lens.style.backgroundPosition = `${-(x * LENS_ZOOM - LENS_SIZE / 2)}px ${-(y * LENS_ZOOM - LENS_SIZE / 2)}px`;
-        }
-
-        wrap.addEventListener("mouseenter", () => {
-            lens.hidden = false;
-        });
-        wrap.addEventListener("mouseleave", () => {
-            lens.hidden = true;
-        });
-        wrap.addEventListener("mousemove", updateLens);
-    }
-
-    function bindImage(img) {
-        const wrap = wrapZoomableImage(img);
-        img.classList.add("pf-zoomable-img");
-
-        img.addEventListener("click", () => openLightbox(img));
-        wrap.setAttribute("role", "button");
-        wrap.setAttribute("tabindex", "0");
-        wrap.setAttribute("aria-label", "Click to zoom dashboard image");
-        wrap.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                openLightbox(img);
-            }
-        });
-
-        if (!isTouch) {
-            initMagnifier(wrap, img);
-        }
-    }
-
-    function initCarouselZoomButtons() {
+    function initZoomButtons() {
         document.querySelectorAll("[data-carousel-zoom]").forEach((btn) => {
             btn.addEventListener("click", (event) => {
                 event.stopPropagation();
                 const carousel = btn.closest("[data-carousel]");
-                const active = carousel?.querySelector(".pf-cs-carousel-slide.is-active img");
+                if (!carousel) {
+                    return;
+                }
+
+                const images = Array.from(carousel.querySelectorAll(".pf-cs-carousel-slide img"));
+                const active = carousel.querySelector(".pf-cs-carousel-slide.is-active img") || images[0];
                 if (active) {
-                    openLightbox(active);
+                    openLightbox(active, images);
                 }
             });
         });
@@ -266,6 +302,5 @@
         });
     }
 
-    document.querySelectorAll(".pf-cs-carousel-slide img, .pf-cs-hero-visual img").forEach(bindImage);
-    initCarouselZoomButtons();
+    initZoomButtons();
 })();
