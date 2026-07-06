@@ -52,6 +52,10 @@
                 </div>
                 <figure class="pf-cs-hero-visual pf-card">
                     <img src="{{ url_for('static', filename=cs.hero_image) }}" alt="{{ project.title }} dashboard preview" loading="eager" decoding="async">
+                    <button class="pf-zoom-trigger pf-zoom-trigger-hero" type="button" data-hero-zoom aria-label="Open zoom view">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path><path d="M11 8v6M8 11h6"></path></svg>
+                        <span>Zoom</span>
+                    </button>
                 </figure>
             </div>
         </header>
@@ -123,6 +127,10 @@
                                                 </figure>
                                             {% endfor %}
                                         </div>
+                                        <button class="pf-zoom-trigger" type="button" data-carousel-zoom aria-label="Open zoom view">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path><path d="M11 8v6M8 11h6"></path></svg>
+                                            <span>Zoom</span>
+                                        </button>
                                     </div>
                                     <div class="pf-cs-carousel-controls">
                                         <button class="pf-cs-carousel-btn" type="button" data-carousel-prev aria-label="Previous dashboard view">
@@ -143,6 +151,10 @@
                                         <span class="pf-cs-carousel-count" aria-live="polite">
                                             <span data-carousel-current>1</span> / {{ section.gallery|length }}
                                         </span>
+                                        <button class="pf-cs-carousel-btn pf-cs-carousel-zoom-btn" type="button" data-carousel-zoom aria-label="Zoom current dashboard view">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path><path d="M11 8v6M8 11h6"></path></svg>
+                                            <span class="pf-cs-carousel-zoom-label">Zoom</span>
+                                        </button>
                                         <button class="pf-cs-carousel-btn" type="button" data-carousel-next aria-label="Next dashboard view">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
                                         </button>

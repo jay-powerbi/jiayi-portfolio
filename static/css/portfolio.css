@@ -1805,6 +1805,7 @@ a.pf-card:focus-visible {
 }
 
 .pf-cs-hero-visual {
+    position: relative;
     margin: 0 auto;
     padding: 10px;
     overflow: hidden;
@@ -2082,9 +2083,9 @@ a.pf-card:focus-visible {
 }
 
 .pf-cs-carousel-viewport::after {
-    content: "Hover to magnify · Click for full view";
+    content: "Move mouse over image for magnifier";
     position: absolute;
-    right: 12px;
+    left: 12px;
     bottom: 12px;
     padding: 5px 10px;
     border-radius: 999px;
@@ -2099,6 +2100,46 @@ a.pf-card:focus-visible {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.pf-zoom-trigger {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(19, 32, 51, 0.84);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(19, 32, 51, 0.18);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.pf-zoom-trigger:hover {
+    transform: translateY(-1px);
+    background: rgba(37, 99, 235, 0.92);
+}
+
+.pf-zoom-trigger svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pf-zoom-trigger-hero {
+    right: 16px;
+    bottom: 16px;
+}
+
 .pf-cs-carousel-viewport:hover::after {
     opacity: 1;
     transform: translateY(0);
@@ -2106,8 +2147,34 @@ a.pf-card:focus-visible {
 
 @media (hover: none), (pointer: coarse) {
     .pf-cs-carousel-viewport::after {
-        content: "Tap to zoom";
+        content: "Tap image or Zoom button";
     }
+}
+
+.pf-cs-carousel-zoom-btn {
+    width: auto;
+    min-width: 38px;
+    padding: 0 12px;
+    gap: 6px;
+    color: var(--pf-blue);
+    border-color: color-mix(in srgb, var(--pf-blue) 28%, white);
+    background: color-mix(in srgb, var(--pf-blue) 8%, white);
+}
+
+.pf-cs-carousel-zoom-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.pf-cs-carousel-zoom-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pf-cs-carousel-zoom-btn svg {
+    width: 16px;
+    height: 16px;
 }
 
 .pf-cs-carousel-zoom-btn svg circle,

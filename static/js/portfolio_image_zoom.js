@@ -244,30 +244,23 @@
     }
 
     function initCarouselZoomButtons() {
-        document.querySelectorAll("[data-carousel]").forEach((carousel) => {
-            if (carousel.querySelector("[data-carousel-zoom]")) {
-                return;
-            }
-
-            const controls = carousel.querySelector(".pf-cs-carousel-controls");
-            if (!controls) {
-                return;
-            }
-
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "pf-cs-carousel-btn pf-cs-carousel-zoom-btn";
-            btn.setAttribute("data-carousel-zoom", "");
-            btn.setAttribute("aria-label", "Zoom current dashboard view");
-            btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path><path d="M11 8v6M8 11h6"></path></svg>';
-
-            const nextBtn = carousel.querySelector("[data-carousel-next]");
-            controls.insertBefore(btn, nextBtn);
-
-            btn.addEventListener("click", () => {
-                const active = carousel.querySelector(".pf-cs-carousel-slide.is-active img");
+        document.querySelectorAll("[data-carousel-zoom]").forEach((btn) => {
+            btn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const carousel = btn.closest("[data-carousel]");
+                const active = carousel?.querySelector(".pf-cs-carousel-slide.is-active img");
                 if (active) {
                     openLightbox(active);
+                }
+            });
+        });
+
+        document.querySelectorAll("[data-hero-zoom]").forEach((btn) => {
+            btn.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const img = btn.closest(".pf-cs-hero-visual")?.querySelector("img");
+                if (img) {
+                    openLightbox(img);
                 }
             });
         });
