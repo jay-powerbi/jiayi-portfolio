@@ -99,6 +99,14 @@ def tp(key, params=None):
     return t(key, **params)
 
 
+@app.template_global()
+def static_v(filename):
+    """Versioned static asset URL to bust browser cache after deploys."""
+    path = os.path.join(app.static_folder, filename)
+    version = int(os.path.getmtime(path)) if os.path.isfile(path) else 0
+    return url_for("static", filename=filename, v=version)
+
+
 @app.context_processor
 def inject_user_prefs():
     return {

@@ -2082,41 +2082,6 @@ a.pf-card:focus-visible {
     stroke-linejoin: round;
 }
 
-.pf-zoom-trigger {
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-    z-index: 3;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(19, 32, 51, 0.84);
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(19, 32, 51, 0.18);
-    transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.pf-zoom-trigger:hover {
-    transform: translateY(-1px);
-    background: rgba(37, 99, 235, 0.92);
-}
-
-.pf-zoom-trigger svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
 body.pf-zoom-open {
     overflow: hidden;
 }

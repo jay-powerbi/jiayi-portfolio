@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0D1117">
     <title>{{ project.title }} - Jiayi Shi Portfolio</title>
     <meta name="description" content="{{ project.summary }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    <link rel="stylesheet" href="{{ static_v('css/portfolio.css') }}">
     {% include '_portfolio_ga4.html' %}
 </head>
 <body class="portfolio-body">
@@ -52,10 +52,6 @@
                 </div>
                 <figure class="pf-cs-hero-visual pf-card">
                     <img src="{{ url_for('static', filename=cs.hero_image) }}" alt="{{ project.title }} dashboard preview" loading="eager" decoding="async">
-                    <button class="pf-zoom-trigger pf-zoom-trigger-hero" type="button" data-hero-zoom aria-label="Open zoom view">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path><path d="M11 8v6M8 11h6"></path></svg>
-                        <span>Zoom</span>
-                    </button>
                 </figure>
             </div>
         </header>
@@ -248,7 +244,7 @@
         </section>
     </main>
     {% include '_portfolio_feedback.html' %}
-    <script src="{{ url_for('static', filename='js/portfolio_carousel.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/portfolio_image_zoom.js') }}" defer></script>
+    <script src="{{ static_v('js/portfolio_carousel.js') }}" defer></script>
+    <script src="{{ static_v('js/portfolio_image_zoom.js') }}" defer></script>
 </body>
 </html>

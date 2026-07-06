@@ -1,4 +1,12 @@
 (function () {
+    document.querySelectorAll(".pf-magnifier-lens, .pf-img-zoom-wrap .pf-magnifier-lens").forEach((el) => el.remove());
+    document.querySelectorAll(".pf-img-zoom-wrap").forEach((wrap) => {
+        const img = wrap.querySelector("img");
+        if (img) {
+            wrap.replaceWith(img);
+        }
+    });
+
     const MIN_SCALE = 1;
     const MAX_SCALE = 3;
     const ZOOM_STEP = 0.35;
@@ -287,16 +295,6 @@
                 const active = carousel.querySelector(".pf-cs-carousel-slide.is-active img") || images[0];
                 if (active) {
                     openLightbox(active, images);
-                }
-            });
-        });
-
-        document.querySelectorAll("[data-hero-zoom]").forEach((btn) => {
-            btn.addEventListener("click", (event) => {
-                event.stopPropagation();
-                const img = btn.closest(".pf-cs-hero-visual")?.querySelector("img");
-                if (img) {
-                    openLightbox(img);
                 }
             });
         });
