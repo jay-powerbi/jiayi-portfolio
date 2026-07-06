@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0D1117">
-    <title>{{ project.title }} - Jiayi Shi Portfolio</title>
-    <meta name="description" content="{{ project.summary }}">
+    {% include '_portfolio_seo.html' %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
     {% include '_portfolio_ga4.html' %}
 </head>

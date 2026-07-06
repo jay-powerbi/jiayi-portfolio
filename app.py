@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, jsonify, Response
 from urllib.parse import quote
 import os
 
@@ -72,6 +72,7 @@ from user_prefs import (
     set_notification_permission,
 )
 from portfolio_data import PORTFOLIO_EXPERIENCE, PORTFOLIO_LINKS, PORTFOLIO_PROJECT_MAP, PORTFOLIO_PROJECTS
+from portfolio_seo import PORTFOLIO_SITE_URL, render_robots, render_sitemap, seo_context
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-in-production")
@@ -116,6 +117,7 @@ def inject_user_prefs():
         "filter_retailers": get_filter_retailers(),
         "portfolio_ga4_id": os.environ.get("GA4_MEASUREMENT_ID", "").strip(),
         "portfolio_links": PORTFOLIO_LINKS,
+        "portfolio_site_url": PORTFOLIO_SITE_URL,
     }
 
 
@@ -332,7 +334,25 @@ def portfolio_home():
         "portfolio.html",
         projects=PORTFOLIO_PROJECTS,
         experience=PORTFOLIO_EXPERIENCE,
+        seo=seo_context(
+            title="Jiayi Shi - Senior BI Developer Portfolio",
+            description=(
+                "Portfolio for Jiayi Shi, Senior Business Intelligence Developer specializing in "
+                "Power BI, DAX, SQL, dashboards, and enterprise analytics."
+            ),
+            path="/portfolio",
+        ),
     )
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    return Response(render_sitemap(), mimetype="application/xml; charset=utf-8")
+
+
+@app.route("/robots.txt")
+def robots():
+    return Response(render_robots(), mimetype="text/plain")
 
 
 @app.route("/portfolio/resume")
@@ -375,7 +395,16 @@ def portfolio_feedback_admin():
     admin_token = os.environ.get("PORTFOLIO_ADMIN_TOKEN") or app.secret_key
     if request.args.get("token") != admin_token:
         return "Not found", 404
-    return render_template("portfolio_feedback_admin.html", feedback=get_portfolio_feedback())
+    return render_template(
+        "portfolio_feedback_admin.html",
+        feedback=get_portfolio_feedback(),
+        seo=seo_context(
+            title="Portfolio Feedback - Admin",
+            description="Private portfolio feedback admin view.",
+            path="/portfolio/feedback-admin",
+            noindex=True,
+        ),
+    )
 
 
 @app.route("/portfolio/projects/<slug>")
@@ -384,22 +413,59 @@ def portfolio_project(slug):
     if project is None:
         return redirect(url_for("portfolio_home"))
     template = "portfolio_project_case_study.html" if project.get("case_study") else "portfolio_project.html"
-    return render_template(template, project=project)
+    return render_template(
+        template,
+        project=project,
+        seo=seo_context(
+            title=f"{project['title']} - Jiayi Shi Portfolio",
+            description=project.get("summary"),
+            path=f"/portfolio/projects/{slug}",
+            image=project.get("preview_image"),
+            og_type="article",
+        ),
+    )
 
 
 @app.route("/portfolio/about")
 def portfolio_about():
-    return render_template("portfolio_about.html")
+    return render_template(
+        "portfolio_about.html",
+        seo=seo_context(
+            title="About - Jiayi Shi",
+            description=(
+                "Learn about Jiayi Shi, Senior BI Developer with 8+ years of experience in "
+                "Power BI, SQL, ETL, and enterprise dashboard delivery."
+            ),
+            path="/portfolio/about",
+        ),
+    )
 
 
 @app.route("/portfolio/contact")
 def portfolio_contact():
-    return render_template("portfolio_contact.html")
+    return render_template(
+        "portfolio_contact.html",
+        seo=seo_context(
+            title="Contact - Jiayi Shi",
+            description="Contact Jiayi Shi for BI developer opportunities, portfolio inquiries, and collaboration.",
+            path="/portfolio/contact",
+        ),
+    )
 
 
 @app.route("/portfolio/opportunities")
 def portfolio_opportunities():
-    return render_template("portfolio_opportunities.html")
+    return render_template(
+        "portfolio_opportunities.html",
+        seo=seo_context(
+            title="Open to Opportunities - Jiayi Shi",
+            description=(
+                "Jiayi Shi is open to Senior BI Developer and Power BI Developer roles across the U.S., "
+                "including remote and relocation-friendly opportunities."
+            ),
+            path="/portfolio/opportunities",
+        ),
+    )
 
 
 @app.route("/contact", methods=["POST"])

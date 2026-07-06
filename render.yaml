@@ -17,3 +17,5 @@ services:
         generateValue: true
       - key: GA4_MEASUREMENT_ID
         value: G-C4PVZ8R1L7
+      - key: PORTFOLIO_SITE_URL
+        value: https://jiayi-portfolio.onrender.com

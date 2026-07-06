@@ -1,0 +1,19 @@
+{# Expects a `seo` dict from seo_context() #}
+<title>{{ seo.seo_title }}</title>
+<meta name="description" content="{{ seo.seo_description }}">
+<link rel="canonical" href="{{ seo.seo_canonical }}">
+{% if seo.seo_noindex %}
+<meta name="robots" content="noindex, nofollow">
+{% else %}
+<meta name="robots" content="index, follow">
+{% endif %}
+<meta property="og:type" content="{{ seo.seo_og_type }}">
+<meta property="og:site_name" content="Jiayi Shi Portfolio">
+<meta property="og:title" content="{{ seo.seo_title }}">
+<meta property="og:description" content="{{ seo.seo_description }}">
+<meta property="og:url" content="{{ seo.seo_canonical }}">
+<meta property="og:image" content="{{ seo.seo_image }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo.seo_title }}">
+<meta name="twitter:description" content="{{ seo.seo_description }}">
+<meta name="twitter:image" content="{{ seo.seo_image }}">
