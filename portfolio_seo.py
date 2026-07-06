@@ -14,9 +14,9 @@ PORTFOLIO_SITE_URL = os.environ.get(
 PORTFOLIO_BRAND_TITLE = "Jiayi Shi | Senior Power BI Developer Portfolio"
 DEFAULT_TITLE = PORTFOLIO_BRAND_TITLE
 DEFAULT_DESCRIPTION = (
-    "Portfolio of Jiayi Shi, Senior Power BI Developer specializing in "
-    "Power BI, DAX, SQL, and executive dashboards across finance, retail, insurance, "
-    "real estate, and transportation."
+    "Senior Power BI Developer based in New York specializing in Power BI, SQL, Python, DAX, "
+    "data visualization, dashboard development, business intelligence, and analytics. "
+    "View portfolio projects, GitHub, and professional experience."
 )
 DEFAULT_OG_IMAGE = "images/projects/profile-photo.png"
 

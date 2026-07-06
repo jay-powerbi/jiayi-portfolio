@@ -336,10 +336,6 @@ def portfolio_home():
         experience=PORTFOLIO_EXPERIENCE,
         seo=seo_context(
             title=PORTFOLIO_BRAND_TITLE,
-            description=(
-                "Portfolio for Jiayi Shi, Senior Power BI Developer specializing in "
-                "Power BI, DAX, SQL, dashboards, and enterprise analytics."
-            ),
             path="/portfolio",
             json_ld=portfolio_home_json_ld(),
         ),
