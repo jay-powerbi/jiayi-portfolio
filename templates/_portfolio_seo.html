@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow">
 {% endif %}
 <meta property="og:type" content="{{ seo.seo_og_type }}">
-<meta property="og:site_name" content="Jiayi Shi Portfolio">
+<meta property="og:site_name" content="{{ seo.seo_site_name }}">
 <meta property="og:title" content="{{ seo.seo_title }}">
 <meta property="og:description" content="{{ seo.seo_description }}">
 <meta property="og:url" content="{{ seo.seo_canonical }}">
@@ -17,3 +17,6 @@
 <meta name="twitter:title" content="{{ seo.seo_title }}">
 <meta name="twitter:description" content="{{ seo.seo_description }}">
 <meta name="twitter:image" content="{{ seo.seo_image }}">
+{% if seo.seo_json_ld %}
+<script type="application/ld+json">{{ seo.seo_json_ld | tojson }}</script>
+{% endif %}

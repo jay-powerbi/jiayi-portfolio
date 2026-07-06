@@ -5,15 +5,16 @@ from __future__ import annotations
 import os
 from xml.sax.saxutils import escape
 
-from portfolio_data import PORTFOLIO_PROJECTS
+from portfolio_data import PORTFOLIO_LINKS, PORTFOLIO_PROJECTS
 
 PORTFOLIO_SITE_URL = os.environ.get(
     "PORTFOLIO_SITE_URL", "https://jiayi-portfolio.onrender.com"
 ).rstrip("/")
 
-DEFAULT_TITLE = "Jiayi Shi - Senior BI Developer Portfolio"
+PORTFOLIO_BRAND_TITLE = "Jiayi Shi | Senior Power BI Developer Portfolio"
+DEFAULT_TITLE = PORTFOLIO_BRAND_TITLE
 DEFAULT_DESCRIPTION = (
-    "Portfolio of Jiayi Shi, Senior Business Intelligence Developer specializing in "
+    "Portfolio of Jiayi Shi, Senior Power BI Developer specializing in "
     "Power BI, DAX, SQL, and executive dashboards across finance, retail, insurance, "
     "real estate, and transportation."
 )
@@ -60,11 +61,13 @@ def seo_context(
     image: str | None = None,
     og_type: str = "website",
     noindex: bool = False,
+    json_ld: dict | list | None = None,
 ) -> dict:
     desc = (description or DEFAULT_DESCRIPTION).strip()
     image_path = image or DEFAULT_OG_IMAGE
-    return {
+    context = {
         "seo_title": title.strip(),
+        "seo_site_name": PORTFOLIO_BRAND_TITLE,
         "seo_description": desc,
         "seo_path": path if path.startswith("/") else f"/{path}",
         "seo_canonical": absolute_url(path),
@@ -72,6 +75,38 @@ def seo_context(
         "seo_og_type": og_type,
         "seo_noindex": noindex,
         "portfolio_site_url": PORTFOLIO_SITE_URL,
+    }
+    if json_ld is not None:
+        context["seo_json_ld"] = json_ld
+    return context
+
+
+def portfolio_home_json_ld() -> dict:
+    same_as = [
+        url
+        for url in (
+            PORTFOLIO_LINKS.get("linkedin"),
+            PORTFOLIO_LINKS.get("github"),
+        )
+        if url
+    ]
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": PORTFOLIO_BRAND_TITLE,
+                "url": absolute_url("/portfolio"),
+                "description": DEFAULT_DESCRIPTION,
+            },
+            {
+                "@type": "Person",
+                "name": "Jiayi Shi",
+                "jobTitle": "Senior Power BI Developer",
+                "url": absolute_url("/portfolio"),
+                "sameAs": same_as,
+            },
+        ],
     }
 
 

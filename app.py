@@ -72,7 +72,7 @@ from user_prefs import (
     set_notification_permission,
 )
 from portfolio_data import PORTFOLIO_EXPERIENCE, PORTFOLIO_LINKS, PORTFOLIO_PROJECT_MAP, PORTFOLIO_PROJECTS
-from portfolio_seo import PORTFOLIO_SITE_URL, render_robots, render_sitemap, seo_context
+from portfolio_seo import PORTFOLIO_BRAND_TITLE, PORTFOLIO_SITE_URL, portfolio_home_json_ld, render_robots, render_sitemap, seo_context
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-secret-change-in-production")
@@ -335,12 +335,13 @@ def portfolio_home():
         projects=PORTFOLIO_PROJECTS,
         experience=PORTFOLIO_EXPERIENCE,
         seo=seo_context(
-            title="Jiayi Shi - Senior BI Developer Portfolio",
+            title=PORTFOLIO_BRAND_TITLE,
             description=(
-                "Portfolio for Jiayi Shi, Senior Business Intelligence Developer specializing in "
+                "Portfolio for Jiayi Shi, Senior Power BI Developer specializing in "
                 "Power BI, DAX, SQL, dashboards, and enterprise analytics."
             ),
             path="/portfolio",
+            json_ld=portfolio_home_json_ld(),
         ),
     )
 
