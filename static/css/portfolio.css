@@ -1808,14 +1808,14 @@ a.pf-card:focus-visible {
     margin: 0 auto;
     padding: 10px;
     overflow: hidden;
-    max-width: 640px;
+    max-width: 996px;
 }
 
 .pf-cs-hero-visual img {
     display: block;
     width: 100%;
+    max-width: 996px;
     height: auto;
-    max-height: 360px;
     object-fit: contain;
     object-position: top center;
     border-radius: 8px;
@@ -2000,7 +2000,7 @@ a.pf-card:focus-visible {
 }
 
 .pf-cs-carousel {
-    max-width: 640px;
+    max-width: 996px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -2041,8 +2041,8 @@ a.pf-card:focus-visible {
 .pf-cs-carousel-slide img {
     display: block;
     width: 100%;
+    max-width: 996px;
     height: auto;
-    max-height: 360px;
     object-fit: contain;
     object-position: top center;
     image-rendering: -webkit-optimize-contrast;
