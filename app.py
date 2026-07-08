@@ -362,9 +362,10 @@ def robots():
 def portfolio_resume():
     return send_from_directory(
         os.path.join(app.root_path, "static", "files"),
-        "Jiayi_Shi_Resume.docx",
+        "Jiayi_Shi_Resume.pdf",
         as_attachment=True,
-        download_name="Jiayi_Shi_Resume.docx",
+        download_name="Jiayi_Shi_Resume.pdf",
+        mimetype="application/pdf",
     )
 
 
