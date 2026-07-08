@@ -280,7 +280,7 @@ PORTFOLIO_PROJECTS = [
             "description": "This interactive Power BI dashboard analyzes patient admissions, medical conditions, length of stay, billing trends, and insurance coverage — so hospital leaders can improve capacity planning, revenue management, and patient outcomes without waiting on manual reports.",
             "hero_image": "images/projects/healthcare-executive-summary.png",
             "actions": [
-                {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/healthcare-executive-analytics-powerbi-dashboard"},
+                {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/healthcare-powerbi-dashboard"},
             ],
             "sections": [
                 {
