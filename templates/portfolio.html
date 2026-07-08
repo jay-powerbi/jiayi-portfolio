@@ -37,7 +37,7 @@
                     </div>
                     <div class="pf-stats">
                         <div class="pf-stat"><strong>8+</strong><span>Years enterprise experience</span></div>
-                        <div class="pf-stat"><strong>5+</strong><span>Featured BI projects</span></div>
+                        <div class="pf-stat"><strong>6+</strong><span>Featured BI projects</span></div>
                         <div class="pf-stat"><strong>10+</strong><span>Core Technologies</span></div>
                     </div>
                 </div>
@@ -166,10 +166,10 @@
                 </div>
                 <div class="pf-project-grid">
                     {% for project in projects %}
-                        <article class="pf-project-card {% if project.slug == 'insurance' %}pf-project-wide{% endif %}" style="--card-color: {{ project.color }}">
+                        <article class="pf-project-card {% if project.slug == 'healthcare' %}pf-project-wide{% endif %}" style="--card-color: {{ project.color }}">
                             <a class="pf-project-preview" href="{{ url_for('portfolio_project', slug=project.slug) }}" aria-label="View {{ project.title }}">
                                 {% if project.preview_image %}
-                                    <img class="pf-project-preview-img" src="{{ url_for('static', filename=project.preview_image) }}" alt="{{ project.title }} dashboard preview" loading="lazy" decoding="async">
+                                    <img class="pf-project-preview-img" src="{{ static_v(project.preview_image) }}" alt="{{ project.title }} dashboard preview" loading="lazy" decoding="async">
                                 {% else %}
                                     <div class="pf-preview-grid"><span></span><span></span><span></span><span></span></div>
                                 {% endif %}

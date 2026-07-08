@@ -71,7 +71,13 @@ from user_prefs import (
     save_zip,
     set_notification_permission,
 )
-from portfolio_data import PORTFOLIO_EXPERIENCE, PORTFOLIO_LINKS, PORTFOLIO_PROJECT_MAP, PORTFOLIO_PROJECTS
+from portfolio_data import (
+    PORTFOLIO_EXPERIENCE,
+    PORTFOLIO_LINKS,
+    PORTFOLIO_PROJECT_MAP,
+    PORTFOLIO_PROJECTS,
+    ordered_portfolio_projects,
+)
 from portfolio_seo import PORTFOLIO_BRAND_TITLE, PORTFOLIO_SITE_URL, portfolio_home_json_ld, render_robots, render_sitemap, seo_context
 
 app = Flask(__name__)
@@ -332,7 +338,7 @@ def landing():
 def portfolio_home():
     return render_template(
         "portfolio.html",
-        projects=PORTFOLIO_PROJECTS,
+        projects=ordered_portfolio_projects(),
         experience=PORTFOLIO_EXPERIENCE,
         seo=seo_context(
             title=PORTFOLIO_BRAND_TITLE,

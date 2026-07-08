@@ -1300,3 +1300,17 @@ PORTFOLIO_PROJECTS = [
 
 
 PORTFOLIO_PROJECT_MAP = {project["slug"]: project for project in PORTFOLIO_PROJECTS}
+
+PORTFOLIO_PROJECT_ORDER = [
+    "healthcare",
+    "insurance",
+    "retail",
+    "supply-chain",
+    "zillow",
+    "uber",
+]
+
+
+def ordered_portfolio_projects():
+    rank = {slug: index for index, slug in enumerate(PORTFOLIO_PROJECT_ORDER)}
+    return sorted(PORTFOLIO_PROJECTS, key=lambda project: rank.get(project["slug"], len(rank)))
