@@ -166,7 +166,7 @@
                 </div>
                 <div class="pf-project-grid">
                     {% for project in projects %}
-                        <article class="pf-project-card {% if project.slug == 'healthcare' %}pf-project-wide{% endif %}" style="--card-color: {{ project.color }}">
+                        <article class="pf-project-card" style="--card-color: {{ project.color }}">
                             <a class="pf-project-preview" href="{{ url_for('portfolio_project', slug=project.slug) }}" aria-label="View {{ project.title }}">
                                 {% if project.preview_image %}
                                     <img class="pf-project-preview-img" src="{{ static_v(project.preview_image) }}" alt="{{ project.title }} dashboard preview" loading="lazy" decoding="async">

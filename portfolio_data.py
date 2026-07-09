@@ -1303,11 +1303,11 @@ PORTFOLIO_PROJECT_MAP = {project["slug"]: project for project in PORTFOLIO_PROJE
 
 PORTFOLIO_PROJECT_ORDER = [
     "healthcare",
+    "uber",
     "insurance",
     "retail",
     "supply-chain",
     "zillow",
-    "uber",
 ]
 
 
