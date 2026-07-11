@@ -102,7 +102,7 @@ def portfolio_home_json_ld() -> dict:
             {
                 "@type": "Person",
                 "name": "Jiayi Shi",
-                "jobTitle": "Business Intelligence Developer | Power BI Developer",
+                "jobTitle": "Power BI Developer | Business Intelligence Developer",
                 "url": absolute_url("/portfolio"),
                 "sameAs": same_as,
             },
