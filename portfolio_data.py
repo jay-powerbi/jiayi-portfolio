@@ -8,15 +8,16 @@ PORTFOLIO_LINKS = {
 PORTFOLIO_EXPERIENCE = [
     {
         "id": "freelance",
-        "role": "Senior Power BI Developer",
+        "role": "Power BI Developer / BI Consultant",
         "company": "Freelance",
         "location": "Remote",
         "dates": "Feb 2024 – Present",
         "highlights": [
-            "Designed and deployed custom Power BI, Tableau, and SQL dashboards with advanced DAX calculations and Power Query transformations for enterprise clients.",
-            "Built ETL pipelines using SSIS and SQL scripts to integrate disparate data sources into unified reporting models (Star/Snowflake schemas).",
-            "Collaborated with stakeholders to gather requirements and delivered paginated reports and geospatial KPI dashboards aligned with business goals.",
-            "Optimized SQL queries and data models, improving report performance and data retrieval speed by up to 40%.",
+            "Build Power BI and Tableau dashboards by first clarifying the business problem, intended users, and decisions the report needs to support.",
+            "Transform and validate source data with Power Query and SQL, define reporting logic, and organize data into analysis-ready models based on project needs.",
+            "Develop DAX measures, KPI views, drill-through experiences, and geospatial analysis to help users move from high-level trends to underlying drivers.",
+            "Collaborate with stakeholders to refine requirements and translate business questions into practical dashboard workflows and reporting outputs.",
+            "Review query and model design to improve report responsiveness, usability, and maintainability.",
         ],
     },
     {

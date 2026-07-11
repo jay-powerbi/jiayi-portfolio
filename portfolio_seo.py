@@ -11,10 +11,10 @@ PORTFOLIO_SITE_URL = os.environ.get(
     "PORTFOLIO_SITE_URL", "https://jiayi-portfolio.onrender.com"
 ).rstrip("/")
 
-PORTFOLIO_BRAND_TITLE = "Jiayi Shi | Senior Power BI Developer Portfolio"
+PORTFOLIO_BRAND_TITLE = "Jiayi Shi | Business Intelligence Developer Portfolio"
 DEFAULT_TITLE = PORTFOLIO_BRAND_TITLE
 DEFAULT_DESCRIPTION = (
-    "Senior Power BI Developer based in New York specializing in Power BI, SQL, Python, DAX, "
+    "Business Intelligence Developer and Power BI Developer based in New York specializing in Power BI, SQL, Python, DAX, "
     "data visualization, dashboard development, business intelligence, and analytics. "
     "View portfolio projects, GitHub, and professional experience."
 )
@@ -102,7 +102,7 @@ def portfolio_home_json_ld() -> dict:
             {
                 "@type": "Person",
                 "name": "Jiayi Shi",
-                "jobTitle": "Senior Power BI Developer",
+                "jobTitle": "Business Intelligence Developer | Power BI Developer",
                 "url": absolute_url("/portfolio"),
                 "sameAs": same_as,
             },
