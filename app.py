@@ -437,8 +437,8 @@ def portfolio_about():
         seo=seo_context(
             title="About - Jiayi Shi",
             description=(
-                "Learn about Jiayi Shi, Business Intelligence Developer and Power BI Developer with 8+ years of experience in "
-                "Power BI, SQL, ETL, and enterprise dashboard delivery."
+                "Learn about Jiayi Shi, a Business Intelligence Developer and Tableau Developer with experience across "
+                "Tableau, Power BI, WebFocus, SQL, ETL, data modeling, and decision-ready analytics."
             ),
             path="/portfolio/about",
         ),
@@ -464,8 +464,8 @@ def portfolio_opportunities():
         seo=seo_context(
             title="Open to Opportunities - Jiayi Shi",
             description=(
-                "Jiayi Shi is open to Business Intelligence Developer and Power BI Developer roles across the U.S., "
-                "including remote and relocation-friendly opportunities."
+                "Jiayi Shi is open to Tableau Developer, Business Intelligence Developer, and Power BI Developer roles "
+                "across the U.S., including remote and relocation-friendly opportunities."
             ),
             path="/portfolio/opportunities",
         ),

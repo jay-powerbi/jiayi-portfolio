@@ -67,12 +67,12 @@ PORTFOLIO_PROJECTS = [
         "icon": "IF",
         "preview_image": "images/projects/insurance-executive-summary.png",
         "tags": ["Power BI", "DAX", "Geospatial", "KPI"],
-        "summary": "An interactive Power BI dashboard that analyzes insurance claims performance across time, lines of business, claim types, and regions.",
+        "summary": "Helps users investigate unusual claim patterns, high-risk areas, and geographic concentrations that deserve closer review.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "Empowering insurance leaders with data-driven insights to reduce claim cycle time, control costs, improve customer satisfaction, and prevent fraud.",
-            "description": "This interactive Power BI dashboard analyzes insurance claims performance across time, lines of business, claim types, and regions — so leaders can enhance operational efficiency, control costs, and strengthen risk management without waiting on manual reports.",
+            "tagline": "Helps users identify claim patterns and geographic areas that may require additional fraud investigation.",
+            "description": "Large claim datasets can hide unusual patterns and high-risk concentrations. This fraud analytics experience moves users from high-level risk indicators into the underlying claim patterns and records for deeper investigation.",
             "hero_image": "images/projects/insurance-executive-summary.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/insurance-claims-powerbi-dashboard"},
@@ -83,7 +83,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Scattered claims data made it hard to monitor performance, control costs, detect fraud, and ensure timely resolution for policyholders.",
+                    "intro": "Large claim datasets can make it difficult to identify unusual patterns, high-risk claims, and geographic concentrations that deserve closer investigation.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -94,7 +94,7 @@ PORTFOLIO_PROJECTS = [
                             "Are there potential fraud patterns impacting losses?",
                         ],
                     },
-                    "goal": "Provide a unified dashboard that delivers actionable insights to reduce claim cycle time, lower loss ratio, detect fraud, and improve customer satisfaction through data-driven decision making.",
+                    "goal": "Provide an interactive fraud analytics experience that helps users move from high-level risk indicators into the claim patterns and records behind them.",
                 },
                 {
                     "number": 2,
@@ -272,13 +272,13 @@ PORTFOLIO_PROJECTS = [
         "color": "#14B8A6",
         "icon": "HC",
         "preview_image": "images/projects/healthcare-executive-summary.png",
-        "tags": ["Power BI", "DAX", "Healthcare KPIs"],
-        "summary": "An interactive Power BI dashboard that helps healthcare leaders monitor patient volume, clinical operations, billing performance, and insurance mix.",
+        "tags": ["Power BI", "DAX", "Power Query", "Data Modeling"],
+        "summary": "Transforms healthcare records into focused views of utilization, cost, and operational patterns for clearer investigation.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "Empowering healthcare leaders with unified visibility into patient demand, clinical operations, and financial performance.",
-            "description": "This interactive Power BI dashboard analyzes patient admissions, medical conditions, length of stay, billing trends, and insurance coverage — so hospital leaders can improve capacity planning, revenue management, and patient outcomes without waiting on manual reports.",
+            "tagline": "Helps users compare patient groups, explore utilization and cost patterns, and identify areas that may require deeper operational investigation.",
+            "description": "Healthcare datasets can contain thousands of patient, admission, billing, and medical condition records, but raw records do not clearly reveal utilization, cost, or operational patterns. This healthcare analytics experience organizes those records into focused analytical views for operational investigation.",
             "hero_image": "images/projects/healthcare-executive-summary.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/healthcare-powerbi-dashboard"},
@@ -289,7 +289,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Healthcare leaders lacked a unified view of patient volume, clinical workload, billing performance, and payer mix — making it hard to plan capacity and control costs.",
+                    "intro": "Healthcare datasets can contain thousands of patient, admission, billing, and medical condition records, but raw records do not clearly reveal utilization, cost, or operational patterns.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -300,7 +300,7 @@ PORTFOLIO_PROJECTS = [
                             "Where can operations improve discharge efficiency and resource allocation?",
                         ],
                     },
-                    "goal": "Provide an executive analytics dashboard that enables healthcare teams to improve operational efficiency, financial performance, and patient care planning.",
+                    "goal": "Provide an interactive healthcare operational analytics experience that helps users explore utilization, cost, and patient-segment patterns.",
                 },
                 {
                     "number": 2,
@@ -478,13 +478,13 @@ PORTFOLIO_PROJECTS = [
         "color": "#5DCAA5",
         "icon": "RS",
         "preview_image": "images/projects/retail-sales-executive.png",
-        "tags": ["Star Schema", "DAX", "Bookmarks"],
-        "summary": "An interactive Power BI dashboard that helps retail executives track sales, profit, and performance across categories, regions, and segments.",
+        "tags": ["Power BI", "Star Schema", "DAX", "Bookmarks"],
+        "summary": "Connects sales performance, customer behavior, and product profitability so users can explain what is driving results.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "An end-to-end Power BI solution that turns retail data into actionable business insights.",
-            "description": "This interactive dashboard gives retail executives a single source of truth for sales, profit, orders, and regional performance — so they can spot trends, compare categories, and act on growth opportunities without waiting on manual reports.",
+            "tagline": "Helps users move from high-level performance changes to the products or customer segments contributing to those results.",
+            "description": "Sales totals alone do not explain which products, customers, or segments are driving performance changes. This executive analytics experience connects sales performance, customer behavior, and product profitability through KPI and detailed analytical views.",
             "hero_image": "images/projects/retail-sales-executive.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/retail-sales-powerbi-dashboard/tree/main"},
@@ -495,7 +495,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Retail executives lacked a unified view of sales, profit, categories, and regions — making it hard to spot growth drivers and underperforming areas.",
+                    "intro": "Sales totals alone do not explain which products, customers, or segments are driving performance changes.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -505,7 +505,7 @@ PORTFOLIO_PROJECTS = [
                             "Are shipping modes and promotions actually effective?",
                         ],
                     },
-                    "goal": "Provide a comprehensive retail performance dashboard for faster, data-driven decisions.",
+                    "goal": "Provide an executive analytics experience that helps users investigate which products or customer segments contribute to performance changes.",
                 },
                 {
                     "number": 2,
@@ -684,13 +684,13 @@ PORTFOLIO_PROJECTS = [
         "color": "#EF9F27",
         "icon": "SC",
         "preview_image": "images/projects/supply-chain-executive-summary.png",
-        "tags": ["Power Query", "DAX", "Scorecard"],
-        "summary": "An interactive Power BI dashboard that analyzes supply chain performance across suppliers, inventory, orders, and logistics.",
+        "tags": ["Power BI", "Power Query", "DAX", "Scorecard"],
+        "summary": "Supports operational review of inventory movement, fill rate, and supplier reliability questions.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "Empowering supply chain leaders with end-to-end visibility to optimize inventory, reduce cost, improve delivery performance, and mitigate risks.",
-            "description": "This interactive Power BI dashboard analyzes supply chain performance across suppliers, inventory, orders, and logistics — so leaders can drive operational excellence without waiting on manual reports.",
+            "tagline": "Helps users identify areas that may require further operational review and investigate potential fulfillment or supplier bottlenecks.",
+            "description": "Inventory and supplier data can be difficult to interpret when teams need to understand movement, fulfillment performance, and supplier reliability. This operational analytics experience is designed around inventory movement, fill rate, and supplier performance questions.",
             "hero_image": "images/projects/supply-chain-executive-summary.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/supply-chain-powerbi-dashboard"},
@@ -701,7 +701,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Supply chain leaders lack real-time visibility across suppliers, inventory, orders, and logistics — making it hard to control cost, ensure service level, and respond to disruptions.",
+                    "intro": "Inventory and supplier data can be difficult to interpret when operational teams need to understand movement, fulfillment performance, and supplier reliability.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -711,7 +711,7 @@ PORTFOLIO_PROJECTS = [
                             "Are on-time delivery and lead time improving over time?",
                         ],
                     },
-                    "goal": "Provide an end-to-end dashboard that enables supply chain teams to improve performance, reduce cost, optimize inventory, and enhance customer service.",
+                    "goal": "Provide an operational analytics experience that helps users investigate inventory movement, fill rate, and supplier performance questions.",
                 },
                 {
                     "number": 2,
@@ -892,13 +892,13 @@ PORTFOLIO_PROJECTS = [
         "color": "#AFA9EC",
         "icon": "ZH",
         "preview_image": "images/projects/zillow-housing-executive-summary.png",
-        "tags": ["Maps", "DAX", "Trends"],
-        "summary": "An interactive Power BI dashboard that empowers real estate professionals with data-driven housing market insights.",
+        "tags": ["Power BI", "Maps", "DAX", "Trends"],
+        "summary": "Helps users compare housing prices, inventory, and regional trends to investigate market patterns more clearly.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "An end-to-end Power BI solution that turns housing market data into actionable business insights.",
-            "description": "This interactive dashboard empowers real estate professionals, investors, and analysts with a single source of truth for home prices, sales activity, inventory, affordability, and regional trends — so they can compare markets and act on opportunities without waiting on manual reports.",
+            "tagline": "Helps users compare markets and investigate housing price, inventory, and regional trends that matter for decisions.",
+            "description": "Housing price and inventory signals are hard to compare when regional trends are scattered across reports. This market analytics experience organizes home prices, sales activity, inventory, and regional patterns into a clearer investigative view.",
             "hero_image": "images/projects/zillow-housing-executive-summary.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/us-housing-market-powerbi-dashboard"},
@@ -909,7 +909,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Real estate professionals lacked a unified view of housing prices, inventory, and regional trends — making it hard to compare markets and spot opportunities.",
+                    "intro": "Housing price and inventory signals are hard to compare when regional trends are scattered across reports.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -919,7 +919,7 @@ PORTFOLIO_PROJECTS = [
                             "Where are regional price differences most significant?",
                         ],
                     },
-                    "goal": "Provide a comprehensive market intelligence dashboard for faster, data-driven real estate decisions.",
+                    "goal": "Provide a housing market analytics experience that helps users compare regional patterns and investigate market changes.",
                 },
                 {
                     "number": 2,
@@ -1095,13 +1095,13 @@ PORTFOLIO_PROJECTS = [
         "color": "#F0997B",
         "icon": "UB",
         "preview_image": "images/projects/uber-fhv-executive-summary.png",
-        "tags": ["Power Query", "Maps", "DAX"],
-        "summary": "An interactive Power BI dashboard that helps NYC Uber and FHV drivers, fleet operators, and analysts optimize earnings and understand city trends.",
+        "tags": ["Power BI", "DAX", "Power Query", "NYC Open Data"],
+        "summary": "Explores when and where NYC FHV demand changes so users can investigate peak patterns, locations, and operating conditions.",
         "case_study": {
             "back_label": "Back to all projects",
             "hero_badge": "Business Case Study",
-            "tagline": "Empowering drivers, fleet operators, and analysts with real-time insights to improve earnings, optimize driving time, and understand city trends.",
-            "description": "This interactive Power BI dashboard gives FHV stakeholders a single source of truth for trips, earnings, distance, and zone performance across NYC — so they can focus on high-demand hours, boroughs, and pickup zones without waiting on manual reports.",
+            "tagline": "Helps users explore where and when demand appears strongest and investigate the conditions that may explain those patterns.",
+            "description": "Raw trip records show individual rides but do not clearly explain when, where, and under what conditions transportation demand changes. This transportation analytics experience organizes trip data into time, location, airport activity, and weekday-versus-weekend demand patterns.",
             "hero_image": "images/projects/uber-fhv-executive-summary.png",
             "actions": [
                 {"label": "GitHub", "style": "default", "href": "https://github.com/jay-powerbi/nyc-fhv-powerbi-dashboard"},
@@ -1112,7 +1112,7 @@ PORTFOLIO_PROJECTS = [
                     "title": "Business Problem, Questions, & Goal",
                     "icon": "target",
                     "icon_color": "#2563eb",
-                    "intro": "Drivers and operators lacked insight into demand, high-earning zones, and peak hours — making it hard to maximize earnings across NYC.",
+                    "intro": "Raw trip records show individual rides but do not clearly explain when, where, and under what conditions transportation demand changes.",
                     "callout": {
                         "title": "Business Questions",
                         "entries": [
@@ -1122,7 +1122,7 @@ PORTFOLIO_PROJECTS = [
                             "Are trips, earnings, and distance improving over time?",
                         ],
                     },
-                    "goal": "Provide a single dashboard that delivers actionable insights to help drivers and operators increase earnings and improve efficiency.",
+                    "goal": "Provide an operational analytics and demand exploration experience that helps users investigate where and when demand appears strongest.",
                 },
                 {
                     "number": 2,

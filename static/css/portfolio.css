@@ -330,8 +330,38 @@ body.portfolio-body {
 .pf-lead {
     margin: 0;
     max-width: 700px;
+    color: var(--pf-text);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.pf-lead-secondary {
+    margin: 12px 0 0;
+    max-width: 680px;
     color: var(--pf-muted);
-    font-size: 1.02rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.pf-section-subtitle {
+    margin: 8px 0 0;
+    max-width: 640px;
+    color: var(--pf-muted);
+}
+
+.pf-approach-grid {
+    margin-top: 8px;
+}
+
+.pf-approach-grid .pf-case-label {
+    margin-bottom: 8px;
+}
+
+.pf-about-role-line {
+    margin: 6px 0 0;
+    color: var(--pf-muted);
+    font-size: 0.92rem;
 }
 
 .pf-actions {
@@ -972,7 +1002,7 @@ body.portfolio-body {
 
 .pf-section-header p {
     margin: 0;
-    max-width: 440px;
+    max-width: 640px;
     color: var(--pf-muted);
 }
 
@@ -1789,8 +1819,17 @@ a.pf-card:focus-visible {
     text-transform: uppercase;
 }
 
+.pf-cs-story-label {
+    margin: 18px 0 0;
+    color: var(--pf-dim);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .pf-cs-tagline {
-    margin: 16px 0 0;
+    margin: 6px 0 0;
     color: var(--pf-blue);
     font-size: clamp(1.05rem, 2vw, 1.35rem);
     font-weight: 700;
@@ -1799,7 +1838,7 @@ a.pf-card:focus-visible {
 
 .pf-cs-description {
     max-width: 620px;
-    margin: 16px 0 0;
+    margin: 6px 0 0;
     color: var(--pf-muted);
     font-size: 1.02rem;
 }

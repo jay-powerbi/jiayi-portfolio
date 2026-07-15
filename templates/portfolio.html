@@ -15,10 +15,11 @@
         <section class="pf-hero">
             <div class="pf-container pf-hero-grid">
                 <div>
-                    <span class="pf-badge">Power BI Developer - Open to Relocation</span>
+                    <span class="pf-badge">BI &amp; Data Solutions | Open to Opportunities</span>
                     <h1 class="pf-hero-title"><span class="pf-accent">INSIGHT.</span><br>IMPACT.<br>RESULTS.</h1>
-                    <p class="pf-kicker">Power BI Developer | Business Intelligence Developer</p>
-                    <p class="pf-lead">8+ years designing enterprise reporting, executive dashboards, and scalable analytics solutions across financial services, healthcare, retail, real estate, and transportation use cases.</p>
+                    <p class="pf-kicker">Business Intelligence &amp; Data Solutions</p>
+                    <p class="pf-lead">I turn complex and fragmented data into clear decisions, actionable analytics, and practical data solutions. My work spans executive reporting, operational analytics, and data-driven products designed to solve real business and user problems.</p>
+                    <p class="pf-lead-secondary">I use Tableau, Power BI, SQL, Python, and modern data platforms to build the solution behind the problem.</p>
                     <div class="pf-actions">
                         <a class="pf-btn" href="{{ url_for('portfolio_resume') }}">
                             <svg class="pf-btn-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -147,12 +148,41 @@
             <div class="pf-container">
                 <span class="pf-label">Technical Stack</span>
                 <div class="pf-chip-row">
-                    {% for chip in ["Power BI", "DAX", "Power Query", "SQL Server", "Tableau", "SSIS", "Azure", "Python"] %}
+                    {% for chip in ["Tableau", "Power BI", "SQL", "DAX", "Power Query", "Python", "WebFocus", "Azure"] %}
                         <span class="pf-chip">{{ chip }}</span>
                     {% endfor %}
-                    {% for chip in ["Oracle", "Snowflake", "Git", "SAS"] %}
+                    {% for chip in ["SQL Server", "Oracle", "ETL", "Data Modeling", "Star Schema", "KPI Design"] %}
                         <span class="pf-chip pf-chip-secondary">{{ chip }}</span>
                     {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="pf-section" id="approach">
+            <div class="pf-container">
+                <div class="pf-section-header">
+                    <div>
+                        <h2>From Data to Decisions</h2>
+                        <p>I don't start with a chart. I start with the problem, the user, and the decision that needs to be made.</p>
+                    </div>
+                </div>
+                <div class="pf-card-grid pf-approach-grid">
+                    <article class="pf-card">
+                        <p class="pf-case-label">01 — Understand the Problem</p>
+                        <p>Identify the business question, intended users, and the decision the solution needs to support.</p>
+                    </article>
+                    <article class="pf-card">
+                        <p class="pf-case-label">02 — Structure the Data</p>
+                        <p>Evaluate data quality, grain, relationships, reporting logic, and the metrics that actually matter.</p>
+                    </article>
+                    <article class="pf-card">
+                        <p class="pf-case-label">03 — Build the Solution</p>
+                        <p>Design analytics, dashboards, or data products around how users explore information and make decisions.</p>
+                    </article>
+                    <article class="pf-card">
+                        <p class="pf-case-label">04 — Drive Action</p>
+                        <p>Turn analytical findings into clear signals that help users understand what is happening and where deeper investigation may be needed.</p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -162,6 +192,7 @@
                 <div class="pf-section-header">
                     <div>
                         <h2>Featured Projects</h2>
+                        <p>Each project starts with a business problem, then moves to the analytical solution that supports clearer decisions.</p>
                     </div>
                 </div>
                 <div class="pf-project-grid">
@@ -247,9 +278,9 @@
                 <h2 class="pf-section-title">Professional Highlights</h2>
                 <div class="pf-card-grid">
                     <article class="pf-card"><h3>High Flyer Award</h3><p>Recognized at Freedom Mortgage for outstanding BI contributions.</p></article>
-                    <article class="pf-card"><h3>8+ Years Enterprise BI</h3><p>Financial services and healthcare reporting experience.</p></article>
-                    <article class="pf-card"><h3>5+ Featured Projects</h3><p>Insurance, retail, supply chain, real estate, and transportation analytics.</p></article>
-                    <article class="pf-card"><h3>Open to Relocation</h3><p>Targeting DFW and major US metro areas.</p></article>
+                    <article class="pf-card"><h3>8+ Years Enterprise BI</h3><p>Tableau, WebFocus, Power BI, SQL, and stakeholder-ready reporting across industries.</p></article>
+                    <article class="pf-card"><h3>6+ Featured Projects</h3><p>Operational analytics across healthcare, insurance, retail, supply chain, and transportation.</p></article>
+                    <article class="pf-card"><h3>Open to Opportunities</h3><p>Tableau Developer, BI Developer, and analytics roles across the U.S.</p></article>
                 </div>
             </div>
         </section>
@@ -264,9 +295,9 @@
                             <span class="pf-product-icon" aria-hidden="true">🚀</span>
                             Price Pilot
                         </h3>
-                        <p class="pf-product-tagline">AI-Powered Shopping Assistant</p>
-                        <p class="pf-product-desc">Find the lowest delivered price across multiple retailers with intelligent price tracking and deal alerts.</p>
-                        <p class="pf-product-stack">React • Next.js • TypeScript • AI • API</p>
+                        <p class="pf-product-tagline">Shopping Price Comparison</p>
+                        <p class="pf-product-desc">Helps users compare delivered prices across retailers and track deals that matter for purchase decisions.</p>
+                        <p class="pf-product-stack">React · Next.js · TypeScript</p>
                         <span class="pf-product-link pf-product-link-soon">Learn More →</span>
                     </article>
                     <article class="pf-card pf-product-card">
@@ -275,9 +306,9 @@
                             <span class="pf-product-icon" aria-hidden="true">🗺</span>
                             Opportunity Map
                         </h3>
-                        <p class="pf-product-tagline">AI Opportunity Discovery Platform</p>
-                        <p class="pf-product-desc">Explore jobs, networking events, and business opportunities with interactive maps and location intelligence.</p>
-                        <p class="pf-product-stack">Maps • AI • React • Geospatial • API</p>
+                        <p class="pf-product-tagline">Location-Based Discovery</p>
+                        <p class="pf-product-desc">People often do not know what opportunities or resources are available nearby. Opportunity Map is designed to reduce discovery friction by making local options easier to explore.</p>
+                        <p class="pf-product-stack">Maps · Geospatial · React</p>
                         <span class="pf-product-link pf-product-link-soon">Learn More →</span>
                     </article>
                 </div>
@@ -287,8 +318,8 @@
 
     <footer class="pf-footer">
         <div class="pf-container pf-footer-inner">
-            <span>Jiayi Shi - Business Intelligence Developer</span>
-            <span>Power BI - DAX - SQL - Enterprise Analytics</span>
+            <span>Jiayi Shi - Business Intelligence &amp; Data Solutions</span>
+            <span>Tableau · Power BI · SQL · Enterprise Analytics</span>
         </div>
     </footer>
     {% include '_portfolio_feedback.html' %}
