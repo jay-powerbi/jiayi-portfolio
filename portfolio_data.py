@@ -1297,12 +1297,214 @@ PORTFOLIO_PROJECTS = [
             },
         },
     },
+    {
+        "slug": "federal-procurement",
+        "title": "U.S. Federal Procurement Dashboard for Telecom & Information Services",
+        "color": "#3B82F6",
+        "icon": "FP",
+        "preview_image": "images/projects/federal-procurement-executive-summary.png",
+        "tags": ["Power BI", "DAX", "Power Query", "USASpending.gov"],
+        "summary": "Helps users explore federal procurement spending patterns across agencies, recipients, and contract types in the Telecom & Information Services sector.",
+        "case_study": {
+            "back_label": "Back to all projects",
+            "hero_badge": "Business Case Study",
+            "tagline": "Helps users investigate where federal procurement spending concentrates across agencies, recipients, and contract structures.",
+            "description": "Federal procurement award data can be difficult to interpret when users need to understand which agencies spend the most, which recipients receive the largest awards, and how contract types and duration vary. This analytics experience organizes USASpending.gov contract awards for NAICS Sector 51 into focused executive, agency, and recipient views.",
+            "hero_image": "images/projects/federal-procurement-executive-summary.png",
+            "actions": [
+                {"label": "Download PDF", "style": "primary", "href": "/static/files/us-federal-procurement-dashboard.pdf"},
+            ],
+            "sections": [
+                {
+                    "number": 1,
+                    "title": "Business Problem, Questions, & Goal",
+                    "icon": "target",
+                    "icon_color": "#2563eb",
+                    "intro": "Federal procurement award records show individual contracts, but raw award tables do not clearly reveal spending concentration, recipient patterns, or agency-level trends across the Telecom & Information Services sector.",
+                    "callout": {
+                        "title": "Business Questions",
+                        "entries": [
+                            "Which awarding agencies account for the largest share of contract spending?",
+                            "Which recipients receive the highest award amounts?",
+                            "How does average award amount change over time?",
+                            "How is spending distributed across contract award types?",
+                            "Where do award amount and contract duration patterns suggest deeper investigation?",
+                        ],
+                    },
+                    "goal": "Provide an interactive federal procurement analytics experience that helps users explore agency, recipient, and contract-type spending patterns within NAICS Sector 51.",
+                },
+                {
+                    "number": 2,
+                    "title": "My Role",
+                    "icon": "person",
+                    "icon_color": "#0f9f7a",
+                    "intro": "As the BI Developer, I owned end-to-end development—from USASpending.gov data preparation and modeling to dashboard design and narrative documentation.",
+                    "checklist": [
+                        "Data Cleaning & Transformation",
+                        "Data Modeling (Star Schema)",
+                        "DAX Measures & KPIs",
+                        "Dashboard Design (Power BI)",
+                        "Agency & Recipient Analysis Views",
+                        "Dashboard Documentation",
+                    ],
+                },
+                {
+                    "number": 3,
+                    "title": "My Approach",
+                    "icon": "gear",
+                    "icon_color": "#7c6fd6",
+                    "intro": "I started with the spending questions users need answered, then structured the model and views around agency, recipient, and contract dimensions.",
+                    "steps": [
+                        {
+                            "title": "Define Scope",
+                            "text": "Focused the analysis on USASpending.gov prime contract awards for NAICS Sector 51 (Information), covering Fiscal Year 2025 across all federal awarding agencies.",
+                        },
+                        {
+                            "title": "Build Data Model",
+                            "text": "Designed a star schema with Fact_Contracts connected to Dim_Agency, Dim_Recipient, Dim_Date, Dim_NAICS, and Dim_PSC.",
+                        },
+                        {
+                            "title": "Create KPIs",
+                            "text": "Developed measures for total award amount, contract count, recipient count, average award, and average contract duration.",
+                        },
+                        {
+                            "title": "Design Dashboard",
+                            "text": "Built executive, agency, and recipient analysis pages with filters for awarding agency, year, and NAICS code.",
+                        },
+                    ],
+                },
+                {
+                    "number": 4,
+                    "title": "The Dashboard",
+                    "icon": "chart",
+                    "icon_color": "#ef9f27",
+                    "intro": "An interactive procurement analytics experience with executive KPI views, agency spending breakdowns, recipient analysis, and documentation of scope and data sources.",
+                    "gallery": [
+                        "images/projects/federal-procurement-executive-summary.png",
+                        "images/projects/federal-procurement-agency-analysis.png",
+                        "images/projects/federal-procurement-recipient-analysis.png",
+                        "images/projects/federal-procurement-about.png",
+                    ],
+                },
+                {
+                    "number": 5,
+                    "title": "Key Insights",
+                    "icon": "insight",
+                    "icon_color": "#e25555",
+                    "intro": "Users can move from high-level award totals into agency and recipient patterns that deserve closer review.",
+                    "insights": [
+                        {"icon": "trend", "text": "Total awards reached $72.78bn across approximately 2K contracts"},
+                        {"icon": "people", "text": "607 recipients appear in the analyzed award set"},
+                        {"icon": "globe", "text": "Department of Defense accounts for the highest agency award total at about $27bn"},
+                        {"icon": "percent", "text": "Average contract duration is approximately 1,322 days"},
+                        {"icon": "trend", "text": "Top recipients include major telecom and federal IT services providers"},
+                    ],
+                },
+                {
+                    "number": 6,
+                    "title": "Executive Summary",
+                    "icon": "spark",
+                    "icon_color": "#2563eb",
+                    "intro": "The dashboard surfaces the spending patterns most useful for investigating federal procurement concentration in NAICS 51.",
+                    "executive_summary": [
+                        "The analysis covers Telecom & Information Services contracts from USASpending.gov for Fiscal Year 2025.",
+                        "Total award amount is $72.78bn across roughly 2K contracts and 607 recipients.",
+                        "Department of Defense leads agency spending, followed by Transportation, Veterans Affairs, and Health and Human Services.",
+                        "Delivery orders and definitive contracts account for a large share of award amount by contract type.",
+                        "Recipient views help users compare award concentration and investigate duration versus award amount patterns.",
+                    ],
+                },
+                {
+                    "number": 7,
+                    "title": "Stakeholder Value",
+                    "icon": "users",
+                    "icon_color": "#0f9f7a",
+                    "intro": "Each audience gets a path from high-level procurement totals to the agency or recipient details behind them.",
+                    "stakeholder_rows": [
+                        {
+                            "stakeholder": "Procurement Analysts",
+                            "problem": "Need to understand which agencies and recipients drive spending concentration.",
+                            "solution": "Executive and agency views with award totals, contract type mix, and recipient rankings.",
+                        },
+                        {
+                            "stakeholder": "Market Researchers",
+                            "problem": "Must compare federal IT and telecom award patterns across recipients and years.",
+                            "solution": "Recipient analysis by NAICS code, year, and award amount versus contract duration.",
+                        },
+                        {
+                            "stakeholder": "BI / Reporting Teams",
+                            "problem": "Need a reusable model for multi-dimensional procurement analysis.",
+                            "solution": "Star schema connecting contracts to agency, recipient, date, NAICS, and PSC dimensions.",
+                        },
+                        {
+                            "stakeholder": "Policy & Oversight Reviewers",
+                            "problem": "Need clear visibility into where federal spending concentrates within Sector 51.",
+                            "solution": "Agency and sub-agency breakdowns with filters for year and award type.",
+                        },
+                    ],
+                },
+                {
+                    "number": 8,
+                    "title": "Business Impact",
+                    "icon": "impact",
+                    "icon_color": "#0f766e",
+                    "intro": "The dashboard supports clearer investigation of federal procurement patterns without relying on raw award extracts alone.",
+                    "checklist": [
+                        "Makes agency and recipient spending concentration easier to explore",
+                        "Supports investigation of contract type and duration patterns",
+                        "Provides a reusable star-schema model for multi-dimensional award analysis",
+                        "Documents data source, scope, and industry filter for transparent interpretation",
+                    ],
+                },
+                {
+                    "number": 9,
+                    "title": "What I Learned",
+                    "icon": "learn",
+                    "icon_color": "#2563eb",
+                    "intro": "This project strengthened my ability to turn public spending data into decision-oriented procurement analytics.",
+                    "bullets": [
+                        "Federal award analysis works best when agency, recipient, and contract-type questions are defined before visual design.",
+                        "Star schema modeling keeps award fact tables flexible for multi-dimensional filtering.",
+                        "Clear scope documentation helps users interpret open government data without overstating conclusions.",
+                    ],
+                },
+                {
+                    "number": 10,
+                    "title": "Technical Highlights",
+                    "icon": "code",
+                    "icon_color": "#7c6fd6",
+                    "intro": "Key technical choices behind the procurement analytics build.",
+                    "checklist": [
+                        "Used USASpending.gov public contract award data",
+                        "Built Star Schema (Fact_Contracts + agency, recipient, date, NAICS, PSC dimensions)",
+                        "Created KPIs for award totals, recipient counts, and contract duration",
+                        "Designed executive, agency, and recipient analysis pages",
+                        "Added filters for awarding agency, year, and NAICS code",
+                        "Documented FY 2025 NAICS 51 scope and data source",
+                    ],
+                },
+            ],
+            "data_sources": [
+                {
+                    "icon": "database",
+                    "label": "USASpending.gov — U.S. Federal Contract Awards (Prime Awards)",
+                    "datasets": ["Fiscal Year 2025", "NAICS Sector 51 (Information)"],
+                },
+            ],
+            "footer_cta": {
+                "text": "Turning data into decisions that drive business forward.",
+                "button_label": "Open to Opportunities",
+                "button_href": "portfolio_opportunities",
+            },
+        },
+    },
 ]
 
 
 PORTFOLIO_PROJECT_MAP = {project["slug"]: project for project in PORTFOLIO_PROJECTS}
 
 PORTFOLIO_PROJECT_ORDER = [
+    "federal-procurement",
     "healthcare",
     "uber",
     "insurance",
