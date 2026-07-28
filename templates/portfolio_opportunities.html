@@ -15,7 +15,10 @@
             <div class="pf-container">
                 <div class="pf-badge-row">
                     <span class="pf-badge pf-status">Currently Open to New Opportunities</span>
-                    <a class="pf-badge pf-badge-consulting" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">💼 Open to Consulting</a>
+                    <a class="pf-badge pf-badge-consulting" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry" aria-describedby="consulting-tip-opportunities">
+                        💼 Open to Consulting
+                        <span class="pf-badge-tip" id="consulting-tip-opportunities" role="tooltip">Select freelance projects: Power BI dashboards, DAX optimization, data modeling, and ETL pipelines.</span>
+                    </a>
                 </div>
                 <h1>Ready to contribute from day one.</h1>
                 <p class="pf-nowrap-subtitle">Recruiter-facing summary for Tableau Developer, Business Intelligence Developer, Power BI Developer, and analytics roles.</p>

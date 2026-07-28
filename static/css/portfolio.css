@@ -325,6 +325,7 @@ a.pf-badge:hover {
 }
 
 .pf-badge-consulting {
+    position: relative;
     border-color: #6d28d9;
     background: #f3e8ff;
     color: #5b21b6;
@@ -334,6 +335,51 @@ a.pf-badge-consulting:hover {
     border-color: #5b21b6;
     background: #ede9fe;
     color: #4c1d95;
+}
+
+.pf-badge-tip {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    z-index: 20;
+    width: max-content;
+    max-width: min(280px, 70vw);
+    padding: 10px 12px;
+    border: 0.5px solid #ddd6fe;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--pf-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: 0 12px 28px rgba(19, 32, 51, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+}
+
+.pf-badge-tip::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -5px;
+    width: 9px;
+    height: 9px;
+    border-left: 0.5px solid #ddd6fe;
+    border-top: 0.5px solid #ddd6fe;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+.pf-badge-consulting:hover .pf-badge-tip,
+.pf-badge-consulting:focus-visible .pf-badge-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .pf-hero h1,
