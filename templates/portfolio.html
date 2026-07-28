@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0D1117">
     {% include '_portfolio_seo.html' %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}">
+    <link rel="stylesheet" href="{{ static_v('css/portfolio.css') }}">
     {% include '_portfolio_ga4.html' %}
 </head>
 <body class="portfolio-body">
@@ -15,7 +15,10 @@
         <section class="pf-hero">
             <div class="pf-container pf-hero-grid">
                 <div>
-                    <span class="pf-badge">BI &amp; Data Solutions | Open to Opportunities</span>
+                    <div class="pf-badge-row">
+                        <span class="pf-badge">BI &amp; Data Solutions | Open to Opportunities</span>
+                        <a class="pf-badge pf-badge-consulting" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">💼 Open to Consulting</a>
+                    </div>
                     <h1 class="pf-hero-title"><span class="pf-accent">INSIGHT.</span><br>IMPACT.<br>RESULTS.</h1>
                     <p class="pf-kicker">Business Intelligence &amp; Data Solutions</p>
                     <p class="pf-lead">I turn complex and fragmented data into clear decisions, actionable analytics, and practical data solutions. My work spans executive reporting, operational analytics, and data-driven products designed to solve real business and user problems.</p>

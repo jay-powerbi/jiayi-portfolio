@@ -298,9 +298,42 @@ body.portfolio-body {
     font-weight: 650;
 }
 
+.pf-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
 .pf-badge {
     padding: 6px 12px;
-    margin-bottom: 22px;
+    margin-bottom: 0;
+}
+
+.pf-badge-row .pf-badge {
+    margin-bottom: 0;
+}
+
+a.pf-badge {
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+a.pf-badge:hover {
+    transform: translateY(-1px);
+}
+
+.pf-badge-consulting {
+    border-color: #6d28d9;
+    background: #f3e8ff;
+    color: #5b21b6;
+}
+
+a.pf-badge-consulting:hover {
+    border-color: #5b21b6;
+    background: #ede9fe;
+    color: #4c1d95;
 }
 
 .pf-hero h1,
@@ -1776,82 +1809,6 @@ a.pf-card:focus-visible {
     border-color: #0f6e56;
     background: var(--pf-teal-bg);
     color: var(--pf-teal);
-}
-
-.pf-section-consulting {
-    padding-top: 4px;
-    padding-bottom: 12px;
-}
-
-.pf-consulting-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px 28px;
-    padding: 22px 26px;
-    border-radius: 16px;
-    background:
-        radial-gradient(circle at 12% 20%, rgba(96, 165, 250, 0.35), transparent 42%),
-        linear-gradient(115deg, #0b1f3a 0%, #163a74 48%, #1d4ed8 100%);
-    box-shadow: 0 16px 34px rgba(15, 42, 96, 0.28);
-    color: #fff;
-}
-
-.pf-consulting-copy {
-    min-width: 0;
-    flex: 1;
-}
-
-.pf-consulting-kicker {
-    margin: 0 0 8px;
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-}
-
-.pf-consulting-text {
-    margin: 0;
-    max-width: 760px;
-    color: rgba(255, 255, 255, 0.88);
-    font-size: 0.98rem;
-    line-height: 1.5;
-}
-
-.pf-consulting-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: #fff;
-    color: #163a74;
-    font-size: 0.95rem;
-    font-weight: 750;
-    text-decoration: none;
-    white-space: nowrap;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-    transition: transform 0.15s ease, background 0.15s ease;
-}
-
-.pf-consulting-cta:hover {
-    background: #e8f1ff;
-    color: #0b1f3a;
-    transform: translateY(-1px);
-}
-
-@media (max-width: 720px) {
-    .pf-consulting-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 20px;
-    }
-
-    .pf-consulting-cta {
-        width: 100%;
-    }
 }
 
 .pf-btn-icon-solid {

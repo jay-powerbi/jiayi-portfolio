@@ -13,7 +13,10 @@
     <main>
         <header class="pf-page-header">
             <div class="pf-container">
-                <span class="pf-badge pf-status">Currently Open to New Opportunities</span>
+                <div class="pf-badge-row">
+                    <span class="pf-badge pf-status">Currently Open to New Opportunities</span>
+                    <a class="pf-badge pf-badge-consulting" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">💼 Open to Consulting</a>
+                </div>
                 <h1>Ready to contribute from day one.</h1>
                 <p class="pf-nowrap-subtitle">Recruiter-facing summary for Tableau Developer, Business Intelligence Developer, Power BI Developer, and analytics roles.</p>
             </div>
@@ -24,18 +27,6 @@
                 <div class="pf-static-map">
                     <img src="{{ url_for('static', filename='images/projects/relocation-map.png') }}" alt="Open to work anywhere in the U.S. map based in New York" loading="lazy" decoding="async">
                 </div>
-            </div>
-        </section>
-
-        <section class="pf-section pf-section-consulting">
-            <div class="pf-container">
-                <aside class="pf-consulting-banner" aria-label="Consulting availability">
-                    <div class="pf-consulting-copy">
-                        <p class="pf-consulting-kicker">Also open to consulting projects</p>
-                        <p class="pf-consulting-text">Alongside full-time roles, I take on select freelance/consulting engagements — Power BI dashboards, DAX optimization, data modeling, ETL pipelines.</p>
-                    </div>
-                    <a class="pf-consulting-cta" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">Discuss a Project →</a>
-                </aside>
             </div>
         </section>
 
