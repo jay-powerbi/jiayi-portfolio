@@ -1778,6 +1778,67 @@ a.pf-card:focus-visible {
     color: var(--pf-teal);
 }
 
+.pf-section-consulting {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.pf-consulting-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    padding: 18px 22px;
+    border: 0.5px solid var(--pf-border);
+    border-radius: 14px;
+    background: var(--pf-surface);
+    box-shadow: 0 8px 20px rgba(19, 32, 51, 0.04);
+}
+
+.pf-consulting-copy {
+    min-width: 0;
+    flex: 1;
+}
+
+.pf-consulting-label {
+    margin: 0 0 6px;
+    color: var(--pf-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.pf-consulting-text {
+    margin: 0;
+    max-width: 720px;
+    color: var(--pf-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.pf-consulting-link {
+    flex-shrink: 0;
+    color: var(--pf-blue);
+    font-size: 0.92rem;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.pf-consulting-link:hover {
+    color: var(--pf-blue-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+    .pf-consulting-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
 .pf-btn-icon-solid {
     fill: none;
     stroke: currentColor;
