@@ -1788,11 +1788,13 @@ a.pf-card:focus-visible {
     align-items: center;
     justify-content: space-between;
     gap: 20px 28px;
-    padding: 18px 22px;
-    border: 0.5px solid var(--pf-border);
+    padding: 20px 24px;
+    border: 0.5px solid #b7e4d5;
     border-radius: 14px;
-    background: var(--pf-surface);
-    box-shadow: 0 8px 20px rgba(19, 32, 51, 0.04);
+    background:
+        linear-gradient(135deg, rgba(15, 159, 122, 0.1), rgba(37, 99, 235, 0.06)),
+        var(--pf-teal-bg);
+    box-shadow: 0 8px 20px rgba(15, 110, 86, 0.06);
 }
 
 .pf-consulting-copy {
@@ -1800,42 +1802,72 @@ a.pf-card:focus-visible {
     flex: 1;
 }
 
-.pf-consulting-label {
-    margin: 0 0 6px;
-    color: var(--pf-text);
-    font-size: 0.78rem;
+.pf-consulting-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.pf-consulting-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(15, 159, 122, 0.16);
+    color: var(--pf-teal);
+    flex-shrink: 0;
+}
+
+.pf-consulting-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.pf-consulting-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 0.5px solid #0f6e56;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--pf-teal);
+    font-size: 0.84rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
 }
 
 .pf-consulting-text {
     margin: 0;
     max-width: 720px;
-    color: var(--pf-muted);
-    font-size: 0.95rem;
+    color: #3f5a50;
+    font-size: 0.96rem;
     line-height: 1.5;
 }
 
-.pf-consulting-link {
+.pf-consulting-cta {
     flex-shrink: 0;
-    color: var(--pf-blue);
-    font-size: 0.92rem;
-    font-weight: 650;
-    text-decoration: none;
     white-space: nowrap;
-}
-
-.pf-consulting-link:hover {
-    color: var(--pf-blue-dark);
-    text-decoration: underline;
 }
 
 @media (max-width: 720px) {
     .pf-consulting-strip {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 14px;
+    }
+
+    .pf-consulting-cta {
+        width: 100%;
+        justify-content: center;
     }
 }
 

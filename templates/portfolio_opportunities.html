@@ -31,10 +31,20 @@
             <div class="pf-container">
                 <aside class="pf-consulting-strip" aria-label="Consulting availability">
                     <div class="pf-consulting-copy">
-                        <p class="pf-consulting-label">Also Open to Consulting Projects</p>
+                        <div class="pf-consulting-title-row">
+                            <span class="pf-consulting-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M8 13l-2.2-2.2a1.6 1.6 0 0 1 2.3-2.3L11 11"></path>
+                                    <path d="M16 13l2.2-2.2a1.6 1.6 0 0 0-2.3-2.3L13 11"></path>
+                                    <path d="M9.5 14.5L8 16l2 3h4l2-3-1.5-1.5"></path>
+                                    <path d="M11 11l1 1 1-1"></path>
+                                </svg>
+                            </span>
+                            <span class="pf-consulting-pill">Also Open to Consulting Projects</span>
+                        </div>
                         <p class="pf-consulting-text">Alongside full-time roles, I take on select freelance/consulting engagements — Power BI dashboards, DAX optimization, data modeling, ETL pipelines.</p>
                     </div>
-                    <a class="pf-consulting-link" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">Discuss a Project →</a>
+                    <a class="pf-btn pf-btn-primary pf-consulting-cta" href="mailto:{{ portfolio_links.email }}?subject=Consulting%20Project%20Inquiry">Discuss a Project →</a>
                 </aside>
             </div>
         </section>
