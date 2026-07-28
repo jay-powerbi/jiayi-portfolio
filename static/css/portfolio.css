@@ -1788,13 +1788,13 @@ a.pf-card:focus-visible {
     align-items: center;
     justify-content: space-between;
     gap: 20px 28px;
-    padding: 20px 24px;
-    border: 0.5px solid #b7e4d5;
+    padding: 22px 24px;
+    border: 1px solid #8fd6bf;
     border-radius: 14px;
     background:
-        linear-gradient(135deg, rgba(15, 159, 122, 0.1), rgba(37, 99, 235, 0.06)),
-        var(--pf-teal-bg);
-    box-shadow: 0 8px 20px rgba(15, 110, 86, 0.06);
+        linear-gradient(135deg, rgba(15, 159, 122, 0.16), rgba(37, 99, 235, 0.08)),
+        #dff7ef;
+    box-shadow: 0 10px 24px rgba(15, 110, 86, 0.08);
 }
 
 .pf-consulting-copy {
