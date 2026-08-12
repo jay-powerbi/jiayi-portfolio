@@ -1085,6 +1085,16 @@ a.pf-badge-consulting:hover {
     color: var(--pf-muted);
 }
 
+#projects .pf-section-header > div {
+    flex: 1;
+    min-width: 0;
+}
+
+#projects .pf-section-header p,
+#projects .pf-project-note {
+    max-width: none;
+}
+
 .pf-project-note {
     margin-top: 14px;
     max-width: 720px;
