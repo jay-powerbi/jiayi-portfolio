@@ -1299,7 +1299,7 @@ PORTFOLIO_PROJECTS = [
     },
     {
         "slug": "federal-procurement",
-        "title": "U.S. Federal Procurement Dashboard for Telecom & Information Services",
+        "title": "01 · U.S. Federal Procurement Dashboard for Telecom & Information Services",
         "color": "#3B82F6",
         "icon": "FP",
         "preview_image": "images/projects/federal-procurement-executive-summary.png",
@@ -1498,6 +1498,207 @@ PORTFOLIO_PROJECTS = [
             },
         },
     },
+    {
+        "slug": "austin-procurement",
+        "title": "02 · Austin Procurement Dashboard",
+        "color": "#0f766e",
+        "icon": "AP",
+        "preview_image": "images/projects/austin-procurement-executive-summary.png",
+        "tags": ["Power BI", "DAX", "Power Query", "City of Austin Open Data"],
+        "summary": "Helps users explore municipal procurement spending across vendors, commodities, contracts, and purchase orders for the City of Austin.",
+        "case_study": {
+            "back_label": "Back to all projects",
+            "hero_badge": "Business Case Study",
+            "tagline": "Helps users investigate where City of Austin procurement spending concentrates across vendors, commodities, and contracts.",
+            "description": "Municipal procurement data can be difficult to interpret when users need to understand which vendors receive the most spend, which commodities drive purchasing volume, and how contracted versus non-contracted purchases compare. This analytics experience organizes City of Austin open procurement data into focused executive, commodity, and contract views.",
+            "hero_image": "images/projects/austin-procurement-executive-summary.png",
+            "actions": [
+                {"label": "Download PDF", "style": "primary", "href": "/static/files/austin-procurement-dashboard.pdf"},
+            ],
+            "sections": [
+                {
+                    "number": 1,
+                    "title": "Business Problem, Questions, & Goal",
+                    "icon": "target",
+                    "icon_color": "#2563eb",
+                    "intro": "City procurement records show individual purchase orders and contracts, but raw transaction tables do not clearly reveal vendor concentration, commodity spending patterns, or contract performance trends.",
+                    "callout": {
+                        "title": "Business Questions",
+                        "entries": [
+                            "Which vendors account for the largest share of procurement spending?",
+                            "Which commodities and contracts drive the highest spend and purchase order volume?",
+                            "How does spending trend across years?",
+                            "What share of spending is contracted versus non-contracted?",
+                            "Where do average purchase amounts suggest deeper investigation by commodity or vendor?",
+                        ],
+                    },
+                    "goal": "Provide an interactive municipal procurement analytics experience that helps users explore vendor, commodity, and contract spending patterns for the City of Austin.",
+                },
+                {
+                    "number": 2,
+                    "title": "My Role",
+                    "icon": "person",
+                    "icon_color": "#0f9f7a",
+                    "intro": "As the BI Developer, I owned end-to-end development—from City of Austin open data preparation and modeling to dashboard design and narrative documentation.",
+                    "checklist": [
+                        "Data Cleaning & Transformation",
+                        "Data Modeling (Star Schema)",
+                        "DAX Measures & KPIs",
+                        "Dashboard Design (Power BI)",
+                        "Commodity & Contract Analysis Views",
+                        "Dashboard Documentation",
+                    ],
+                },
+                {
+                    "number": 3,
+                    "title": "My Approach",
+                    "icon": "gear",
+                    "icon_color": "#7c6fd6",
+                    "intro": "I started with the spending questions procurement teams need answered, then structured the model and views around vendor, commodity, contract, and time dimensions.",
+                    "steps": [
+                        {
+                            "title": "Define Scope",
+                            "text": "Focused the analysis on City of Austin open procurement and purchasing data covering vendors, commodities, contracts, and purchase orders across available years.",
+                        },
+                        {
+                            "title": "Build Data Model",
+                            "text": "Designed a star schema with a centralized procurement fact table connected to vendor, commodity, contract, and date dimensions.",
+                        },
+                        {
+                            "title": "Create KPIs",
+                            "text": "Developed measures for total spend, purchase order count, vendor count, average purchase amount, and total quantity.",
+                        },
+                        {
+                            "title": "Design Dashboard",
+                            "text": "Built executive, commodity, and contract analysis pages with filters for vendor, commodity, contract status, and year.",
+                        },
+                    ],
+                },
+                {
+                    "number": 4,
+                    "title": "The Dashboard",
+                    "icon": "chart",
+                    "icon_color": "#ef9f27",
+                    "intro": "An interactive procurement analytics experience with executive KPI views, commodity spending breakdowns, contract analysis, and documentation of scope and data sources.",
+                    "gallery": [
+                        "images/projects/austin-procurement-executive-summary.png",
+                        "images/projects/austin-procurement-commodity-analysis.png",
+                        "images/projects/austin-procurement-contract-analysis.png",
+                        "images/projects/austin-procurement-about.png",
+                    ],
+                },
+                {
+                    "number": 5,
+                    "title": "Key Insights",
+                    "icon": "insight",
+                    "icon_color": "#e25555",
+                    "intro": "Users can move from high-level procurement totals into vendor, commodity, and contract patterns that deserve closer review.",
+                    "insights": [
+                        {"icon": "trend", "text": "Total procurement spend reached $4.03bn across approximately 167K purchase orders"},
+                        {"icon": "people", "text": "Roughly 6K vendors appear in the analyzed procurement set"},
+                        {"icon": "globe", "text": "Texas Electric Cooperatives leads vendor spend at about $152M"},
+                        {"icon": "percent", "text": "Contracted purchases account for 86.4% of total spend ($3.48bn)"},
+                        {"icon": "trend", "text": "Transformers and application software rank among the highest-spend commodities"},
+                    ],
+                },
+                {
+                    "number": 6,
+                    "title": "Executive Summary",
+                    "icon": "spark",
+                    "icon_color": "#2563eb",
+                    "intro": "The dashboard surfaces the spending patterns most useful for investigating municipal procurement concentration in Austin.",
+                    "executive_summary": [
+                        "The analysis covers City of Austin procurement transactions from publicly available open data.",
+                        "Total spend is $4.03bn across roughly 167K purchase orders and 6K vendors, with an average purchase amount of $24.12K.",
+                        "Texas Electric Cooperatives, Silsbee Ford, and Sun Coast Resources lead vendor spending.",
+                        "Bulk Fuels and critical materials supply contracts rank among the highest-spend agreements.",
+                        "Commodity and contract views help users compare spend concentration, purchase order volume, and average purchase patterns.",
+                    ],
+                },
+                {
+                    "number": 7,
+                    "title": "Stakeholder Value",
+                    "icon": "users",
+                    "icon_color": "#0f9f7a",
+                    "intro": "Each audience gets a path from high-level procurement totals to the vendor, commodity, or contract details behind them.",
+                    "stakeholder_rows": [
+                        {
+                            "stakeholder": "Procurement Analysts",
+                            "problem": "Need to understand which vendors and contracts drive spending concentration.",
+                            "solution": "Executive and contract views with spend totals, contract status mix, and vendor rankings.",
+                        },
+                        {
+                            "stakeholder": "Finance & Budget Teams",
+                            "problem": "Must compare commodity spending and purchase order activity across years.",
+                            "solution": "Commodity analysis by spend, quantity, and average purchase amount with year filters.",
+                        },
+                        {
+                            "stakeholder": "BI / Reporting Teams",
+                            "problem": "Need a reusable model for multi-dimensional procurement analysis.",
+                            "solution": "Star schema connecting procurement facts to vendor, commodity, contract, and date dimensions.",
+                        },
+                        {
+                            "stakeholder": "Oversight & Policy Reviewers",
+                            "problem": "Need clear visibility into contracted versus non-contracted purchasing patterns.",
+                            "solution": "Contract status breakdowns with filters for vendor, commodity, and year.",
+                        },
+                    ],
+                },
+                {
+                    "number": 8,
+                    "title": "Business Impact",
+                    "icon": "impact",
+                    "icon_color": "#0f766e",
+                    "intro": "The dashboard supports clearer investigation of municipal procurement patterns without relying on raw transaction extracts alone.",
+                    "checklist": [
+                        "Makes vendor and contract spending concentration easier to explore",
+                        "Supports investigation of commodity spend versus purchase order volume",
+                        "Provides a reusable star-schema model for multi-dimensional procurement analysis",
+                        "Documents data source, scope, and analysis focus for transparent interpretation",
+                    ],
+                },
+                {
+                    "number": 9,
+                    "title": "What I Learned",
+                    "icon": "learn",
+                    "icon_color": "#2563eb",
+                    "intro": "This project strengthened my ability to turn municipal open data into decision-oriented procurement analytics.",
+                    "bullets": [
+                        "Municipal procurement analysis works best when vendor, commodity, and contract questions are defined before visual design.",
+                        "Star schema modeling keeps procurement fact tables flexible for multi-dimensional filtering.",
+                        "Clear scope documentation helps users interpret open government data without overstating conclusions.",
+                    ],
+                },
+                {
+                    "number": 10,
+                    "title": "Technical Highlights",
+                    "icon": "code",
+                    "icon_color": "#7c6fd6",
+                    "intro": "Key technical choices behind the Austin procurement analytics build.",
+                    "checklist": [
+                        "Used City of Austin Open Data public procurement and purchasing records",
+                        "Built Star Schema (procurement fact table + vendor, commodity, contract, date dimensions)",
+                        "Created KPIs for total spend, purchase orders, vendors, and average purchase amount",
+                        "Designed executive, commodity, and contract analysis pages",
+                        "Added filters for vendor, commodity, contract status, and year",
+                        "Documented data source, scope, and analysis focus",
+                    ],
+                },
+            ],
+            "data_sources": [
+                {
+                    "icon": "database",
+                    "label": "City of Austin Open Data — Procurement & Purchasing",
+                    "datasets": ["Procurement transactions", "Vendors", "Commodities", "Contracts", "Purchase orders"],
+                },
+            ],
+            "footer_cta": {
+                "text": "Turning data into decisions that drive business forward.",
+                "button_label": "Open to Opportunities",
+                "button_href": "portfolio_opportunities",
+            },
+        },
+    },
 ]
 
 
@@ -1505,6 +1706,7 @@ PORTFOLIO_PROJECT_MAP = {project["slug"]: project for project in PORTFOLIO_PROJE
 
 PORTFOLIO_PROJECT_ORDER = [
     "federal-procurement",
+    "austin-procurement",
     "healthcare",
     "uber",
     "insurance",
