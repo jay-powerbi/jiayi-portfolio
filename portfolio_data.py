@@ -66,7 +66,7 @@ PORTFOLIO_PROJECTS = [
         "color": "#58A6FF",
         "icon": "IF",
         "preview_image": "images/projects/insurance-executive-summary.png",
-        "tags": ["Power BI", "DAX", "Geospatial", "KPI"],
+        "tags": ["Power BI", "DAX", "Geospatial", "Kaggle"],
         "summary": "Helps users investigate unusual claim patterns, high-risk areas, and geographic concentrations that deserve closer review.",
         "case_study": {
             "back_label": "Back to all projects",
@@ -272,7 +272,7 @@ PORTFOLIO_PROJECTS = [
         "color": "#14B8A6",
         "icon": "HC",
         "preview_image": "images/projects/healthcare-executive-summary.png",
-        "tags": ["Power BI", "DAX", "Power Query", "Data Modeling"],
+        "tags": ["Power BI", "DAX", "Power Query", "Healthcare Patient Records"],
         "summary": "Transforms healthcare records into focused views of utilization, cost, and operational patterns for clearer investigation.",
         "case_study": {
             "back_label": "Back to all projects",
@@ -478,7 +478,7 @@ PORTFOLIO_PROJECTS = [
         "color": "#5DCAA5",
         "icon": "RS",
         "preview_image": "images/projects/retail-sales-executive.png",
-        "tags": ["Power BI", "Star Schema", "DAX", "Bookmarks"],
+        "tags": ["Power BI", "Star Schema", "DAX", "Kaggle"],
         "summary": "Connects sales performance, customer behavior, and product profitability so users can explain what is driving results.",
         "case_study": {
             "back_label": "Back to all projects",
@@ -684,7 +684,7 @@ PORTFOLIO_PROJECTS = [
         "color": "#EF9F27",
         "icon": "SC",
         "preview_image": "images/projects/supply-chain-executive-summary.png",
-        "tags": ["Power BI", "Power Query", "DAX", "Scorecard"],
+        "tags": ["Power BI", "Power Query", "DAX", "Kaggle"],
         "summary": "Supports operational review of inventory movement, fill rate, and supplier reliability questions.",
         "case_study": {
             "back_label": "Back to all projects",
@@ -892,7 +892,7 @@ PORTFOLIO_PROJECTS = [
         "color": "#AFA9EC",
         "icon": "ZH",
         "preview_image": "images/projects/zillow-housing-executive-summary.png",
-        "tags": ["Power BI", "Maps", "DAX", "Trends"],
+        "tags": ["Power BI", "Maps", "DAX", "Zillow ZHVI"],
         "summary": "Helps users compare housing prices, inventory, and regional trends to investigate market patterns more clearly.",
         "case_study": {
             "back_label": "Back to all projects",
