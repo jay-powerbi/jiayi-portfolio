@@ -19,11 +19,12 @@ PORTFOLIO_EXPERIENCE = [
         "location": "Remote",
         "dates": "Feb 2024 – Present",
         "highlights": [
-            "Build Power BI and Tableau dashboards by first clarifying the business problem, intended users, and decisions the report needs to support.",
-            "Transform and validate source data with Power Query and SQL, define reporting logic, and organize data into analysis-ready models based on project needs.",
-            "Develop DAX measures, KPI views, drill-through experiences, and geospatial analysis to help users move from high-level trends to underlying drivers.",
-            "Collaborate with stakeholders to refine requirements and translate business questions into practical dashboard workflows and reporting outputs.",
-            "Review query and model design to improve report responsiveness, usability, and maintainability.",
+            "Design and develop Power BI analytics solutions by translating stakeholder questions and reporting requirements into KPIs, data models, and interactive dashboard workflows.",
+            "Transform, reconcile, and validate source data using SQL and Power Query, establishing analysis-ready datasets and reporting logic before visualization development.",
+            "Build DAX measures, KPI frameworks, drill-through experiences, dynamic analysis views, and geospatial reporting to support executive-level monitoring and detailed investigation.",
+            "Apply dimensional modeling and star-schema concepts to organize reporting data, simplify relationships, and improve analytical usability.",
+            "Partner with stakeholders throughout the reporting lifecycle to clarify requirements, refine metrics, validate results, and adjust dashboard experiences based on business feedback.",
+            "Review query, model, and visualization design to improve report performance, maintainability, and end-user usability.",
         ],
     },
     {
@@ -33,11 +34,13 @@ PORTFOLIO_EXPERIENCE = [
         "location": "Cherry Hill, NJ",
         "dates": "Jan 2018 – Dec 2023",
         "highlights": [
-            "Led end-to-end development of Power BI and SQL-based dashboards providing executive-level KPI insights and real-time business reporting.",
-            "Implemented SQL indexing, query optimization, and ETL best practices, significantly reducing data processing times across enterprise pipelines.",
-            "Mentored junior BI developers on Power BI best practices, DAX authoring, and Agile delivery workflows.",
-            "Partnered with cross-functional teams to define data models and reporting standards; managed deployment, security access, and production migrations.",
-            "Received the company's prestigious 'High Flyer' award for outstanding contributions to organizational BI capabilities.",
+            "Designed, developed, and supported enterprise BI reporting solutions that provided operational and leadership teams with visibility into business performance, trends, and reporting metrics.",
+            "Partnered with business stakeholders to gather requirements, define KPI logic, identify reporting priorities, and translate business questions into dashboards and recurring reporting solutions.",
+            "Used SQL and BI platforms to investigate source data, validate calculations, reconcile reporting results, and resolve data-quality or business-definition discrepancies prior to production release.",
+            "Contributed to BI modernization and migration initiatives across WebFocus, Tableau, and Power BI-related reporting workflows, supporting the transition and maintenance of enterprise reporting solutions.",
+            "Supported the full reporting lifecycle, including development, testing, deployment, user access, production troubleshooting, documentation, and ongoing enhancement.",
+            "Collaborated with cross-functional development, business, and support teams in an Agile environment to coordinate reporting changes and production releases.",
+            "Shared BI development practices and reporting knowledge with team members and received Freedom Mortgage's High Flyer award for outstanding contributions.",
         ],
     },
     {
@@ -47,8 +50,9 @@ PORTFOLIO_EXPERIENCE = [
         "location": "Bala Cynwyd, PA",
         "dates": "Oct 2016 – Dec 2017",
         "highlights": [
-            "Developed real-time Tableau and WebFocus dashboards using SQL-driven data models, enabling data-driven decision-making across business units.",
-            "Automated routine reporting with SQL scripts, reducing manual effort and improving data accuracy and accessibility.",
+            "Developed Tableau and WebFocus dashboards using SQL-based reporting data to provide business users with clearer visibility into operational trends and performance.",
+            "Automated recurring reporting processes with SQL and standardized reporting logic, reducing manual effort and improving reporting consistency.",
+            "Worked directly with users to understand analytical questions and refine dashboard metrics, filters, and views based on evolving business requirements.",
         ],
     },
     {
@@ -58,8 +62,8 @@ PORTFOLIO_EXPERIENCE = [
         "location": "Jessup, PA",
         "dates": "Jul 2015 – Oct 2016",
         "highlights": [
-            "Led data mining and ETL initiatives using SQL to extract, transform, and load large volumes of healthcare data for stakeholder reporting.",
-            "Collaborated with UAT and development teams to validate SQL-based solutions, ensuring data accuracy and production reliability.",
+            "Extracted, transformed, and prepared healthcare reporting data using SQL to support recurring BI deliverables and stakeholder analysis.",
+            "Collaborated with development and UAT teams to validate reporting outputs, investigate data discrepancies, and support reliable production releases.",
         ],
     },
 ]
