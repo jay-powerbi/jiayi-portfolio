@@ -6,8 +6,9 @@ PORTFOLIO_LINKS = {
 
 PORTFOLIO_PROJECTS_NOTE = (
     "The featured projects shown here are portfolio demos built entirely from publicly available data "
-    "sources such as open government data and Kaggle. Production work for clients is not included "
-    "because it involves confidential or proprietary business information."
+    "sources, including open government portals, official public datasets, and community platforms "
+    "such as Kaggle. Production work for clients is not included because it involves confidential or "
+    "proprietary business information."
 )
 
 PORTFOLIO_EXPERIENCE = [
