@@ -74,6 +74,7 @@ from user_prefs import (
 from portfolio_data import (
     PORTFOLIO_EXPERIENCE,
     PORTFOLIO_LINKS,
+    PORTFOLIO_PROJECTS_NOTE,
     PORTFOLIO_PROJECT_MAP,
     PORTFOLIO_PROJECTS,
     ordered_portfolio_projects,
@@ -123,6 +124,7 @@ def inject_user_prefs():
         "filter_retailers": get_filter_retailers(),
         "portfolio_ga4_id": os.environ.get("GA4_MEASUREMENT_ID", "").strip(),
         "portfolio_links": PORTFOLIO_LINKS,
+        "portfolio_projects_note": PORTFOLIO_PROJECTS_NOTE,
         "portfolio_site_url": PORTFOLIO_SITE_URL,
     }
 

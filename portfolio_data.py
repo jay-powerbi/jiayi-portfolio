@@ -4,6 +4,11 @@ PORTFOLIO_LINKS = {
     "email": "jiayishi2@gmail.com",
 }
 
+PORTFOLIO_PROJECTS_NOTE = (
+    "The featured projects shown here are portfolio demos built entirely from publicly available data "
+    "sources such as open government data and Kaggle. Production work for clients is not included "
+    "because it involves confidential or proprietary business information."
+)
 
 PORTFOLIO_EXPERIENCE = [
     {
